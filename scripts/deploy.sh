@@ -54,6 +54,9 @@ echo "==> Syncing dist/ -> $PAGES_REPO ..."
 find "$PAGES_REPO" -mindepth 1 -maxdepth 1 -not -name '.git*' -exec rm -rf {} +
 cp -R "$WEB_ROOT/dist/." "$PAGES_REPO/"
 
+# re-assert the GitHub Pages gotchas survived into the staged tree (what actually gets committed)
+[[ -f "$PAGES_REPO/.nojekyll" && -f "$PAGES_REPO/CNAME" ]] || { echo "ERROR: .nojekyll/CNAME missing in $PAGES_REPO after copy. Aborting." >&2; exit 1; }
+
 # 4) Stage and show what changed.
 cd "$PAGES_REPO"
 git add -A

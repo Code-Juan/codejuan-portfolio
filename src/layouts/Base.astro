@@ -12,11 +12,12 @@ interface Props {
   current?: string;
   ogTitle?: string;
   ogDescription?: string;
+  ogImage?: string;
 }
 
-const { title, description, current = '', ogTitle, ogDescription } = Astro.props;
+const { title, description, current = '', ogTitle, ogDescription, ogImage: ogImageProp } = Astro.props;
 const canonical = new URL(Astro.url.pathname === '/' ? '/' : Astro.url.pathname, Astro.site);
-const ogImage = new URL('/og-image.png', Astro.site);
+const ogImage = new URL(ogImageProp ?? '/og-image.png', Astro.site);
 ---
 
 <!doctype html>
@@ -51,6 +52,7 @@ const ogImage = new URL('/og-image.png', Astro.site);
     <!-- set theme + motion before paint; dark is the default, continuity with the old key -->
     <script is:inline>
       (function () {
+        document.documentElement.classList.add('js');
         var stored = null;
         try {
           stored = localStorage.getItem('services-theme');

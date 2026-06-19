@@ -162,20 +162,27 @@ a {
   left: 0;
 }
 
-/* reveal on scroll - gated by reduced motion via the media query above */
-.reveal {
+/* reveal on scroll — progressive enhancement: only hide once the inline head script marks the
+   page as JS-capable (html.js), so visitors with JS disabled see all content immediately. */
+html.js .reveal {
   opacity: 0;
   transform: translateY(18px);
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-.reveal.visible {
+html.js .reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* reduced motion (in-site toggle or OS) shows revealed content immediately, even with JS */
+html.js[data-motion='reduced'] .reveal {
   opacity: 1;
   transform: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal {
+  html.js .reveal {
     opacity: 1;
     transform: none;
   }
