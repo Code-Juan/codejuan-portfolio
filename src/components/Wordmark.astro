@@ -1,0 +1,27 @@
+---
+//text rendering of the <codeJuan> pixel wordmark: red brackets, white "code", red "Juan"
+//(white c / red J split per brand/logo/icons/README.md)
+---
+
+<span class="wordmark" aria-label="codeJuan">
+  <span class="bracket" aria-hidden="true">&lt;</span><span class="code">code</span><span class="juan">Juan</span><span class="bracket" aria-hidden="true">&gt;</span>
+</span>
+
+<style>
+  .wordmark {
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+  }
+
+  .bracket,
+  .juan {
+    color: var(--red);
+  }
+
+  .code {
+    color: var(--text);
+  }
+</style>

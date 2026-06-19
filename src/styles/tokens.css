@@ -1,0 +1,53 @@
+/* design tokens - derived from the <codeJuan> pixel wordmark
+   navy #0D1022, red #E52A2B, soft-white #F5F5F5 */
+
+:root {
+  /* brand */
+  --navy: #0D1022;
+  --red: #E52A2B;
+  --red-hover: #C92223;
+  --soft-white: #F5F5F5;
+
+  /* dark theme (default - matches the logo) */
+  --bg: #0D1022;
+  --bg-raised: #11152C;
+  --surface: #151A38;
+  --surface-2: #1B2147;
+  --border: #272F5A;
+  --border-strong: #38427C;
+  --text: #F5F5F5;
+  --text-muted: #9BA3C9;
+  --text-faint: #6B7399;
+  --accent: #E52A2B;
+  --accent-soft: rgba(229, 42, 43, 0.12);
+  --ok: #3DD68C;
+
+  /* type */
+  --sans: 'Inter Variable', system-ui, -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', Consolas, monospace;
+
+  /* shape + rhythm */
+  --radius: 6px;
+  --radius-sm: 4px;
+  --container: 1160px;
+  --section-pad: 5.5rem;
+
+  /* elevation */
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.35);
+  --shadow-pop: 0 8px 40px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme='light'] {
+  --bg: #F5F5F5;
+  --bg-raised: #EEEFF4;
+  --surface: #FFFFFF;
+  --surface-2: #F0F1F7;
+  --border: #D8DBE8;
+  --border-strong: #B9BED6;
+  --text: #0D1022;
+  --text-muted: #4A5378;
+  --text-faint: #8A91B0;
+  --accent-soft: rgba(229, 42, 43, 0.08);
+  --shadow-card: 0 4px 24px rgba(13, 16, 34, 0.08);
+  --shadow-pop: 0 8px 40px rgba(13, 16, 34, 0.14);
+}

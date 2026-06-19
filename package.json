@@ -1,0 +1,17 @@
+{
+  "name": "codejuan-portfolio",
+  "version": "1.0.0",
+  "description": "Source workspace for codejuan.com (Juan Contreras portfolio)",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@fontsource-variable/inter": "^5.2.5",
+    "@fontsource/jetbrains-mono": "^5.2.5",
+    "astro": "^5.0.0"
+  }
+}

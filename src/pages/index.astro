@@ -1,0 +1,217 @@
+---
+import Base from '../layouts/Base.astro';
+
+// Scaffold home page. The two client links are live and real; full case studies
+// (problem -> approach -> outcome) land here once Phase 1 proof is captured.
+const projects = [
+  {
+    title: 'The Wooden Stone LLC',
+    blurb:
+      'Marketing site for a Michigan stone & masonry contractor — fast, mobile-first, and built to convert local leads.',
+    href: 'https://woodenstonemi.com',
+    tags: ['Web', 'Small business'],
+  },
+  {
+    title: 'Judestone LLC',
+    blurb: 'Clean, conversion-focused site for a stone supplier, with real screenshots and a live link.',
+    href: 'https://judestoneusa.com',
+    tags: ['Web', 'Small business'],
+  },
+];
+---
+
+<Base
+  title="Juan Contreras — Software Developer & Web Builder"
+  description="Juan Contreras builds fast, modern websites and cross-platform apps for small businesses. Game-dev and systems background; performance-obsessed."
+  current="home"
+>
+  <!-- hero -->
+  <section class="hero section" id="home">
+    <div class="container">
+      <span class="eyebrow">// portfolio</span>
+      <h1 class="hero-title">Juan Contreras</h1>
+      <p class="hero-tagline">
+        I build fast, modern websites and cross-platform apps for small businesses. A background in game
+        development and systems programming means I care about performance, clean code, and shipping things that
+        actually work.
+      </p>
+      <div class="hero-cta">
+        <a href="#work" class="btn btn-primary btn-large">See my work</a>
+        <a href="#contact" class="btn btn-secondary btn-large">Get in touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- work -->
+  <section class="section work" id="work">
+    <div class="container">
+      <span class="eyebrow">// selected work</span>
+      <h2 class="section-title">Real projects, real links</h2>
+      <p class="section-subtitle">A few recent builds. Full case studies — problem, approach, and outcomes — are on the way.</p>
+      <div class="work-grid">
+        {
+          projects.map((p) => (
+            <article class="work-card reveal">
+              <h3>{p.title}</h3>
+              <p>{p.blurb}</p>
+              <div class="work-tags">
+                {p.tags.map((t) => (
+                  <span class="tag">{t}</span>
+                ))}
+              </div>
+              <a class="work-link" href={p.href} target="_blank" rel="noopener noreferrer">
+                Visit site →
+              </a>
+            </article>
+          ))
+        }
+        <article class="work-card work-card-soon reveal">
+          <h3>More on the way</h3>
+          <p>Project Stone — a cross-platform contractor app — plus full case studies are in progress.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- about -->
+  <section class="section about" id="about">
+    <div class="container">
+      <span class="eyebrow">// about</span>
+      <h2 class="section-title">Hi, I'm Juan</h2>
+      <div class="about-body">
+        <p>
+          I'm a software developer who specializes in building for small businesses — from marketing sites to full
+          applications. My background in game development and systems programming gives me a real bias toward
+          performance and clean, maintainable code.
+        </p>
+        <p>
+          I started CodeJuan Web Services because too many small businesses get overcharged for slow, templated
+          sites. I'd rather build something fast, honest, and genuinely useful.
+        </p>
+        <p>
+          Looking for a business website or pricing?
+          <a href="https://services.codejuan.com">See CodeJuan Web Services →</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- contact -->
+  <section class="section contact" id="contact">
+    <div class="container contact-inner">
+      <span class="eyebrow">// contact</span>
+      <h2 class="section-title">Let's build something</h2>
+      <p class="section-subtitle">Have a project in mind, or just want to talk? I'll get back to you within 24 hours.</p>
+      <a class="btn btn-primary btn-large" href="mailto:contact@codejuan.com">contact@codejuan.com</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    padding-top: 5rem;
+  }
+
+  .hero-title {
+    font-size: clamp(2.6rem, 7vw, 4.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+  }
+
+  .hero-tagline {
+    color: var(--text-muted);
+    max-width: 640px;
+    margin-top: 1.25rem;
+    font-size: 1.1rem;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .work-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .work-card h3 {
+    font-size: 1.2rem;
+  }
+
+  .work-card p {
+    color: var(--text-muted);
+    font-size: 0.97rem;
+    flex-grow: 1;
+  }
+
+  .work-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0.15rem 0.5rem;
+  }
+
+  .work-link {
+    color: var(--red);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .work-card-soon {
+    border-style: dashed;
+    opacity: 0.85;
+  }
+
+  .about-body {
+    max-width: 640px;
+  }
+
+  .about-body p {
+    color: var(--text-muted);
+    margin-top: 1rem;
+  }
+
+  .about-body a {
+    color: var(--red);
+    text-decoration: none;
+  }
+
+  .contact-inner {
+    text-align: center;
+  }
+
+  .contact .btn {
+    margin-top: 1.5rem;
+  }
+
+  @media (max-width: 880px) {
+    .work-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
