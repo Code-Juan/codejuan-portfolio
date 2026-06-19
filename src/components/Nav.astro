@@ -7,9 +7,8 @@ interface Props {
 
 const { current = '' } = Astro.props;
 
-// single-page anchors for the scaffold; split into real routes once Phase 1 case studies land
 const links = [
-  { href: '/#work', label: 'Work', key: 'work' },
+  { href: '/#games', label: 'Games', key: 'games' },
   { href: '/#about', label: 'About', key: 'about' },
 ];
 ---
@@ -31,6 +30,9 @@ const links = [
             </li>
           ))
         }
+        <li>
+          <span class="nav-soon" aria-disabled="true" title="Coming soon">Web Services <span class="soon">soon</span></span>
+        </li>
         <li>
           <a href="/#contact" class="btn btn-primary nav-cta">Get in touch</a>
         </li>
@@ -118,6 +120,27 @@ const links = [
   .nav-cta {
     padding: 0.5rem 1.1rem;
     font-size: 0.92rem;
+  }
+
+  .nav-soon {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--text-faint);
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  .nav-soon .soon {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.05rem 0.3rem;
   }
 
   .theme-toggle {

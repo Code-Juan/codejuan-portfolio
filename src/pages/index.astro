@@ -1,79 +1,124 @@
 ---
 import Base from '../layouts/Base.astro';
-import { getCollection } from 'astro:content';
 
-const projects = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
+// Game-development projects, recovered from the original codejuan.com and re-presented in the new design.
+// Descriptions only (no media/links), grouped by category — mirrors the original structure.
+const categories = [
+  {
+    name: 'Unity Projects',
+    games: [
+      {
+        title: 'Project Galaxy',
+        tech: 'Unity 2022.3.53f1 · C# · 3D',
+        bullets: [
+          'Player movement with physics and AI enemies driven by NavMeshAgent',
+          'Weapon systems, health/damage, and inventory management',
+          'Mission objectives and save/load functionality',
+          'Scene management with async loading',
+        ],
+        tags: ['Unity', 'C#', '3D Game Dev', 'AI Systems'],
+      },
+    ],
+  },
+  {
+    name: 'Unreal Projects',
+    games: [
+      {
+        title: 'END2508 — Unreal Engine C++',
+        tech: 'Unreal Engine 5 · C++ · Component-based',
+        bullets: [
+          'Base character class with inheritance and a health component system',
+          'Weapon system built with child actors',
+          'Event-driven architecture and animation blueprint integration',
+          'Input handling with proper memory management',
+        ],
+        tags: ['Unreal Engine', 'C++', 'Component Systems', 'Memory Management'],
+      },
+    ],
+  },
+  {
+    name: 'C++ & Algorithms',
+    games: [
+      {
+        title: 'C++ Data Structures',
+        tech: 'C++ · Advanced Algorithms',
+        bullets: [
+          'Dynamic arrays, linked lists, binary search trees',
+          'Hash tables and Huffman coding',
+          'RAII principles and unit testing',
+          'Performance optimization and recursive algorithms',
+        ],
+        tags: ['C++', 'Algorithms', 'Data Structures', 'Memory Management'],
+      },
+    ],
+  },
+];
 
 const skills = [
-  { group: 'Frontend', items: 'HTML, CSS, JavaScript / TypeScript, Astro' },
-  { group: 'Backend', items: 'Node.js, Express, REST APIs, Postgres' },
-  { group: 'Apps', items: 'Flutter, Dart, SQLite, Supabase' },
-  { group: 'Ops & quality', items: 'GitHub Pages / Actions, security hardening, SEO, accessibility' },
+  { group: 'Engines', items: 'Unity, Unreal Engine 5' },
+  { group: 'Languages', items: 'C++, C#, Dart, JavaScript / TypeScript' },
+  { group: 'Game systems', items: 'AI (NavMeshAgent), physics, gameplay, save/load, inventory' },
+  { group: 'Foundations', items: 'Data structures & algorithms, memory management, RAII' },
 ];
 ---
 
 <Base
-  title="Juan Contreras — Software Developer & Web Builder"
-  description="Juan Contreras builds fast, modern websites and cross-platform apps for small businesses. Game-dev and systems background; performance-obsessed."
+  title="Juan Contreras — Game Programmer & Software Developer"
+  description="Game programmer building immersive games with C++ and C#, Unity and Unreal Engine — plus cross-platform applications."
   current="home"
 >
   <!-- hero -->
   <section class="hero section" id="home">
-    <div class="container">
-      <span class="eyebrow">// portfolio</span>
-      <h1 class="hero-title">Juan Contreras</h1>
-      <p class="hero-tagline">
-        I build fast, modern websites and cross-platform apps for small businesses. A background in game
-        development and systems programming means I care about performance, clean code, and shipping things that
-        actually work.
-      </p>
-      <div class="hero-cta">
-        <a href="#work" class="btn btn-primary btn-large">See my work</a>
-        <a href="#contact" class="btn btn-secondary btn-large">Get in touch</a>
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <span class="eyebrow">// game developer</span>
+        <h1 class="hero-title">Juan Contreras</h1>
+        <p class="hero-sub">Game Programmer &amp; Software Developer</p>
+        <p class="hero-tagline">
+          Building immersive games with C++ and C#, in Unity and Unreal Engine — with complete systems for AI,
+          physics, and gameplay. Systems-programming roots, performance-obsessed.
+        </p>
+        <div class="hero-cta">
+          <a href="#games" class="btn btn-primary btn-large">View my games</a>
+          <a href="#contact" class="btn btn-secondary btn-large">Get in touch</a>
+        </div>
       </div>
+      <img class="hero-mascot" src="/images/mascot.png" alt="" width="613" height="560" loading="eager" />
     </div>
   </section>
 
-  <!-- work -->
-  <section class="section work" id="work">
+  <!-- game development -->
+  <section class="section games" id="games">
     <div class="container">
-      <span class="eyebrow">// selected work</span>
-      <h2 class="section-title">Real projects, real links</h2>
-      <p class="section-subtitle">Three recent builds — each with a full case study.</p>
-      <div class="work-grid">
-        {
-          projects.map((p) => (
-            <a class="work-card reveal" href={`/work/${p.id}.html`}>
-              {p.data.image && (
-                <img
-                  class="work-shot"
-                  src={p.data.image}
-                  alt={p.data.imageAlt ?? p.data.title}
-                  width="640"
-                  height="360"
-                  loading="lazy"
-                />
-              )}
-              <div class="work-card-body">
-                <div class="work-card-meta">
-                  <span class="status" data-status={p.data.status}>
-                    {p.data.status}
-                  </span>
-                  <span class="year">{p.data.year}</span>
-                </div>
-                <h3>{p.data.title}</h3>
-                <p>{p.data.blurb}</p>
-                <div class="work-tags">
-                  {p.data.tags.map((t) => (
-                    <span class="tag">{t}</span>
-                  ))}
-                </div>
-                <span class="work-link">Read case study →</span>
-              </div>
-            </a>
-          ))
-        }
-      </div>
+      <span class="eyebrow">// game development</span>
+      <h2 class="section-title">Game Development Portfolio</h2>
+      <p class="section-subtitle">Game projects and technical work in Unity, Unreal Engine, and C++.</p>
+
+      {
+        categories.map((cat) => (
+          <div class="game-category">
+            <h3 class="category-title">{cat.name}</h3>
+            <div class="games-grid">
+              {cat.games.map((g) => (
+                <article class="game-card reveal">
+                  <h4>{g.title}</h4>
+                  <p class="game-tech">{g.tech}</p>
+                  <ul class="game-bullets">
+                    {g.bullets.map((b) => (
+                      <li>{b}</li>
+                    ))}
+                  </ul>
+                  <div class="game-tags">
+                    {g.tags.map((t) => (
+                      <span class="tag">{t}</span>
+                    ))}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        ))
+      }
     </div>
   </section>
 
@@ -81,7 +126,7 @@ const skills = [
   <section class="section skills" id="skills">
     <div class="container">
       <span class="eyebrow">// what I work with</span>
-      <h2 class="section-title">Tools, proven on the work above</h2>
+      <h2 class="section-title">Tools & systems</h2>
       <div class="skills-grid">
         {
           skills.map((s) => (
@@ -102,17 +147,13 @@ const skills = [
       <h2 class="section-title">Hi, I'm Juan</h2>
       <div class="about-body">
         <p>
-          I'm a software developer who specializes in building for small businesses — from marketing sites to full
-          applications. My background in game development and systems programming gives me a real bias toward
-          performance and clean, maintainable code.
+          I'm a game programmer and software developer. My journey began with C++ fundamentals and data
+          structures, then expanded into game development with Unity and Unreal Engine — building complete 3D games
+          with complex systems including AI, physics, and gameplay mechanics.
         </p>
         <p>
-          I started CodeJuan Web Services because too many small businesses get overcharged for slow, templated
-          sites. I'd rather build something fast, honest, and genuinely useful.
-        </p>
-        <p>
-          Looking for a business website or pricing?
-          <a href="https://services.codejuan.com">See CodeJuan Web Services →</a>
+          Whether I'm optimizing game performance, implementing complex algorithms, or building scalable
+          applications, I care about clean architecture and code that holds up.
         </p>
       </div>
     </div>
@@ -123,7 +164,10 @@ const skills = [
     <div class="container contact-inner">
       <span class="eyebrow">// contact</span>
       <h2 class="section-title">Let's build something</h2>
-      <p class="section-subtitle">Have a project in mind, or just want to talk? I'll get back to you within 24 hours.</p>
+      <p class="section-subtitle">
+        A game studio looking for a programmer, a team seeking a collaborator, or a project in mind — I'd love to
+        hear from you.
+      </p>
       <a class="btn btn-primary btn-large" href="mailto:contact@codejuan.com">contact@codejuan.com</a>
     </div>
   </section>
@@ -131,21 +175,35 @@ const skills = [
 
 <style>
   .hero {
-    padding-top: 5rem;
+    padding-top: 4rem;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    gap: 2rem;
   }
 
   .hero-title {
-    font-size: clamp(2.6rem, 7vw, 4.5rem);
+    font-size: clamp(2.6rem, 6vw, 4.2rem);
     font-weight: 700;
     letter-spacing: -0.03em;
-    line-height: 1.05;
+    line-height: 1.04;
+  }
+
+  .hero-sub {
+    font-family: var(--mono);
+    color: var(--red);
+    font-size: 1.05rem;
+    margin-top: 0.75rem;
   }
 
   .hero-tagline {
     color: var(--text-muted);
-    max-width: 640px;
-    margin-top: 1.25rem;
-    font-size: 1.1rem;
+    max-width: 560px;
+    margin-top: 1.1rem;
+    font-size: 1.08rem;
   }
 
   .hero-cta {
@@ -155,95 +213,79 @@ const skills = [
     flex-wrap: wrap;
   }
 
-  /* work cards */
-  .work-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+  .hero-mascot {
+    width: 100%;
+    max-width: 360px;
+    height: auto;
+    justify-self: center;
+    filter: drop-shadow(0 12px 26px rgba(0, 0, 0, 0.45));
+  }
+
+  :global(html.js[data-motion='full']) .hero-mascot {
+    animation: bob 5s ease-in-out infinite;
+  }
+
+  @keyframes bob {
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  /* games */
+  .game-category {
     margin-top: 2.5rem;
   }
 
-  .work-card {
-    display: flex;
-    flex-direction: column;
+  .category-title {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--text-faint);
+    text-transform: lowercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+  }
+
+  .category-title::before {
+    content: '// ';
+    color: var(--red);
+  }
+
+  .games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .game-card {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    overflow: hidden;
-    text-decoration: none;
-    color: inherit;
-    transition: border-color 0.15s ease, transform 0.15s ease;
+    padding: 1.6rem;
   }
 
-  .work-card:hover {
-    border-color: var(--border-strong);
-    transform: translateY(-3px);
-  }
-
-  .work-shot {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-    object-position: top;
-    border-bottom: 1px solid var(--border);
-    background: var(--bg-raised);
-  }
-
-  .work-card-body {
-    padding: 1.4rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-    flex-grow: 1;
-  }
-
-  .work-card-meta {
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-  }
-
-  .status {
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 0.15rem 0.5rem;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border);
-    color: var(--text-muted);
-  }
-
-  .status[data-status='Live'] {
-    color: var(--ok, #3ad29f);
-    border-color: color-mix(in srgb, var(--ok, #3ad29f) 45%, transparent);
-  }
-
-  .status[data-status='In progress'] {
-    color: #e8b341;
-    border-color: color-mix(in srgb, #e8b341 45%, transparent);
-  }
-
-  .year {
-    font-family: var(--mono);
-    font-size: 0.8rem;
-    color: var(--text-faint);
-  }
-
-  .work-card h3 {
+  .game-card h4 {
     font-size: 1.2rem;
   }
 
-  .work-card p {
-    color: var(--text-muted);
-    font-size: 0.95rem;
-    flex-grow: 1;
+  .game-tech {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    color: var(--red);
+    margin-top: 0.35rem;
   }
 
-  .work-tags {
+  .game-bullets {
+    color: var(--text-muted);
+    margin: 0.9rem 0 0 1.1rem;
+    line-height: 1.7;
+    font-size: 0.95rem;
+  }
+
+  .game-tags {
     display: flex;
-    gap: 0.5rem;
     flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.1rem;
   }
 
   .tag {
@@ -253,13 +295,6 @@ const skills = [
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
     padding: 0.12rem 0.5rem;
-  }
-
-  .work-link {
-    color: var(--red);
-    font-weight: 600;
-    font-size: 0.92rem;
-    margin-top: 0.3rem;
   }
 
   /* skills */
@@ -306,11 +341,6 @@ const skills = [
     margin-top: 1rem;
   }
 
-  .about-body a {
-    color: var(--red);
-    text-decoration: none;
-  }
-
   /* contact */
   .contact-inner {
     text-align: center;
@@ -320,15 +350,18 @@ const skills = [
     margin-top: 1.5rem;
   }
 
-  @media (max-width: 980px) {
+  @media (max-width: 900px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-mascot {
+      max-width: 260px;
+      order: -1;
+    }
+
     .skills-grid {
       grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 880px) {
-    .work-grid {
-      grid-template-columns: 1fr;
     }
   }
 </style>
