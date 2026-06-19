@@ -7,9 +7,12 @@ interface Props {
 
 const { current = '' } = Astro.props;
 
+// tabs (switched on the home page via :target); from other routes they navigate home + open the tab
 const links = [
+  { href: '/#home', label: 'Home', key: 'home' },
   { href: '/#games', label: 'Games', key: 'games' },
   { href: '/#about', label: 'About', key: 'about' },
+  { href: '/#contact', label: 'Contact', key: 'contact' },
 ];
 ---
 
@@ -32,9 +35,6 @@ const links = [
         }
         <li>
           <span class="nav-soon" aria-disabled="true" title="Coming soon">Web Services <span class="soon">soon</span></span>
-        </li>
-        <li>
-          <a href="/#contact" class="btn btn-primary nav-cta">Get in touch</a>
         </li>
         <li>
           <button id="motion-toggle" class="theme-toggle" type="button" aria-pressed="true" aria-label="Turn off animations">

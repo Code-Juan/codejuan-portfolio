@@ -67,113 +67,133 @@ const skills = [
   description="Game programmer building immersive games with C++ and C#, Unity and Unreal Engine — plus cross-platform applications."
   current="home"
 >
-  <!-- hero -->
-  <section class="hero section" id="home">
-    <div class="container hero-grid">
-      <div class="hero-text">
-        <span class="eyebrow">// game developer</span>
-        <h1 class="hero-title">Juan Contreras</h1>
-        <p class="hero-sub">Game Programmer &amp; Software Developer</p>
-        <p class="hero-tagline">
-          Building immersive games with C++ and C#, in Unity and Unreal Engine — with complete systems for AI,
-          physics, and gameplay. Systems-programming roots, performance-obsessed.
-        </p>
-        <div class="hero-cta">
-          <a href="#games" class="btn btn-primary btn-large">View my games</a>
-          <a href="#contact" class="btn btn-secondary btn-large">Get in touch</a>
+  <!-- HOME tab -->
+  <div class="tab-panel" id="home">
+    <section class="hero section">
+      <div class="container hero-grid">
+        <div class="hero-text">
+          <span class="eyebrow">// game developer</span>
+          <h1 class="hero-title">Juan Contreras</h1>
+          <p class="hero-sub">Game Programmer &amp; Software Developer</p>
+          <p class="hero-tagline">
+            Building immersive games with C++ and C#, in Unity and Unreal Engine — with complete systems for AI,
+            physics, and gameplay. Systems-programming roots, performance-obsessed.
+          </p>
+          <div class="hero-cta">
+            <a href="#games" class="btn btn-primary btn-large">View my games</a>
+            <a href="#contact" class="btn btn-secondary btn-large">Get in touch</a>
+          </div>
+        </div>
+        <img class="hero-mascot" src="/images/mascot.png" alt="" width="613" height="560" loading="eager" />
+      </div>
+    </section>
+
+    <section class="section skills">
+      <div class="container">
+        <span class="eyebrow">// what I work with</span>
+        <h2 class="section-title">Tools &amp; systems</h2>
+        <div class="skills-grid">
+          {
+            skills.map((s) => (
+              <div class="skill">
+                <h3>{s.group}</h3>
+                <p>{s.items}</p>
+              </div>
+            ))
+          }
         </div>
       </div>
-      <img class="hero-mascot" src="/images/mascot.png" alt="" width="613" height="560" loading="eager" />
-    </div>
-  </section>
+    </section>
+  </div>
 
-  <!-- game development -->
-  <section class="section games" id="games">
-    <div class="container">
-      <span class="eyebrow">// game development</span>
-      <h2 class="section-title">Game Development Portfolio</h2>
-      <p class="section-subtitle">Game projects and technical work in Unity, Unreal Engine, and C++.</p>
-
-      {
-        categories.map((cat) => (
-          <div class="game-category">
-            <h3 class="category-title">{cat.name}</h3>
-            <div class="games-grid">
-              {cat.games.map((g) => (
-                <article class="game-card reveal">
-                  <h4>{g.title}</h4>
-                  <p class="game-tech">{g.tech}</p>
-                  <ul class="game-bullets">
-                    {g.bullets.map((b) => (
-                      <li>{b}</li>
-                    ))}
-                  </ul>
-                  <div class="game-tags">
-                    {g.tags.map((t) => (
-                      <span class="tag">{t}</span>
-                    ))}
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        ))
-      }
-    </div>
-  </section>
-
-  <!-- skills -->
-  <section class="section skills" id="skills">
-    <div class="container">
-      <span class="eyebrow">// what I work with</span>
-      <h2 class="section-title">Tools & systems</h2>
-      <div class="skills-grid">
+  <!-- GAMES tab -->
+  <div class="tab-panel" id="games">
+    <section class="section games">
+      <div class="container">
+        <span class="eyebrow">// game development</span>
+        <h2 class="section-title">Game Development Portfolio</h2>
+        <p class="section-subtitle">Game projects and technical work in Unity, Unreal Engine, and C++.</p>
         {
-          skills.map((s) => (
-            <div class="skill reveal">
-              <h3>{s.group}</h3>
-              <p>{s.items}</p>
+          categories.map((cat) => (
+            <div class="game-category">
+              <h3 class="category-title">{cat.name}</h3>
+              <div class="games-grid">
+                {cat.games.map((g) => (
+                  <article class="game-card">
+                    <h4>{g.title}</h4>
+                    <p class="game-tech">{g.tech}</p>
+                    <ul class="game-bullets">
+                      {g.bullets.map((b) => (
+                        <li>{b}</li>
+                      ))}
+                    </ul>
+                    <div class="game-tags">
+                      {g.tags.map((t) => (
+                        <span class="tag">{t}</span>
+                      ))}
+                    </div>
+                  </article>
+                ))}
+              </div>
             </div>
           ))
         }
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 
-  <!-- about -->
-  <section class="section about" id="about">
-    <div class="container">
-      <span class="eyebrow">// about</span>
-      <h2 class="section-title">Hi, I'm Juan</h2>
-      <div class="about-body">
-        <p>
-          I'm a game programmer and software developer. My journey began with C++ fundamentals and data
-          structures, then expanded into game development with Unity and Unreal Engine — building complete 3D games
-          with complex systems including AI, physics, and gameplay mechanics.
-        </p>
-        <p>
-          Whether I'm optimizing game performance, implementing complex algorithms, or building scalable
-          applications, I care about clean architecture and code that holds up.
-        </p>
+  <!-- ABOUT tab -->
+  <div class="tab-panel" id="about">
+    <section class="section about">
+      <div class="container">
+        <span class="eyebrow">// about</span>
+        <h2 class="section-title">Hi, I'm Juan</h2>
+        <div class="about-body">
+          <p>
+            I'm a game programmer and software developer. My journey began with C++ fundamentals and data
+            structures, then expanded into game development with Unity and Unreal Engine — building complete 3D games
+            with complex systems including AI, physics, and gameplay mechanics.
+          </p>
+          <p>
+            Whether I'm optimizing game performance, implementing complex algorithms, or building scalable
+            applications, I care about clean architecture and code that holds up.
+          </p>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 
-  <!-- contact -->
-  <section class="section contact" id="contact">
-    <div class="container contact-inner">
-      <span class="eyebrow">// contact</span>
-      <h2 class="section-title">Let's build something</h2>
-      <p class="section-subtitle">
-        A game studio looking for a programmer, a team seeking a collaborator, or a project in mind — I'd love to
-        hear from you.
-      </p>
-      <a class="btn btn-primary btn-large" href="mailto:contact@codejuan.com">contact@codejuan.com</a>
-    </div>
-  </section>
+  <!-- CONTACT tab -->
+  <div class="tab-panel" id="contact">
+    <section class="section contact">
+      <div class="container contact-inner">
+        <span class="eyebrow">// contact</span>
+        <h2 class="section-title">Let's build something</h2>
+        <p class="section-subtitle">
+          A game studio looking for a programmer, a team seeking a collaborator, or a project in mind — I'd love to
+          hear from you.
+        </p>
+        <a class="btn btn-primary btn-large" href="mailto:contact@codejuan.com">contact@codejuan.com</a>
+      </div>
+    </section>
+  </div>
 </Base>
 
 <style>
+  /* --- tabs: one panel visible at a time, switched purely by :target (no JS needed) --- */
+  .tab-panel {
+    display: none;
+  }
+
+  .tab-panel:target {
+    display: block;
+  }
+
+  /* default to the Home panel when no tab is in the URL hash */
+  :root:not(:has(.tab-panel:target)) #home {
+    display: block;
+  }
+
   .hero {
     padding-top: 4rem;
   }
@@ -365,3 +385,35 @@ const skills = [
     }
   }
 </style>
+
+<script>
+  // Progressive enhancement on top of the pure-CSS :target tabs: highlight the active tab,
+  // reset scroll on switch, and close the mobile menu. Tabs still work with JS disabled.
+  const panels = Array.from(document.querySelectorAll('.tab-panel'));
+  const ids = new Set(panels.map((p) => p.id));
+  const navLinks = Array.from(document.querySelectorAll('.nav-link'));
+
+  function activeId() {
+    const id = (location.hash || '#home').slice(1);
+    return ids.has(id) ? id : 'home';
+  }
+
+  function sync() {
+    const id = activeId();
+    navLinks.forEach((a) => {
+      const href = a.getAttribute('href') || '';
+      if (href.endsWith('#' + id)) a.setAttribute('aria-current', 'page');
+      else a.removeAttribute('aria-current');
+    });
+    window.scrollTo({ top: 0 });
+    const menu = document.getElementById('nav-menu');
+    const ham = document.getElementById('hamburger');
+    if (menu && menu.classList.contains('open')) {
+      menu.classList.remove('open');
+      ham && ham.setAttribute('aria-expanded', 'false');
+    }
+  }
+
+  sync();
+  window.addEventListener('hashchange', sync);
+</script>
