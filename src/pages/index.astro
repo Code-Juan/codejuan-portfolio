@@ -64,7 +64,7 @@ const skills = [
 
 <Base
   title="Juan Contreras — Game Programmer & Software Developer"
-  description="Game programmer building immersive games with C++ and C#, Unity and Unreal Engine — plus cross-platform applications."
+  description="Game programmer building immersive games in Unity and Unreal Engine with C++ and C# — complete AI, physics, and gameplay systems, with systems-programming roots."
   current="home"
 >
   <!-- HOME tab -->
@@ -80,8 +80,8 @@ const skills = [
             physics, and gameplay. Systems-programming roots, performance-obsessed.
           </p>
           <div class="hero-cta">
-            <a href="#games" class="btn btn-primary btn-large">View my games</a>
-            <a href="#contact" class="btn btn-secondary btn-large">Get in touch</a>
+            <a href="/#games" class="btn btn-primary btn-large">View my games</a>
+            <a href="/#contact" class="btn btn-secondary btn-large">Get in touch</a>
           </div>
         </div>
         <img class="hero-mascot" src="/images/mascot.png" alt="" width="613" height="560" loading="eager" />
@@ -194,6 +194,14 @@ const skills = [
     display: block;
   }
 
+  /* fallback for engines without :has(): the default-home rule can't resolve, so show every
+     panel (stacked) — content stays visible instead of an empty page. Modern browsers keep tabs. */
+  @supports not selector(:has(*)) {
+    .tab-panel {
+      display: block;
+    }
+  }
+
   .hero {
     padding-top: 4rem;
   }
@@ -214,7 +222,7 @@ const skills = [
 
   .hero-sub {
     font-family: var(--mono);
-    color: var(--red);
+    color: var(--red-text);
     font-size: 1.05rem;
     margin-top: 0.75rem;
   }
@@ -267,7 +275,7 @@ const skills = [
 
   .category-title::before {
     content: '// ';
-    color: var(--red);
+    color: var(--red-text);
   }
 
   .games-grid {
@@ -290,7 +298,7 @@ const skills = [
   .game-tech {
     font-family: var(--mono);
     font-size: 0.82rem;
-    color: var(--red);
+    color: var(--red-text);
     margin-top: 0.35rem;
   }
 
@@ -342,7 +350,7 @@ const skills = [
 
   .skill h3::before {
     content: '// ';
-    color: var(--red);
+    color: var(--red-text);
   }
 
   .skill p {
@@ -410,7 +418,10 @@ const skills = [
     const ham = document.getElementById('hamburger');
     if (menu && menu.classList.contains('open')) {
       menu.classList.remove('open');
-      ham && ham.setAttribute('aria-expanded', 'false');
+      if (ham) {
+        ham.setAttribute('aria-expanded', 'false');
+        ham.setAttribute('aria-label', 'Open menu');
+      }
     }
   }
 

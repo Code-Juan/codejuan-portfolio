@@ -17,7 +17,10 @@
   --border-strong: #38427C;
   --text: #F5F5F5;
   --text-muted: #9BA3C9;
-  --text-faint: #6B7399;
+  --text-faint: #7E86AE;
+  /* brand red is ~4.2:1 on the dark bg — below WCAG AA for small text. Use this lighter
+     red for small text/labels on dark; keep --red for fills, buttons, and large UI. */
+  --red-text: #F0494A;
   --accent: #E52A2B;
   --accent-soft: rgba(229, 42, 43, 0.12);
   --ok: #3DD68C;
@@ -46,7 +49,9 @@
   --border-strong: #B9BED6;
   --text: #0D1022;
   --text-muted: #4A5378;
-  --text-faint: #8A91B0;
+  --text-faint: #666D8F;
+  /* on the light bg the lighter red drops below AA, so small red text uses the darker shade */
+  --red-text: #C92223;
   --accent-soft: rgba(229, 42, 43, 0.08);
   --shadow-card: 0 4px 24px rgba(13, 16, 34, 0.08);
   --shadow-pop: 0 8px 40px rgba(13, 16, 34, 0.14);

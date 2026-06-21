@@ -85,7 +85,7 @@ a {
 .eyebrow {
   font-family: var(--mono);
   font-size: 0.85rem;
-  color: var(--red);
+  color: var(--red-text);
   letter-spacing: 0.04em;
   display: block;
   margin-bottom: 0.75rem;
@@ -138,7 +138,7 @@ a {
 
 .btn-secondary:hover {
   border-color: var(--red);
-  color: var(--red);
+  color: var(--red-text);
 }
 
 .btn-large {

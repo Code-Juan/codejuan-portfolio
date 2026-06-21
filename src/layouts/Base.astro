@@ -18,6 +18,17 @@ interface Props {
 const { title, description, current = '', ogTitle, ogDescription, ogImage: ogImageProp } = Astro.props;
 const canonical = new URL(Astro.url.pathname === '/' ? '/' : Astro.url.pathname, Astro.site);
 const ogImage = new URL(ogImageProp ?? '/og-image.png', Astro.site);
+
+// schema.org Person — rich-result signal for a developer portfolio
+const personLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Juan Contreras',
+  jobTitle: 'Game Programmer & Software Developer',
+  url: 'https://codejuan.com',
+  sameAs: ['https://github.com/Code-Juan'],
+  knowsAbout: ['Game Development', 'Unity', 'Unreal Engine', 'C++', 'C#', 'Gameplay Programming'],
+});
 ---
 
 <!doctype html>
@@ -49,13 +60,17 @@ const ogImage = new URL(ogImageProp ?? '/og-image.png', Astro.site);
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
 
-    <!-- set theme + motion before paint; dark is the default, continuity with the old key -->
+    <script type="application/ld+json" is:inline set:html={personLd} />
+
+
+    <!-- set theme + motion before paint; dark is the default. 'theme' is the key; fall back to
+         the legacy 'services-theme' once so existing visitors keep their preference. -->
     <script is:inline>
       (function () {
         document.documentElement.classList.add('js');
         var stored = null;
         try {
-          stored = localStorage.getItem('services-theme');
+          stored = localStorage.getItem('theme') || localStorage.getItem('services-theme');
         } catch (e) {}
         if (stored === 'light') {
           document.documentElement.setAttribute('data-theme', 'light');
@@ -101,7 +116,7 @@ const ogImage = new URL(ogImageProp ?? '/og-image.png', Astro.site);
           const light = document.documentElement.getAttribute('data-theme') !== 'light';
           apply(light);
           try {
-            localStorage.setItem('services-theme', light ? 'light' : 'dark');
+            localStorage.setItem('theme', light ? 'light' : 'dark');
           } catch (e) {}
         });
       }
@@ -128,10 +143,22 @@ const ogImage = new URL(ogImageProp ?? '/og-image.png', Astro.site);
       const hamburger = document.getElementById('hamburger');
       const menu = document.getElementById('nav-menu');
       if (hamburger && menu) {
+        const closeMenu = () => {
+          menu.classList.remove('open');
+          hamburger.setAttribute('aria-expanded', 'false');
+          hamburger.setAttribute('aria-label', 'Open menu');
+        };
         hamburger.addEventListener('click', () => {
           const open = menu.classList.toggle('open');
           hamburger.setAttribute('aria-expanded', String(open));
           hamburger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        });
+        // Escape closes the open menu and returns focus to the toggle
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && menu.classList.contains('open')) {
+            closeMenu();
+            hamburger.focus();
+          }
         });
       }
 
