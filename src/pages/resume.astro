@@ -1,0 +1,442 @@
+---
+import Base from '../layouts/Base.astro';
+
+// Single source of truth for the résumé — the same content renders on screen,
+// in print (Ctrl+P), and in the downloadable PDF generated from this page.
+const contact = [
+  { label: 'Detroit, MI' },
+  { label: 'juan@codejuan.com', href: 'mailto:juan@codejuan.com' },
+  { label: 'codejuan.com', href: 'https://codejuan.com' },
+  { label: 'linkedin.com/in/juan-contreras68', href: 'https://www.linkedin.com/in/juan-contreras68' },
+  { label: 'github.com/Code-Juan', href: 'https://github.com/Code-Juan' },
+];
+
+const skills = [
+  { group: 'Languages', items: 'C++, C#, TypeScript, JavaScript, HTML/CSS, Python, SQL' },
+  {
+    group: 'Game Development',
+    items: 'Unreal Engine 5, Unity, Vulkan API (Gateware), gameplay & AI systems, animation systems, save/load architecture',
+  },
+  { group: 'Web & Backend', items: 'Node.js, Express, REST API development and integration, Helmet.js, Postmark API' },
+  { group: 'Databases', items: 'MySQL, Supabase (PostgreSQL), EER data modeling' },
+  {
+    group: 'Practices & Tools',
+    items: 'Git/GitHub, Jira, Agile/Scrum, unit testing, code reviews, root-cause debugging, technical documentation, Visual Studio',
+  },
+];
+
+const projects = [
+  {
+    title: 'Nutty Pursuit — C++ Arcade Game (playable, 5-person team)',
+    dates: 'Oct 2025',
+    bullets: [
+      'Built player combat and control systems in C++ (Vulkan API, Gateware framework) for a playable 3-level, 2.5D arcade game, working from Jira epics with story points and acceptance criteria.',
+      'Followed a documented Git branching strategy — main/dev/feature branches with per-developer integration branches — keeping sprint releases demo-ready.',
+    ],
+  },
+  {
+    title: 'Fluxuate — Unreal Engine 5 Game (in development, team project)',
+    dates: 'Dec 2025 – Feb 2026',
+    bullets: [
+      'Built gameplay and animation systems from a shared design document — climbing via component reparenting, weapon animations, and health/stamina systems.',
+      'Diagnosed and fixed save-system defects across successive builds of an in-development team game.',
+    ],
+  },
+  {
+    title: 'Project Galaxy (Orbit Unknown) — Unity 3D FPS in C# (5-person team)',
+    dates: 'Dec 2024 – Jan 2025',
+    bullets: [
+      'Built C# gameplay and state-management systems — an enemy AI hierarchy on an abstract NavMesh-driven base class plus an ability-based boss, a ScriptableObject inventory behind a singleton manager, JSON save/load with GUID scene persistence, and async scene loading.',
+      'Collaborated in a team of 5 following Scrum through Alpha, Beta, and QA sprints.',
+    ],
+  },
+  {
+    title: 'Calculator — C++ Desktop Application',
+    dates: 'Oct 2024',
+    bullets: [
+      'Implemented Singleton and Factory Method patterns across 10+ math functions with Shunting Yard expression parsing; validated accuracy with unit tests across 50+ test cases; versioned in Git.',
+    ],
+  },
+];
+---
+
+<Base
+  title="Résumé — Juan Contreras"
+  description="Résumé of Juan Contreras — game programmer and software developer in Detroit, MI. B.S. Game Development (valedictorian, Full Sail) and B.S. Industrial & Systems Engineering."
+  current="resume"
+>
+  <div class="resume-actions container no-print">
+    <a class="btn btn-primary" href="/Juan_Contreras_Resume.pdf" download>Download PDF</a>
+    <button class="btn btn-secondary" type="button" onclick="window.print()">Print</button>
+  </div>
+
+  <article class="resume container" id="resume">
+    <header class="r-header">
+      <h1>Juan Contreras</h1>
+      <p class="r-role">Game Programmer &amp; Software Developer</p>
+      <p class="r-contact">
+        {
+          contact.map((c, i) => (
+            <>
+              {i > 0 && <span class="r-sep" aria-hidden="true">|</span>}
+              {c.href ? <a href={c.href}>{c.label}</a> : <span>{c.label}</span>}
+            </>
+          ))
+        }
+      </p>
+    </header>
+
+    <section class="r-section">
+      <h2>Summary</h2>
+      <p>
+        Game programmer and software developer with dual engineering degrees — computer science (valedictorian) and
+        industrial &amp; systems engineering — and production full-stack experience at a Michigan manufacturer. Builds
+        gameplay, AI, animation, and save systems in C++ and C# across Unreal Engine 5, Unity, and a custom
+        Vulkan-based stack, working from Jira epics, documented Git branching strategies, and Scrum sprints with unit
+        testing and root-cause debugging.
+      </p>
+    </section>
+
+    <section class="r-section">
+      <h2>Technical Skills</h2>
+      <ul class="r-skills">
+        {
+          skills.map((s) => (
+            <li>
+              <strong>{s.group}:</strong> {s.items}
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="r-section">
+      <h2>Experience</h2>
+      <div class="r-entry">
+        <div class="r-entry-head">
+          <h3>Web Development &amp; IT Manager</h3>
+          <span class="r-dates">March 2025 – Present</span>
+        </div>
+        <p class="r-entry-sub">The Wooden Stone, LLC — Clinton Township, MI (manufacturing)</p>
+        <ul>
+          <li>
+            Serve as the technical point of contact for a manufacturing business — diagnosing issues, performing
+            root-cause analysis, and implementing fixes across websites, infrastructure, and internal tooling.
+          </li>
+          <li>
+            Architected and launched 2 production full-stack websites (woodenstonemi.com, judestoneusa.com) in HTML,
+            CSS, JavaScript, and Node.js/Express with Helmet.js security middleware and Postmark REST API integration,
+            delivering 12+ responsive pages.
+          </li>
+          <li>
+            Scripted task automation and API integrations that cut manual data entry by 30%; configured reliability
+            infrastructure (Synology NAS, RAID 1 mirroring across 16TB, UPS-triggered safe shutdown) supporting daily
+            operations.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="r-section">
+      <h2>Projects</h2>
+      {
+        projects.map((p) => (
+          <div class="r-entry">
+            <div class="r-entry-head">
+              <h3>{p.title}</h3>
+              <span class="r-dates">{p.dates}</span>
+            </div>
+            <ul>
+              {p.bullets.map((b) => (
+                <li>{b}</li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+      <p class="r-additional">
+        <strong>Additional:</strong> MySQL database design with EER modeling; C++ chat server (networking); Conway's
+        Game of Life in C++ (resolved 15+ rendering and input bugs through systematic debugging). Details at
+        codejuan.com.
+      </p>
+    </section>
+
+    <section class="r-section">
+      <h2>Education</h2>
+      <div class="r-entry">
+        <div class="r-entry-head">
+          <h3>B.S., Game Development (Computer Science) — Full Sail University — Valedictorian</h3>
+          <span class="r-dates">March 2026</span>
+        </div>
+      </div>
+      <div class="r-entry">
+        <div class="r-entry-head">
+          <h3>B.S., Industrial &amp; Systems Engineering — University of Michigan-Dearborn</h3>
+          <span class="r-dates">April 2023</span>
+        </div>
+      </div>
+    </section>
+  </article>
+</Base>
+
+<style>
+  .resume-actions {
+    display: flex;
+    gap: 1rem;
+    padding-top: 2.5rem;
+    justify-content: flex-end;
+  }
+
+  .resume {
+    max-width: 880px;
+    padding-top: 1.5rem;
+    padding-bottom: 5rem;
+  }
+
+  .r-header h1 {
+    font-size: clamp(2rem, 4.5vw, 2.8rem);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .r-role {
+    font-family: var(--mono);
+    color: var(--red-text);
+    margin-top: 0.4rem;
+  }
+
+  .r-contact {
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    margin-top: 0.6rem;
+  }
+
+  .r-contact a {
+    color: var(--text-muted);
+    text-decoration-color: var(--border-strong);
+  }
+
+  .r-contact a:hover {
+    color: var(--text);
+  }
+
+  .r-sep {
+    margin: 0 0.5rem;
+    color: var(--text-faint);
+  }
+
+  .r-section {
+    margin-top: 2.2rem;
+  }
+
+  .r-section h2 {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-faint);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.4rem;
+  }
+
+  .r-section h2::before {
+    content: '// ';
+    color: var(--red-text);
+  }
+
+  .r-section > p,
+  .r-skills {
+    margin-top: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  .r-skills {
+    list-style: none;
+  }
+
+  .r-skills li {
+    margin-top: 0.35rem;
+  }
+
+  .r-skills strong,
+  .r-additional strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .r-entry {
+    margin-top: 1.1rem;
+  }
+
+  .r-entry-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .r-entry h3 {
+    font-size: 1.02rem;
+    font-weight: 600;
+  }
+
+  .r-dates {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    color: var(--text-faint);
+    white-space: nowrap;
+  }
+
+  .r-entry-sub {
+    color: var(--text-muted);
+    font-style: italic;
+    font-size: 0.93rem;
+    margin-top: 0.15rem;
+  }
+
+  .r-entry ul {
+    margin: 0.5rem 0 0 1.15rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+
+  .r-entry ul li {
+    margin-top: 0.3rem;
+  }
+
+  .r-additional {
+    margin-top: 1.2rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+
+  /* ---- print: clean single-column letter layout, no site chrome, fits one page ---- */
+  @media print {
+    .no-print {
+      display: none !important;
+    }
+
+    .resume {
+      max-width: none;
+      padding: 0;
+    }
+
+    .r-header h1 {
+      font-size: 17pt;
+    }
+
+    .r-role {
+      font-size: 10pt;
+      margin-top: 0.1rem;
+    }
+
+    .r-contact {
+      font-size: 8.5pt;
+      margin-top: 0.25rem;
+    }
+
+    .r-sep {
+      margin: 0 0.3rem;
+    }
+
+    .r-section {
+      margin-top: 0.55rem;
+    }
+
+    .r-section h2 {
+      font-size: 8.5pt;
+      padding-bottom: 0.15rem;
+    }
+
+    .r-section > p,
+    .r-skills {
+      margin-top: 0.3rem;
+    }
+
+    .r-skills li {
+      margin-top: 0.1rem;
+    }
+
+    .r-entry {
+      margin-top: 0.4rem;
+      break-inside: avoid;
+    }
+
+    .r-entry h3 {
+      font-size: 9.5pt;
+    }
+
+    .r-dates {
+      font-size: 8pt;
+    }
+
+    .r-entry-sub {
+      font-size: 8.5pt;
+      margin-top: 0;
+    }
+
+    .r-entry ul {
+      margin: 0.15rem 0 0 1rem;
+      font-size: 9pt;
+    }
+
+    .r-entry ul li {
+      margin-top: 0.1rem;
+    }
+
+    .r-additional {
+      margin-top: 0.4rem;
+      font-size: 9pt;
+    }
+  }
+</style>
+
+<style is:global>
+  @media print {
+    @page {
+      size: letter;
+      margin: 0.4in 0.6in;
+    }
+
+    /* html:root outranks the :root token blocks (and [data-theme='light']), so print
+       always gets dark-on-white regardless of the visitor's theme */
+    html:root,
+    html:root[data-theme='light'] {
+      --bg: #ffffff;
+      --bg-raised: #ffffff;
+      --surface: #ffffff;
+      --border: #d0d0d0;
+      --border-strong: #b5b5b5;
+      --text: #111111;
+      --text-muted: #333333;
+      --text-faint: #555555;
+      --red-text: #b71c1d;
+    }
+
+    body {
+      background: #ffffff;
+      /* name concrete fonts: headless PDF export can't load the site's webfonts over file://,
+         and without explicit names some engines fall back to a serif default */
+      font-family: 'Inter Variable', 'Segoe UI', Arial, Helvetica, sans-serif;
+      font-size: 9.5pt;
+      line-height: 1.32;
+    }
+
+    .r-role,
+    .r-dates,
+    .r-section h2 {
+      font-family: 'JetBrains Mono', Consolas, 'Courier New', monospace;
+    }
+
+    .navbar,
+    .footer,
+    .skip-link {
+      display: none !important;
+    }
+
+    a {
+      text-decoration: none;
+    }
+  }
+</style>

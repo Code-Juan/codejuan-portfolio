@@ -1,70 +1,163 @@
 ---
 import Base from '../layouts/Base.astro';
 
-// Game-development projects, recovered from the original codejuan.com and re-presented in the new design.
-// Descriptions only (no media/links), grouped by category — mirrors the original structure.
-const categories = [
+// Featured games — case-study pages live in src/pages/games/. Facts verified against
+// git history and project docs; statuses follow the honesty rules (only Nutty Pursuit
+// is called playable).
+const featured = [
   {
-    name: 'Unity Projects',
-    games: [
-      {
-        title: 'Project Galaxy',
-        tech: 'Unity 2022.3.53f1 · C# · 3D',
-        bullets: [
-          'Player movement with physics and AI enemies driven by NavMeshAgent',
-          'Weapon systems, health/damage, and inventory management',
-          'Mission objectives and save/load functionality',
-          'Scene management with async loading',
-        ],
-        tags: ['Unity', 'C#', '3D Game Dev', 'AI Systems'],
-      },
+    slug: 'nutty-pursuit',
+    title: 'Nutty Pursuit',
+    status: 'Playable build',
+    tech: 'C++ · Vulkan (Gateware) · EnTT ECS',
+    meta: 'Oct 2025 · 5-person team · top contributor (72 of 147 commits)',
+    image: { src: '/images/games/nutty-pursuit.jpg', alt: 'Nutty Pursuit title art', width: 960, height: 960 },
+    bullets: [
+      'Robotron-inspired 2.5D arena shooter built from scratch — no commercial engine',
+      '8-directional player combat, all three enemy AI archetypes, wave spawning',
+      'Procedural animation system and combo scoring, all data-driven from config',
+      'Wrote the team’s Git branching workflow; every sprint ended in a packaged, demo-ready build',
     ],
+    tags: ['C++', 'Vulkan', 'ECS', 'Enemy AI'],
+    repo: null,
   },
   {
-    name: 'Unreal Projects',
-    games: [
-      {
-        title: 'END2508 — Unreal Engine C++',
-        tech: 'Unreal Engine 5 · C++ · Component-based',
-        bullets: [
-          'Base character class with inheritance and a health component system',
-          'Weapon system built with child actors',
-          'Event-driven architecture and animation blueprint integration',
-          'Input handling with proper memory management',
-        ],
-        tags: ['Unreal Engine', 'C++', 'Component Systems', 'Memory Management'],
-      },
+    slug: 'fluxuate',
+    title: 'Fluxuate',
+    status: 'In development',
+    tech: 'Unreal Engine 5.4 · C++ · Perforce',
+    meta: 'Dec 2025 – Feb 2026 · 3 programmers · Engine/UI programmer',
+    emblem: { src: '/images/games/fluxuate-icon.png', alt: 'Fluxuate icon', style: 'dark' },
+    bullets: [
+      '3D hack-and-slash where the player turns UE5 physics against enemies',
+      '3-slot save system, game-state flow, and the full menu/UI framework',
+      'Climbing via component reparenting, weapon animations, health/stamina bars',
+      'Diagnosed and fixed an enemy-persistence save bug across successive builds',
     ],
+    tags: ['UE5', 'C++', 'Save systems', 'UI'],
+    repo: null,
   },
   {
-    name: 'C++ & Algorithms',
-    games: [
-      {
-        title: 'C++ Data Structures',
-        tech: 'C++ · Advanced Algorithms',
-        bullets: [
-          'Dynamic arrays, linked lists, binary search trees',
-          'Hash tables and Huffman coding',
-          'RAII principles and unit testing',
-          'Performance optimization and recursive algorithms',
-        ],
-        tags: ['C++', 'Algorithms', 'Data Structures', 'Memory Management'],
-      },
+    slug: 'earth-untamed',
+    title: 'Earth Untamed',
+    status: 'Vertical slice',
+    tech: 'Unity 6 · C# · URP',
+    meta: 'Jan – Feb 2026 · 5-person capstone team · weapons, audio, UI, movement',
+    image: { src: '/images/games/earth-untamed.png', alt: 'Earth Untamed key art', width: 406, height: 280 },
+    bullets: [
+      'Survival horror on a flooded Earth — manage health, stamina, and sanity',
+      'Interface-driven weapon system with ScriptableObject data + editor tooling',
+      'Animation-event hit detection so swings land when they visually connect',
+      'Player audio system synced to UI state; climbing and viewmodel overhauls',
     ],
+    tags: ['Unity 6', 'C#', 'ScriptableObjects', 'Audio'],
+    repo: null,
+  },
+  {
+    slug: 'project-galaxy',
+    title: 'Project Galaxy (Orbit Unknown)',
+    status: 'Team project',
+    tech: 'Unity 2022.3 · C# · NavMesh',
+    meta: 'Dec 2024 – Jan 2025 · 5-person Scrum team · #1 committer (141 of 400)',
+    emblem: { src: '/images/games/orbit-unknown-icon.png', alt: 'Orbit Unknown icon', style: 'light' },
+    bullets: [
+      '3D sci-fi FPS carried through Alpha, Beta, and QA sprints in four weeks',
+      'Enemy AI hierarchy on an abstract base — including a stun enemy that steals from your inventory',
+      'Boss abilities behind an interface; ScriptableObject inventory with a singleton manager',
+      'JSON save/load with editor-generated GUIDs so scene state survives restarts',
+    ],
+    tags: ['Unity', 'C#', 'Enemy AI', 'Persistence'],
+    repo: 'https://github.com/bLemons89/Project_Galaxy',
+  },
+];
+
+// Supporting projects — smaller but verified. Repo links only where public.
+const supporting = [
+  {
+    title: 'Solo Arcade Project (P&P IV)',
+    tech: 'C++ · Vulkan (Gateware) · EnTT',
+    bullets: [
+      'Solo Asteroids-style arena game — 105 of 109 commits are mine (rest is course scaffolding)',
+      'OBB collision math and recursive asteroid shatter, data-driven design',
+    ],
+    tags: ['C++', 'Vulkan', 'Solo'],
+  },
+  {
+    title: 'FPS Team Project (P&P II)',
+    tech: 'Unity · C#',
+    bullets: [
+      'First team FPS with the crew that went on to build Project Galaxy (~100 commits)',
+      'Enemy AI with class inheritance, orb-capture objective mechanic, game manager',
+    ],
+    tags: ['Unity', 'C#', 'Team'],
+    repo: 'https://github.com/htanama/FPS-Team-Project',
+  },
+  {
+    title: 'END2508 — UE5 Combat Prototype',
+    tech: 'Unreal Engine 5 · C++',
+    bullets: [
+      'Component-based character architecture: base class inheritance + health component',
+      'Weapon system with child actors, event-driven design, animation blueprint integration',
+    ],
+    tags: ['UE5', 'C++', 'Components'],
+  },
+  {
+    title: 'Calculator — Desktop App',
+    tech: 'C++ · wxWidgets',
+    bullets: [
+      'Singleton core processor and Factory Method across 10+ math functions',
+      'Shunting Yard expression parsing; validated with unit tests across 50+ cases',
+    ],
+    tags: ['C++', 'Design patterns', 'Testing'],
+  },
+  {
+    title: "Conway's Game of Life",
+    tech: 'C++ · wxWidgets',
+    bullets: [
+      'Grid sizes to 100×100, color themes, seeded randomization, HUD',
+      'Resolved 15+ rendering and input bugs through systematic debugging',
+    ],
+    tags: ['C++', 'GUI', 'Debugging'],
+  },
+  {
+    title: 'Systems & CS Coursework',
+    tech: 'C++ · SQL · MIPS · MATLAB',
+    bullets: [
+      'Console chat server/client in C++; AI path-planning project',
+      'Data structures from scratch (BSTs, hash tables, Huffman), MySQL/EER design, MIPS assembly',
+    ],
+    tags: ['Networking', 'Algorithms', 'Databases'],
   },
 ];
 
 const skills = [
-  { group: 'Engines', items: 'Unity, Unreal Engine 5' },
-  { group: 'Languages', items: 'C++, C#, Dart, JavaScript / TypeScript' },
-  { group: 'Game systems', items: 'AI (NavMeshAgent), physics, gameplay, save/load, inventory' },
-  { group: 'Foundations', items: 'Data structures & algorithms, memory management, RAII' },
+  { group: 'Languages', items: 'C++ (primary), C#, TypeScript / JavaScript, SQL, Python, HTML/CSS' },
+  { group: 'Engines & graphics', items: 'Unreal Engine 5 (C++), Unity, Vulkan API (Gateware), EnTT ECS, wxWidgets' },
+  {
+    group: 'Game systems',
+    items: 'Enemy AI & behavior trees, player combat & movement, save/load & persistence, animation systems, inventory & game state, UI/menus',
+  },
+  {
+    group: 'CS foundations',
+    items: 'Data structures & algorithms, memory management / RAII, operating systems, computer architecture, networking, databases',
+  },
+  { group: 'Web & backend', items: 'Node.js / Express, REST APIs, MySQL, production deployment — two live business sites' },
+  {
+    group: 'Process',
+    items: 'Git (documented branching strategies), Jira & Scrum, unit testing, code reviews, root-cause debugging',
+  },
+];
+
+const credentials = [
+  { line: 'B.S. Game Development — Full Sail University, Valedictorian (2026)' },
+  { line: 'B.S. Industrial & Systems Engineering — University of Michigan-Dearborn (2023)' },
+  { line: 'Web Development & IT Manager — The Wooden Stone, LLC (2025–present)' },
 ];
 ---
 
 <Base
   title="Juan Contreras — Game Programmer & Software Developer"
-  description="Game programmer building immersive games in Unity and Unreal Engine with C++ and C# — complete AI, physics, and gameplay systems, with systems-programming roots."
+  description="Game programmer in Detroit, MI — C++ and C# gameplay, AI, and save systems in Unreal Engine 5, Unity, and a custom Vulkan stack. B.S. Game Development, Full Sail valedictorian. View games, skills, and résumé."
   current="home"
 >
   <!-- HOME tab -->
@@ -76,11 +169,16 @@ const skills = [
           <h1 class="hero-title">Juan Contreras</h1>
           <p class="hero-sub">Game Programmer &amp; Software Developer</p>
           <p class="hero-tagline">
-            Building immersive games with C++ and C#, in Unity and Unreal Engine — with complete systems for AI,
-            physics, and gameplay. Systems-programming roots, performance-obsessed.
+            I build gameplay, AI, animation, and save systems in C++ and C# — across Unreal Engine 5, Unity, and a
+            custom Vulkan stack. Four team games and a playable arcade shooter behind me; an engineer's process
+            underneath all of it.
           </p>
+          <ul class="hero-creds">
+            {credentials.map((c) => <li>{c.line}</li>)}
+          </ul>
           <div class="hero-cta">
             <a href="/#games" class="btn btn-primary btn-large">View my games</a>
+            <a href="/resume.html" class="btn btn-secondary btn-large">Résumé</a>
             <a href="/#contact" class="btn btn-secondary btn-large">Get in touch</a>
           </div>
         </div>
@@ -111,33 +209,82 @@ const skills = [
     <section class="section games">
       <div class="container">
         <span class="eyebrow">// game development</span>
-        <h2 class="section-title">Game Development Portfolio</h2>
-        <p class="section-subtitle">Game projects and technical work in Unity, Unreal Engine, and C++.</p>
-        {
-          categories.map((cat) => (
-            <div class="game-category">
-              <h3 class="category-title">{cat.name}</h3>
-              <div class="games-grid">
-                {cat.games.map((g) => (
-                  <article class="game-card">
-                    <h4>{g.title}</h4>
-                    <p class="game-tech">{g.tech}</p>
-                    <ul class="game-bullets">
-                      {g.bullets.map((b) => (
-                        <li>{b}</li>
-                      ))}
-                    </ul>
-                    <div class="game-tags">
-                      {g.tags.map((t) => (
-                        <span class="tag">{t}</span>
-                      ))}
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </div>
-          ))
-        }
+        <h2 class="section-title">Games</h2>
+        <p class="section-subtitle">
+          Four team games across three engines — including a custom C++/Vulkan stack with no engine at all. Each
+          breakdown covers exactly which systems I built, verified against the git history.
+        </p>
+
+        <div class="featured-grid">
+          {
+            featured.map((g) => (
+              <article class="feature-card">
+                <div class={`feature-media${g.emblem ? ` emblem emblem-${g.emblem.style}` : ''}`}>
+                  {g.image ? (
+                    <img src={g.image.src} alt={g.image.alt} width={g.image.width} height={g.image.height} loading="lazy" />
+                  ) : (
+                    <img class="emblem-img" src={g.emblem.src} alt={g.emblem.alt} width="120" height="120" loading="lazy" />
+                  )}
+                </div>
+                <div class="feature-body">
+                  <span class="chip">{g.status}</span>
+                  <h3>{g.title}</h3>
+                  <p class="game-tech">{g.tech}</p>
+                  <p class="feature-meta">{g.meta}</p>
+                  <ul class="game-bullets">
+                    {g.bullets.map((b) => (
+                      <li>{b}</li>
+                    ))}
+                  </ul>
+                  <div class="game-tags">
+                    {g.tags.map((t) => (
+                      <span class="tag">{t}</span>
+                    ))}
+                  </div>
+                  <div class="feature-links">
+                    <a class="feature-link" href={`/games/${g.slug}.html`}>
+                      Full breakdown &rarr;
+                    </a>
+                    {g.repo ? (
+                      <a class="feature-link" href={g.repo} target="_blank" rel="noopener noreferrer">
+                        GitHub
+                      </a>
+                    ) : (
+                      <span class="code-note">Code available on request</span>
+                    )}
+                  </div>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+
+        <h3 class="category-title">more projects</h3>
+        <div class="games-grid">
+          {
+            supporting.map((g) => (
+              <article class="game-card">
+                <h4>{g.title}</h4>
+                <p class="game-tech">{g.tech}</p>
+                <ul class="game-bullets">
+                  {g.bullets.map((b) => (
+                    <li>{b}</li>
+                  ))}
+                </ul>
+                <div class="game-tags">
+                  {g.tags.map((t) => (
+                    <span class="tag">{t}</span>
+                  ))}
+                  {g.repo && (
+                    <a class="feature-link" href={g.repo} target="_blank" rel="noopener noreferrer">
+                      GitHub
+                    </a>
+                  )}
+                </div>
+              </article>
+            ))
+          }
+        </div>
       </div>
     </section>
   </div>
@@ -150,15 +297,57 @@ const skills = [
         <h2 class="section-title">Hi, I'm Juan</h2>
         <div class="about-body">
           <p>
-            I'm a game programmer and software developer. My journey began with C++ fundamentals and data
-            structures, then expanded into game development with Unity and Unreal Engine — building complete 3D games
-            with complex systems including AI, physics, and gameplay mechanics.
+            I'm a game programmer and software developer in Detroit with two engineering degrees and a habit of
+            owning problems end to end. I came to games from industrial &amp; systems engineering — processes,
+            measurement, continuous improvement — and that shows up in how I build software: documented Git
+            workflows, Jira epics with acceptance criteria, changelogs, and tests.
           </p>
           <p>
-            Whether I'm optimizing game performance, implementing complex algorithms, or building scalable
-            applications, I care about clean architecture and code that holds up.
+            At Full Sail I graduated <strong>valedictorian</strong> in Game Development (computer science focus),
+            where the program ran like a studio: five-person Scrum teams, sprint deadlines, and code that had to
+            survive QA. I've built C++ combat and AI systems on a custom Vulkan stack, gameplay and state-management
+            systems in Unity, and save/UI systems in Unreal Engine 5 — on top of coursework spanning data structures,
+            operating systems, computer architecture, networks, databases, and AI.
+          </p>
+          <p>
+            By day I'm the Web Development &amp; IT Manager at The Wooden Stone, a Michigan manufacturer, where I
+            built and launched two production websites and I'm the technical point of contact when anything breaks —
+            web, infrastructure, or internal tooling. Production responsibility teaches you what "done" really means.
           </p>
         </div>
+
+        <h3 class="about-heading">Education</h3>
+        <div class="edu-grid">
+          <div class="edu-card">
+            <h4>B.S., Game Development <span class="edu-focus">(Computer Science)</span></h4>
+            <p class="edu-school">Full Sail University — March 2026</p>
+            <p class="edu-detail"><strong>Valedictorian</strong> · 3.76 GPA · coursework from data structures and OS to graphics, networks, databases, and AI</p>
+          </div>
+          <div class="edu-card">
+            <h4>B.S., Industrial &amp; Systems Engineering</h4>
+            <p class="edu-school">University of Michigan-Dearborn — April 2023</p>
+            <p class="edu-detail">Six Sigma &amp; statistical process improvement, simulation, human factors, HCI for UI/UX design</p>
+          </div>
+        </div>
+
+        <h3 class="about-heading">Experience</h3>
+        <div class="edu-card exp-card">
+          <h4>Web Development &amp; IT Manager — The Wooden Stone, LLC</h4>
+          <p class="edu-school">Clinton Township, MI (manufacturing) · March 2025 – present</p>
+          <ul class="game-bullets">
+            <li>Technical point of contact: diagnosis, root-cause analysis, and fixes across websites, infrastructure, and internal tooling</li>
+            <li>Architected and launched two production full-stack sites (Node.js/Express, Helmet.js, Postmark REST API) — 12+ responsive pages</li>
+            <li>Automation cutting manual data entry ~30%; reliability infrastructure (NAS, RAID 1, UPS-triggered safe shutdown)</li>
+          </ul>
+        </div>
+
+        <h3 class="about-heading">How I work</h3>
+        <ul class="work-list">
+          <li>Documented Git branching strategies my teams actually followed — I wrote the workflow doc on Nutty Pursuit</li>
+          <li>Jira epics with story points and acceptance criteria; Scrum through Alpha, Beta, and QA sprints</li>
+          <li>Unit testing (50+ case suites), code reviews, and keep-a-changelog versioning</li>
+          <li>Root-cause debugging as a discipline — every case study on this site includes a real bug story</li>
+        </ul>
       </div>
     </section>
   </div>
@@ -169,11 +358,16 @@ const skills = [
       <div class="container contact-inner">
         <span class="eyebrow">// contact</span>
         <h2 class="section-title">Let's build something</h2>
-        <p class="section-subtitle">
-          A game studio looking for a programmer, a team seeking a collaborator, or a project in mind — I'd love to
-          hear from you.
+        <p class="section-subtitle contact-sub">
+          Looking for a game programmer or a software developer who owns problems end to end? I'd love to hear about
+          it — based in Detroit, Michigan, open to relocation and remote.
         </p>
-        <a class="btn btn-primary btn-large" href="mailto:contact@codejuan.com">contact@codejuan.com</a>
+        <div class="contact-actions">
+          <a class="btn btn-primary btn-large" href="mailto:juan@codejuan.com">juan@codejuan.com</a>
+          <a class="btn btn-secondary btn-large" href="https://www.linkedin.com/in/juan-contreras68" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a class="btn btn-secondary btn-large" href="https://github.com/Code-Juan" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a class="btn btn-secondary btn-large" href="/Juan_Contreras_Resume.pdf" download>Résumé (PDF)</a>
+        </div>
       </div>
     </section>
   </div>
@@ -234,6 +428,27 @@ const skills = [
     font-size: 1.08rem;
   }
 
+  .hero-creds {
+    list-style: none;
+    margin-top: 1.4rem;
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .hero-creds li {
+    margin-top: 0.4rem;
+    padding-left: 1.2rem;
+    position: relative;
+  }
+
+  .hero-creds li::before {
+    content: '▸';
+    color: var(--red-text);
+    position: absolute;
+    left: 0;
+  }
+
   .hero-cta {
     display: flex;
     gap: 1rem;
@@ -259,9 +474,116 @@ const skills = [
     }
   }
 
-  /* games */
-  .game-category {
+  /* featured games */
+  .featured-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.75rem;
     margin-top: 2.5rem;
+  }
+
+  .feature-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .feature-media {
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .feature-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .feature-media.emblem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--surface-2), var(--accent-soft));
+  }
+
+  .feature-media .emblem-img {
+    width: 110px;
+    height: 110px;
+    object-fit: contain;
+    border-radius: var(--radius);
+  }
+
+  /* the Orbit Unknown mark is black-on-transparent — give it a light disc so it reads in dark theme */
+  .feature-media.emblem-light .emblem-img {
+    background: var(--soft-white);
+    border-radius: 50%;
+    padding: 20px;
+  }
+
+  .feature-body {
+    padding: 1.5rem 1.6rem 1.6rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .chip {
+    align-self: flex-start;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--red-text);
+    border: 1px solid var(--red-text);
+    border-radius: var(--radius-sm);
+    padding: 0.1rem 0.55rem;
+  }
+
+  .feature-body h3 {
+    font-size: 1.35rem;
+    margin-top: 0.7rem;
+    letter-spacing: -0.01em;
+  }
+
+  .feature-meta {
+    font-size: 0.85rem;
+    color: var(--text-faint);
+    margin-top: 0.4rem;
+  }
+
+  .feature-links {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    margin-top: auto;
+    padding-top: 1.2rem;
+  }
+
+  .feature-link {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--red-text);
+    text-decoration: none;
+  }
+
+  .feature-link:hover {
+    text-decoration: underline;
+  }
+
+  .code-note {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--text-faint);
+  }
+
+  /* supporting games */
+  .game-category,
+  .category-title {
+    margin-top: 3rem;
   }
 
   .category-title {
@@ -312,6 +634,7 @@ const skills = [
   .game-tags {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     gap: 0.5rem;
     margin-top: 1.1rem;
   }
@@ -328,7 +651,7 @@ const skills = [
   /* skills */
   .skills-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.25rem;
     margin-top: 2.5rem;
   }
@@ -361,7 +684,7 @@ const skills = [
 
   /* about */
   .about-body {
-    max-width: 640px;
+    max-width: 680px;
   }
 
   .about-body p {
@@ -369,13 +692,102 @@ const skills = [
     margin-top: 1rem;
   }
 
+  .about-body strong,
+  .edu-detail strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .about-heading {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--text-faint);
+    text-transform: lowercase;
+    letter-spacing: 0.05em;
+    margin-top: 2.8rem;
+  }
+
+  .about-heading::before {
+    content: '// ';
+    color: var(--red-text);
+  }
+
+  .edu-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin-top: 1.1rem;
+  }
+
+  .edu-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.4rem 1.5rem;
+  }
+
+  .edu-card h4 {
+    font-size: 1.05rem;
+  }
+
+  .edu-focus {
+    color: var(--text-muted);
+    font-weight: 400;
+  }
+
+  .edu-school {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--red-text);
+    margin-top: 0.35rem;
+  }
+
+  .edu-detail {
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    margin-top: 0.6rem;
+  }
+
+  .exp-card {
+    margin-top: 1.1rem;
+  }
+
+  .work-list {
+    list-style: none;
+    margin-top: 1.1rem;
+    max-width: 680px;
+  }
+
+  .work-list li {
+    color: var(--text-muted);
+    padding-left: 1.3rem;
+    position: relative;
+    margin-top: 0.6rem;
+  }
+
+  .work-list li::before {
+    content: '▸';
+    color: var(--red-text);
+    position: absolute;
+    left: 0;
+  }
+
   /* contact */
   .contact-inner {
     text-align: center;
   }
 
-  .contact .btn {
-    margin-top: 1.5rem;
+  .contact-sub {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .contact-actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2rem;
   }
 
   @media (max-width: 900px) {
@@ -390,6 +802,20 @@ const skills = [
 
     .skills-grid {
       grid-template-columns: repeat(2, 1fr);
+    }
+
+    .featured-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .edu-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .skills-grid {
+      grid-template-columns: 1fr;
     }
   }
 </style>

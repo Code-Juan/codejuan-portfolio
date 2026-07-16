@@ -1,0 +1,76 @@
+---
+import Base from '../../layouts/Base.astro';
+import CaseStudy from '../../components/CaseStudy.astro';
+---
+
+<Base
+  title="Fluxuate — Unreal Engine 5 C++ Game | Juan Contreras"
+  description="Case study: Fluxuate, an in-development UE5 hack-and-slash by Pocket Change Games. Juan Contreras is the Engine/UI programmer — 3-slot save system, game-state flow, menus, and a documented save-bug fix."
+  current="games"
+>
+  <CaseStudy
+    status="In development"
+    title="Fluxuate"
+    tagline="A 3D hack-and-slash built in Unreal Engine 5, where the player turns the engine's physics against variable enemy types. Team project by Pocket Change Games."
+    meta={[
+      { label: 'timeline', value: 'Dec 2025 – Feb 2026' },
+      { label: 'team', value: '3 programmers (Pocket Change Games)' },
+      { label: 'my role', value: 'Engine / UI programmer' },
+      { label: 'stack', value: 'Unreal Engine 5.4 · C++ · Perforce' },
+    ]}
+    tags={['Unreal Engine 5', 'C++', 'Enhanced Input', 'SaveGame subsystems', 'UMG widgets', 'Behavior Trees', 'Perforce']}
+  >
+    <h2>overview</h2>
+    <p>
+      Fluxuate is Pocket Change Games' team project — I'm the Engine/UI programmer alongside a gameplay programmer and
+      a tools/gameplay programmer. It's a C++-first UE5 project (5.4, blank template, no starter content) versioned in
+      Perforce, with a full design document, coding standards, and semantically-versioned changelogs from
+      <code>v0.0.1</code> on. The game is in development — no release claims here; what follows is the
+      engineering that exists today.
+    </p>
+
+    <h2>what I built as engine/ui programmer</h2>
+    <ul>
+      <li>
+        <strong>3-slot save system.</strong> A <code>SaveGameSubsystem</code> (game-instance subsystem) with per-slot
+        save files, slot-selection UI widgets, and persistence for game state — including which enemies you've already
+        defeated.
+      </li>
+      <li>
+        <strong>Game-state flow.</strong> The Main Menu &rarr; Game &rarr; End State loop: game instance and game
+        modes, menu controllers that manage input-mode transitions, pause handling, and win-condition detection.
+      </li>
+      <li>
+        <strong>UI framework.</strong> Main menu, pause menu, end-state, and options widgets built around a reusable
+        <code>ButtonWithText</code> component with hover styling — plus audio-settings and music subsystems so volume
+        preferences persist across sessions.
+      </li>
+      <li>
+        <strong>Gameplay and animation systems.</strong> Character movement on Enhanced Input, a health component,
+        the enemy base class, weapon animations, health/stamina bars, and a climbing system built with component
+        reparenting.
+      </li>
+    </ul>
+
+    <div class="story">
+      <h3>Case study: enemies that wouldn't stay dead</h3>
+      <p>
+        While building the 3-slot save system we hit a bug where every defeated enemy came back on load — kills were
+        being written to the save file, but nothing consulted that data when enemies spawned. My fix gave every enemy
+        a stable ID (set in-editor or derived from the actor name) and added a persistence check in
+        <code>EnemyBase::BeginPlay()</code>: query the save subsystem, and if that ID is already in the killed list,
+        destroy the actor before it finishes spawning. Deaths register through the same subsystem
+        (<code>AddKilledEnemy</code>), so progression finally survives the save/load round-trip. I documented the
+        whole investigation with a before/after capture — diagnosing across successive builds is the part of this
+        project I'd bring up in an interview.
+      </p>
+    </div>
+
+    <h2>process</h2>
+    <p>
+      Perforce over a studio-style depot (checkout discipline, daily submits, changelist tags), a shared coding
+      standard, and a keep-a-changelog file that has tracked every version since the first sprint. Code is available
+      on request — the depot is private to the team.
+    </p>
+  </CaseStudy>
+</Base>

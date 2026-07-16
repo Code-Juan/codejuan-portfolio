@@ -1,0 +1,116 @@
+---
+import Base from '../../layouts/Base.astro';
+import CaseStudy from '../../components/CaseStudy.astro';
+---
+
+<Base
+  title="Nutty Pursuit — C++ / Vulkan Arcade Shooter | Juan Contreras"
+  description="Case study: Nutty Pursuit, a playable 2.5D arena shooter built in C++ on Vulkan with an EnTT ECS — no commercial engine. Juan Contreras built player combat, enemy AI, spawning, animation, and scoring."
+  current="games"
+>
+  <CaseStudy
+    status="Playable build"
+    title="Nutty Pursuit"
+    tagline="A Robotron 2084-inspired 2.5D arena shooter — a squirrel chasing an acorn thief across three arena levels. Built from scratch in C++ on the Vulkan API. No commercial engine."
+    meta={[
+      { label: 'timeline', value: 'Sep – Oct 2025 (4 weekly sprints)' },
+      { label: 'team', value: '5-person team (Team Orange)' },
+      { label: 'my role', value: 'Player combat & controls, enemy AI, spawning, animation, scoring' },
+      { label: 'contribution', value: 'Top contributor — 72 of 147 commits' },
+    ]}
+    tags={['C++', 'Vulkan API', 'Gateware', 'EnTT ECS', 'HLSL', 'CMake', 'Data-driven design']}
+    image={{ src: '/images/games/nutty-pursuit.jpg', alt: 'Nutty Pursuit title art: a squirrel gunslinger facing the acorn thief in a western desert', width: 960, height: 960 }}
+    imageCaption="Title art from the released build."
+  >
+    <h2>overview</h2>
+    <p>
+      Nutty Pursuit is a classic-arcade recreation built for Full Sail's Project &amp; Portfolio V: 3D-rendered models,
+      2D top-down gameplay, three arena rooms, wave-based enemies, powerups, and a persistent top-10 high-score table.
+      The whole game runs on a custom C++ stack — Vulkan rendering through the Gateware framework, an EnTT
+      entity-component-system for gameplay, HLSL shaders, and JSON levels exported from Blender. Every sprint ended
+      with a packaged, demo-ready <code>NuttyPursuit.exe</code>. A playable Windows build is available on request.
+    </p>
+
+    <h2>what I built</h2>
+    <ul>
+      <li>
+        <strong>8-directional player combat.</strong> Twin-stick-style firing on arrow keys and numpad (diagonals via
+        simultaneous arrows or numpad corners), with the aim vector normalized so diagonal shots aren't faster. Each
+        shot assembles a bullet entity from components — velocity, lifetime, collidable, a mesh instance cloned from
+        the model manager — gated by a fire-rate cooldown component that the rapid-fire powerup swaps out.
+      </li>
+      <li>
+        <strong>All three enemy AI archetypes.</strong> Melee enemies chase with randomized perpendicular jitter so
+        they don't stack into a conga line; ranged enemies kite in distance bands (chase beyond 1.2&times; shooting
+        range, retreat inside 0.8&times;, strafe between); the boss switches from melee to ranged behavior at 50%
+        health via a phase component.
+      </li>
+      <li>
+        <strong>Wave spawning and level progression.</strong> A level-driven enemy spawner, plus arena-exit detection
+        that freezes the player and scrolls the camera to the next arena over 1.5 seconds.
+      </li>
+      <li>
+        <strong>Procedural animation system.</strong> Smooth look-at rotation using <code>atan2</code> with
+        shortest-arc interpolation, a sine-eased damage pulse that scales enemies on hit, and a wing-bob for the flying
+        enemies — all without an animation package.
+      </li>
+      <li>
+        <strong>Scoring with combos.</strong> Per-enemy-type points with a combo multiplier (3s window), kill streaks
+        (5s), and time bonuses, persisting across level transitions.
+      </li>
+      <li>
+        <strong>Collision handling.</strong> The OBB-vs-OBB collision pass (Gateware <code>GCollision</code>)
+        differentiating player and enemy bullets and applying contact damage.
+      </li>
+      <li>
+        <strong>Integration and release work.</strong> Made the teammate-built powerup system functional (collection
+        collision, visual sync, effect wiring into player speed and fire rate), fixed the high-score config loading,
+        and handled release packaging so the game ran outside the dev environment.
+      </li>
+    </ul>
+
+    <h2>architecture</h2>
+    <p>
+      Gameplay is pure ECS: almost everything in the game is a small data component (<code>Player</code>,
+      <code>MeleeEnemy</code>, <code>BossPhase</code>, <code>Lifetime</code>, <code>ToDestroy</code>&hellip;) processed
+      by free-function systems connected to EnTT registry signals. There are no object hierarchies — behavior comes
+      from component composition. Every tunable — player speed, per-enemy health and fire rates, bullet models,
+      powerup multipliers, per-level settings — lives in an INI config with fallback defaults, so designers could
+      re-balance the game without recompiling.
+    </p>
+
+    <div class="story">
+      <h3>Debugging story: the silent collision failure</h3>
+      <p>
+        Mid-project, enemy hits stopped registering with no errors anywhere. I traced it to the mesh colliders: models
+        exported with offset bounding-box centers, so the OBB tests were happening in the wrong place. Resetting each
+        collider's center to the entity origin at spawn fixed detection for every enemy type at once.
+      </p>
+    </div>
+
+    <div class="story">
+      <h3>Debugging story: the diagonal speed bug</h3>
+      <p>
+        Player movement originally rotated the character and translated in local space — which made diagonal movement
+        faster and direction-dependent. I replaced it with normalized global-space movement and removed the rotation
+        system entirely; the procedural look-at animation took over facing instead.
+      </p>
+    </div>
+
+    <h2>process</h2>
+    <p>
+      I wrote the team's Git workflow document — <code>main</code> for sprint releases, <code>dev</code> for daily
+      integration, per-developer branches, and feature branches, with pull requests reviewed by one or two teammates —
+      and the team actually followed it through 20+ PRs. Work ran from Jira epics with story points and acceptance
+      criteria across four weekly sprints, each one ending in a packaged release build.
+    </p>
+
+    <h2>team credits</h2>
+    <p>
+      Team Orange: Aiden Huber (level pipeline — Blender-to-JSON arenas and the level manager), Alexander
+      Drummond-Henking (powerups, high-score manager, audio), Rosalie Rancourt (menus, splash screens, audio), Maxwell
+      Kelly, and me. Credit where due — the systems above are the ones I built or fixed, verified against the git
+      history.
+    </p>
+  </CaseStudy>
+</Base>

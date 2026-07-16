@@ -1,0 +1,96 @@
+---
+import Base from '../../layouts/Base.astro';
+import CaseStudy from '../../components/CaseStudy.astro';
+---
+
+<Base
+  title="Earth Untamed — Unity 6 Survival Horror | Juan Contreras"
+  description="Case study: Earth Untamed, a Unity 6 survival-horror vertical slice by a 5-person capstone team. Juan Contreras built the interface-driven weapon system, animation-event hit detection, player audio, and stamina systems."
+  current="games"
+>
+  <CaseStudy
+    status="Vertical slice"
+    title="Earth Untamed"
+    tagline="A survival-horror vertical slice set on a flooded, post-climate-collapse Earth — venture out from a safe base, manage health, stamina, and sanity, and get back before the Shadow Children find you."
+    meta={[
+      { label: 'timeline', value: 'Jan – Feb 2026 (2-month production cycle)' },
+      { label: 'team', value: '5-person capstone team (NXTDev Studios)' },
+      { label: 'my role', value: 'Weapons, movement/climbing, audio, UI, animation' },
+      { label: 'stack', value: 'Unity 6 · C# · URP · Input System' },
+    ]}
+    tags={['Unity 6', 'C#', 'URP', 'ScriptableObjects', 'Animation Events', 'Editor tooling', 'Jira']}
+    image={{ src: '/images/games/earth-untamed.png', alt: 'Earth Untamed key art: the logo over a foggy flooded forest with an alien creature in the foreground', width: 406, height: 280 }}
+    imageCaption="Key art from the vertical slice."
+  >
+    <h2>overview</h2>
+    <p>
+      Earth Untamed is a two-month, five-person capstone production: a hand-built single level, 10–15 minute
+      sessions, and a sanity mechanic that's deliberately binary — stay Stable, or tip into Insane and face faster,
+      deadlier Shadow Children. The scope discipline is part of the story: one level, one loop, systems built to
+      interlock. I owned weapons, player audio, stamina/health UI, and movement feel, working ticket-by-ticket in
+      Jira on a per-developer branch merged through PRs.
+    </p>
+
+    <h2>what I built</h2>
+    <ul>
+      <li>
+        <strong>Interface-driven weapon system.</strong> A weapon manager implementing an <code>I_WeaponUser</code>
+        interface, with every weapon defined as a ScriptableObject (damage, attack speed, stagger, stamina cost,
+        range, traversal capabilities) and balanced presets for all five weapons — plus a one-click editor tool that
+        generates the weapon assets, so designers never hand-build them. Landed as a single 1,599-line system across
+        12 files.
+      </li>
+      <li>
+        <strong>Hits that land when the swing lands.</strong> Attack flow split in two: pressing attack only spends
+        stamina and triggers the animation; the damage raycast fires from an Animation Event at each clip's impact
+        frame. Reach and timing come from the weapon's data, so a slow heavy axe genuinely feels different from a
+        fast kukri.
+      </li>
+      <li>
+        <strong>Traversal as a weapon capability.</strong> A bitflags enum gates world interactions by what you're
+        holding — only the axe fells large trees, only the ice axe mounts climb walls — tying the inventory directly
+        into level design. Tree harvesting is attack-based with three size tiers.
+      </li>
+      <li>
+        <strong>First-person viewmodel system.</strong> Spawning and switching hands+weapon prefabs on the camera
+        with a bare-hands fallback and randomized multi-variation attack animations — documented in a setup guide so
+        teammates could add weapons without me.
+      </li>
+      <li>
+        <strong>Player audio (543 lines).</strong> Timer-based footsteps with pitch variation for walk/sprint/crouch,
+        jump and landing sounds, damage grunts, per-weapon swing SFX with wind-up delays, and a low-stamina breathing
+        loop that triggers at the same threshold as the stamina bar's pulse warning — audio and UI fire together. I
+        sourced and trimmed the clips myself.
+      </li>
+      <li>
+        <strong>Stamina, health drain, and UI.</strong> Stamina that drains into health when depleted (per the design
+        doc), stamina/health bars with a full-stamina flash and low-stamina pulse, and a hands animator driven by
+        controller velocity, jumps, and attack state.
+      </li>
+      <li>
+        <strong>Climbing overhaul.</strong> The base climb system was a teammate's; I extended it with jump-only
+        mounting, proximity fallback, free climb, ledge exits, and per-face offsets, then added a climb viewmodel
+        animator that switches with the weapon viewmodel and pins the climb arms' transform every frame to stop
+        animation drift.
+      </li>
+    </ul>
+
+    <div class="story">
+      <h3>Debugging story: the prompt that never showed</h3>
+      <p>
+        The "blocked" interact prompt (you're facing a big tree with the wrong tool) never appeared. Root cause: a C#
+        subtlety — the explicit interface implementation <code>IInteractable.GetInteractPrompt(GameObject)</code> was
+        calling the no-argument overload, which skipped the weapon-capability check entirely. Tracing overload
+        dispatch through explicit interface implementations is the kind of bug that teaches you the language for
+        real.
+      </p>
+    </div>
+
+    <h2>process</h2>
+    <p>
+      Five per-developer branches merged into a dev branch through GitHub pull requests, a team naming convention
+      (<code>C_</code>/<code>I_</code>/<code>E_</code>/<code>SO_</code> prefixes) that all my code follows, and Jira
+      tickets end to end. The repo is private to the team — code available on request.
+    </p>
+  </CaseStudy>
+</Base>
