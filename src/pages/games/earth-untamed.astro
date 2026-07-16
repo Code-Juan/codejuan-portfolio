@@ -4,16 +4,16 @@ import CaseStudy from '../../components/CaseStudy.astro';
 ---
 
 <Base
-  title="Earth Untamed — Unity 6 Survival Horror | Juan Contreras"
+  title="Earth Untamed - Unity 6 Survival Horror | Juan Contreras"
   description="Case study: Earth Untamed, a Unity 6 survival-horror vertical slice by a 5-person capstone team. Juan Contreras built the interface-driven weapon system, animation-event hit detection, player audio, and stamina systems."
   current="games"
 >
   <CaseStudy
     status="Vertical slice"
     title="Earth Untamed"
-    tagline="A survival-horror vertical slice set on a flooded, post-climate-collapse Earth — venture out from a safe base, manage health, stamina, and sanity, and get back before the Shadow Children find you."
+    tagline="A survival-horror vertical slice set on a flooded, post-climate-collapse Earth - venture out from a safe base, manage health, stamina, and sanity, and get back before the Shadow Children find you."
     meta={[
-      { label: 'timeline', value: 'Jan – Feb 2026 (2-month production cycle)' },
+      { label: 'timeline', value: 'Jan - Feb 2026 (2-month production cycle)' },
       { label: 'team', value: '5-person capstone team (NXTDev Studios)' },
       { label: 'my role', value: 'Weapons, movement/climbing, audio, UI, animation' },
       { label: 'stack', value: 'Unity 6 · C# · URP · Input System' },
@@ -24,8 +24,8 @@ import CaseStudy from '../../components/CaseStudy.astro';
   >
     <h2>overview</h2>
     <p>
-      Earth Untamed is a two-month, five-person capstone production: a hand-built single level, 10–15 minute
-      sessions, and a sanity mechanic that's deliberately binary — stay Stable, or tip into Insane and face faster,
+      Earth Untamed is a two-month, five-person capstone production: a hand-built single level, 10-15 minute
+      sessions, and a sanity mechanic that's deliberately binary - stay Stable, or tip into Insane and face faster,
       deadlier Shadow Children. The scope discipline is part of the story: one level, one loop, systems built to
       interlock. I owned weapons, player audio, stamina/health UI, and movement feel, working ticket-by-ticket in
       Jira on a per-developer branch merged through PRs.
@@ -36,7 +36,7 @@ import CaseStudy from '../../components/CaseStudy.astro';
       <li>
         <strong>Interface-driven weapon system.</strong> A weapon manager implementing an <code>I_WeaponUser</code>
         interface, with every weapon defined as a ScriptableObject (damage, attack speed, stagger, stamina cost,
-        range, traversal capabilities) and balanced presets for all five weapons — plus a one-click editor tool that
+        range, traversal capabilities) and balanced presets for all five weapons - plus a one-click editor tool that
         generates the weapon assets, so designers never hand-build them. Landed as a single 1,599-line system across
         12 files.
       </li>
@@ -48,18 +48,18 @@ import CaseStudy from '../../components/CaseStudy.astro';
       </li>
       <li>
         <strong>Traversal as a weapon capability.</strong> A bitflags enum gates world interactions by what you're
-        holding — only the axe fells large trees, only the ice axe mounts climb walls — tying the inventory directly
+        holding - only the axe fells large trees, only the ice axe mounts climb walls - tying the inventory directly
         into level design. Tree harvesting is attack-based with three size tiers.
       </li>
       <li>
         <strong>First-person viewmodel system.</strong> Spawning and switching hands+weapon prefabs on the camera
-        with a bare-hands fallback and randomized multi-variation attack animations — documented in a setup guide so
+        with a bare-hands fallback and randomized multi-variation attack animations - documented in a setup guide so
         teammates could add weapons without me.
       </li>
       <li>
         <strong>Player audio (543 lines).</strong> Timer-based footsteps with pitch variation for walk/sprint/crouch,
         jump and landing sounds, damage grunts, per-weapon swing SFX with wind-up delays, and a low-stamina breathing
-        loop that triggers at the same threshold as the stamina bar's pulse warning — audio and UI fire together. I
+        loop that triggers at the same threshold as the stamina bar's pulse warning - audio and UI fire together. I
         sourced and trimmed the clips myself.
       </li>
       <li>
@@ -79,7 +79,7 @@ import CaseStudy from '../../components/CaseStudy.astro';
       <h3>Debugging story: the prompt that never showed</h3>
       <p>
         The "blocked" interact prompt (you're facing a big tree with the wrong tool) never appeared. Root cause: a C#
-        subtlety — the explicit interface implementation <code>IInteractable.GetInteractPrompt(GameObject)</code> was
+        subtlety - the explicit interface implementation <code>IInteractable.GetInteractPrompt(GameObject)</code> was
         calling the no-argument overload, which skipped the weapon-capability check entirely. Tracing overload
         dispatch through explicit interface implementations is the kind of bug that teaches you the language for
         real.
@@ -90,7 +90,7 @@ import CaseStudy from '../../components/CaseStudy.astro';
     <p>
       Five per-developer branches merged into a dev branch through GitHub pull requests, a team naming convention
       (<code>C_</code>/<code>I_</code>/<code>E_</code>/<code>SO_</code> prefixes) that all my code follows, and Jira
-      tickets end to end. The repo is private to the team — code available on request.
+      tickets end to end. The repo is private to the team - code available on request.
     </p>
   </CaseStudy>
 </Base>

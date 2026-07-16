@@ -19,7 +19,7 @@ const { title, description, current = '', ogTitle, ogDescription, ogImage: ogIma
 const canonical = new URL(Astro.url.pathname === '/' ? '/' : Astro.url.pathname, Astro.site);
 const ogImage = new URL(ogImageProp ?? '/og-image.png', Astro.site);
 
-// schema.org Person — rich-result signal for a developer portfolio
+// schema.org Person - rich-result signal for a developer portfolio
 const personLd = JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'Person',
@@ -33,7 +33,7 @@ const personLd = JSON.stringify({
     { '@type': 'CollegeOrUniversity', name: 'Full Sail University' },
     { '@type': 'CollegeOrUniversity', name: 'University of Michigan-Dearborn' },
   ],
-  award: 'Valedictorian — B.S. Game Development, Full Sail University (2026)',
+  award: 'Valedictorian - B.S. Game Development, Full Sail University (2026)',
   knowsAbout: [
     'Game Development',
     'Unity',

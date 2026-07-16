@@ -4,19 +4,19 @@ import CaseStudy from '../../components/CaseStudy.astro';
 ---
 
 <Base
-  title="Project Galaxy (Orbit Unknown) — Unity 3D FPS | Juan Contreras"
-  description="Case study: Project Galaxy, a Unity 3D FPS by a 5-person Scrum team. Juan Contreras was #1 committer — enemy AI hierarchy, boss ability system, ScriptableObject inventory, JSON save/load with GUID persistence."
+  title="Project Galaxy (Orbit Unknown) - Unity 3D FPS | Juan Contreras"
+  description="Case study: Project Galaxy, a Unity 3D FPS by a 5-person Scrum team. Juan Contreras was #1 committer - enemy AI hierarchy, boss ability system, ScriptableObject inventory, JSON save/load with GUID persistence."
   current="games"
 >
   <CaseStudy
     status="Team project"
     title="Project Galaxy (Orbit Unknown)"
-    tagline="A 3D sci-fi FPS built by a 5-person Scrum team through Alpha, Beta, and QA sprints — enemy AI, inventory, objectives, and a full save system in four weeks."
+    tagline="A 3D sci-fi FPS built by a 5-person Scrum team through Alpha, Beta, and QA sprints - enemy AI, inventory, objectives, and a full save system in four weeks."
     meta={[
-      { label: 'timeline', value: 'Dec 2024 – Jan 2025' },
+      { label: 'timeline', value: 'Dec 2024 - Jan 2025' },
       { label: 'team', value: '5-person team, Scrum (Alpha/Beta/QA)' },
       { label: 'my role', value: 'Enemy AI, boss, inventory, save system, objectives' },
-      { label: 'contribution', value: '#1 committer — 141 of 400 commits' },
+      { label: 'contribution', value: '#1 committer - 141 of 400 commits' },
     ]}
     tags={['Unity 2022.3', 'C#', 'NavMesh', 'ScriptableObjects', 'JSON persistence', 'Cinemachine', 'Scrum']}
     links={[{ label: 'View source on GitHub', href: 'https://github.com/bLemons89/Project_Galaxy' }]}
@@ -25,7 +25,7 @@ import CaseStudy from '../../components/CaseStudy.astro';
     <p>
       Project Galaxy (working title Orbit Unknown) came out of Full Sail's Project &amp; Portfolio II and III: the
       same five developers carried an FPS from first prototype (Dec 2024) into this build, at roughly 400 commits in
-      four weeks. Every script carries an author header, and they match the git history — the systems below are mine,
+      four weeks. Every script carries an author header, and they match the git history - the systems below are mine,
       verifiable in the public repo.
     </p>
 
@@ -36,7 +36,7 @@ import CaseStudy from '../../components/CaseStudy.astro';
         template-method <code>Behavior()</code>, shared aim/shoot/reload handling, and damage that marks the enemy
         destroyed in save data) with three subclasses I wrote: a ranged enemy that roams and chases, a stun enemy
         running a Roaming/Chasing/Fleeing state machine that <em>steals an item from your inventory and runs</em>,
-        and a barrier enemy — plus a targeting system using physics overlap queries with layer masks.
+        and a barrier enemy - plus a targeting system using physics overlap queries with layer masks.
       </li>
       <li>
         <strong>Boss fight with an ability-component pattern.</strong> The boss composes abilities behind an
@@ -53,7 +53,7 @@ import CaseStudy from '../../components/CaseStudy.astro';
         <strong>JSON save/load with GUID persistence.</strong> A static save system writing JSON save slots to
         persistent storage, defensively returning a fresh save on missing, empty, <em>or corrupt</em> files. Every
         persistent object carries a <code>UniqueID</code> (editor-generated GUID), so killed enemies and picked-up
-        items self-destroy on load — scene state survives both scene changes and app restarts.
+        items self-destroy on load - scene state survives both scene changes and app restarts.
       </li>
       <li>
         <strong>Checkpoints, objectives, win/lose.</strong> A checkpoint manager that writes into the save file
@@ -62,7 +62,7 @@ import CaseStudy from '../../components/CaseStudy.astro';
       </li>
       <li>
         <strong>Weapon system (majority owner).</strong> A teammate created the weapon component; by the final build
-        I owned 440 of its 509 lines — equip/reload/fire paths where the same component drives both player and enemy
+        I owned 440 of its 509 lines - equip/reload/fire paths where the same component drives both player and enemy
         shooting from weapon ScriptableObjects, with ammo retained across weapon switches and restored from JSON.
       </li>
       <li>
@@ -75,7 +75,7 @@ import CaseStudy from '../../components/CaseStudy.astro';
       <h3>Debugging story: the save-triggered scene loop</h3>
       <p>
         The first time saving and scene-persistence went in together, loading a scene could re-trigger a save that
-        re-triggered a load — an infinite loop two days before the milestone. Untangling save timing from scene
+        re-triggered a load - an infinite loop two days before the milestone. Untangling save timing from scene
         transitions (and a boss that activated the moment the scene loaded, fixed on ship day) is documented right in
         the commit history.
       </p>
@@ -83,7 +83,7 @@ import CaseStudy from '../../components/CaseStudy.astro';
 
     <h2>process</h2>
     <p>
-      Five per-developer branches merging through a shared Development branch into main — I synced Development into my
+      Five per-developer branches merging through a shared Development branch into main - I synced Development into my
       branch 37 times in four weeks, which is what disciplined integration actually looks like under deadline. The
       team ran Scrum across Alpha, Beta, and QA sprint milestones. This project started as the P&amp;P II FPS team
       project (also public on GitHub), continued by the same team.

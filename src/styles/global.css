@@ -162,7 +162,7 @@ a {
   left: 0;
 }
 
-/* reveal on scroll — progressive enhancement: only hide once the inline head script marks the
+/* reveal on scroll - progressive enhancement: only hide once the inline head script marks the
    page as JS-capable (html.js), so visitors with JS disabled see all content immediately. */
 html.js .reveal {
   opacity: 0;

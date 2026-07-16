@@ -18,7 +18,7 @@
   --text: #F5F5F5;
   --text-muted: #9BA3C9;
   --text-faint: #7E86AE;
-  /* brand red is ~4.2:1 on the dark bg — below WCAG AA for small text. Use this lighter
+  /* brand red is ~4.2:1 on the dark bg - below WCAG AA for small text. Use this lighter
      red for small text/labels on dark; keep --red for fills, buttons, and large UI. */
   --red-text: #F0494A;
   --accent: #E52A2B;

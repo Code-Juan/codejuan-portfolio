@@ -4,8 +4,8 @@ import CaseStudy from '../../components/CaseStudy.astro';
 ---
 
 <Base
-  title="Fluxuate — Unreal Engine 5 C++ Game | Juan Contreras"
-  description="Case study: Fluxuate, an in-development UE5 hack-and-slash by Pocket Change Games. Juan Contreras is the Engine/UI programmer — 3-slot save system, game-state flow, menus, and a documented save-bug fix."
+  title="Fluxuate - Unreal Engine 5 C++ Game | Juan Contreras"
+  description="Case study: Fluxuate, an in-development UE5 hack-and-slash by Pocket Change Games. Juan Contreras is the Engine/UI programmer - 3-slot save system, game-state flow, menus, and a documented save-bug fix."
   current="games"
 >
   <CaseStudy
@@ -13,7 +13,7 @@ import CaseStudy from '../../components/CaseStudy.astro';
     title="Fluxuate"
     tagline="A 3D hack-and-slash built in Unreal Engine 5, where the player turns the engine's physics against variable enemy types. Team project by Pocket Change Games."
     meta={[
-      { label: 'timeline', value: 'Dec 2025 – Feb 2026' },
+      { label: 'timeline', value: 'Dec 2025 - Feb 2026' },
       { label: 'team', value: '3 programmers (Pocket Change Games)' },
       { label: 'my role', value: 'Engine / UI programmer' },
       { label: 'stack', value: 'Unreal Engine 5.4 · C++ · Perforce' },
@@ -22,10 +22,10 @@ import CaseStudy from '../../components/CaseStudy.astro';
   >
     <h2>overview</h2>
     <p>
-      Fluxuate is Pocket Change Games' team project — I'm the Engine/UI programmer alongside a gameplay programmer and
+      Fluxuate is Pocket Change Games' team project - I'm the Engine/UI programmer alongside a gameplay programmer and
       a tools/gameplay programmer. It's a C++-first UE5 project (5.4, blank template, no starter content) versioned in
       Perforce, with a full design document, coding standards, and semantically-versioned changelogs from
-      <code>v0.0.1</code> on. The game is in development — no release claims here; what follows is the
+      <code>v0.0.1</code> on. The game is in development - no release claims here; what follows is the
       engineering that exists today.
     </p>
 
@@ -33,7 +33,7 @@ import CaseStudy from '../../components/CaseStudy.astro';
     <ul>
       <li>
         <strong>3-slot save system.</strong> A <code>SaveGameSubsystem</code> (game-instance subsystem) with per-slot
-        save files, slot-selection UI widgets, and persistence for game state — including which enemies you've already
+        save files, slot-selection UI widgets, and persistence for game state - including which enemies you've already
         defeated.
       </li>
       <li>
@@ -42,7 +42,7 @@ import CaseStudy from '../../components/CaseStudy.astro';
       </li>
       <li>
         <strong>UI framework.</strong> Main menu, pause menu, end-state, and options widgets built around a reusable
-        <code>ButtonWithText</code> component with hover styling — plus audio-settings and music subsystems so volume
+        <code>ButtonWithText</code> component with hover styling - plus audio-settings and music subsystems so volume
         preferences persist across sessions.
       </li>
       <li>
@@ -55,13 +55,13 @@ import CaseStudy from '../../components/CaseStudy.astro';
     <div class="story">
       <h3>Case study: enemies that wouldn't stay dead</h3>
       <p>
-        While building the 3-slot save system we hit a bug where every defeated enemy came back on load — kills were
+        While building the 3-slot save system we hit a bug where every defeated enemy came back on load - kills were
         being written to the save file, but nothing consulted that data when enemies spawned. My fix gave every enemy
         a stable ID (set in-editor or derived from the actor name) and added a persistence check in
         <code>EnemyBase::BeginPlay()</code>: query the save subsystem, and if that ID is already in the killed list,
         destroy the actor before it finishes spawning. Deaths register through the same subsystem
         (<code>AddKilledEnemy</code>), so progression finally survives the save/load round-trip. I documented the
-        whole investigation with a before/after capture — diagnosing across successive builds is the part of this
+        whole investigation with a before/after capture - diagnosing across successive builds is the part of this
         project I'd bring up in an interview.
       </p>
     </div>
@@ -70,7 +70,7 @@ import CaseStudy from '../../components/CaseStudy.astro';
     <p>
       Perforce over a studio-style depot (checkout discipline, daily submits, changelist tags), a shared coding
       standard, and a keep-a-changelog file that has tracked every version since the first sprint. Code is available
-      on request — the depot is private to the team.
+      on request - the depot is private to the team.
     </p>
   </CaseStudy>
 </Base>

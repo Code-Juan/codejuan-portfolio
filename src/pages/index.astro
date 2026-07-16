@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 
-// Featured games — case-study pages live in src/pages/games/. Facts verified against
+// Featured games - case-study pages live in src/pages/games/. Facts verified against
 // git history and project docs; statuses follow the honesty rules (only Nutty Pursuit
 // is called playable).
 const featured = [
@@ -13,7 +13,7 @@ const featured = [
     meta: 'Oct 2025 · 5-person team · top contributor (72 of 147 commits)',
     image: { src: '/images/games/nutty-pursuit.jpg', alt: 'Nutty Pursuit title art', width: 960, height: 960 },
     bullets: [
-      'Robotron-inspired 2.5D arena shooter built from scratch — no commercial engine',
+      'Robotron-inspired 2.5D arena shooter built from scratch - no commercial engine',
       '8-directional player combat, all three enemy AI archetypes, wave spawning',
       'Procedural animation system and combo scoring, all data-driven from config',
       'Wrote the team’s Git branching workflow; every sprint ended in a packaged, demo-ready build',
@@ -26,7 +26,7 @@ const featured = [
     title: 'Fluxuate',
     status: 'In development',
     tech: 'Unreal Engine 5.4 · C++ · Perforce',
-    meta: 'Dec 2025 – Feb 2026 · 3 programmers · Engine/UI programmer',
+    meta: 'Dec 2025 - Feb 2026 · 3 programmers · Engine/UI programmer',
     emblem: { src: '/images/games/fluxuate-icon.png', alt: 'Fluxuate icon', style: 'dark' },
     bullets: [
       '3D hack-and-slash where the player turns UE5 physics against enemies',
@@ -42,10 +42,10 @@ const featured = [
     title: 'Earth Untamed',
     status: 'Vertical slice',
     tech: 'Unity 6 · C# · URP',
-    meta: 'Jan – Feb 2026 · 5-person capstone team · weapons, audio, UI, movement',
+    meta: 'Jan - Feb 2026 · 5-person capstone team · weapons, audio, UI, movement',
     image: { src: '/images/games/earth-untamed.png', alt: 'Earth Untamed key art', width: 406, height: 280 },
     bullets: [
-      'Survival horror on a flooded Earth — manage health, stamina, and sanity',
+      'Survival horror on a flooded Earth - manage health, stamina, and sanity',
       'Interface-driven weapon system with ScriptableObject data + editor tooling',
       'Animation-event hit detection so swings land when they visually connect',
       'Player audio system synced to UI state; climbing and viewmodel overhauls',
@@ -58,11 +58,11 @@ const featured = [
     title: 'Project Galaxy (Orbit Unknown)',
     status: 'Team project',
     tech: 'Unity 2022.3 · C# · NavMesh',
-    meta: 'Dec 2024 – Jan 2025 · 5-person Scrum team · #1 committer (141 of 400)',
+    meta: 'Dec 2024 - Jan 2025 · 5-person Scrum team · #1 committer (141 of 400)',
     emblem: { src: '/images/games/orbit-unknown-icon.png', alt: 'Orbit Unknown icon', style: 'light' },
     bullets: [
       '3D sci-fi FPS carried through Alpha, Beta, and QA sprints in four weeks',
-      'Enemy AI hierarchy on an abstract base — including a stun enemy that steals from your inventory',
+      'Enemy AI hierarchy on an abstract base - including a stun enemy that steals from your inventory',
       'Boss abilities behind an interface; ScriptableObject inventory with a singleton manager',
       'JSON save/load with editor-generated GUIDs so scene state survives restarts',
     ],
@@ -71,13 +71,13 @@ const featured = [
   },
 ];
 
-// Supporting projects — smaller but verified. Repo links only where public.
+// Supporting projects - smaller but verified. Repo links only where public.
 const supporting = [
   {
     title: 'Solo Arcade Project (P&P IV)',
     tech: 'C++ · Vulkan (Gateware) · EnTT',
     bullets: [
-      'Solo Asteroids-style arena game — 105 of 109 commits are mine (rest is course scaffolding)',
+      'Solo Asteroids-style arena game - 105 of 109 commits are mine (rest is course scaffolding)',
       'OBB collision math and recursive asteroid shatter, data-driven design',
     ],
     tags: ['C++', 'Vulkan', 'Solo'],
@@ -93,7 +93,7 @@ const supporting = [
     repo: 'https://github.com/htanama/FPS-Team-Project',
   },
   {
-    title: 'END2508 — UE5 Combat Prototype',
+    title: 'END2508 - UE5 Combat Prototype',
     tech: 'Unreal Engine 5 · C++',
     bullets: [
       'Component-based character architecture: base class inheritance + health component',
@@ -102,7 +102,7 @@ const supporting = [
     tags: ['UE5', 'C++', 'Components'],
   },
   {
-    title: 'Calculator — Desktop App',
+    title: 'Calculator - Desktop App',
     tech: 'C++ · wxWidgets',
     bullets: [
       'Singleton core processor and Factory Method across 10+ math functions',
@@ -141,7 +141,7 @@ const skills = [
     group: 'CS foundations',
     items: 'Data structures & algorithms, memory management / RAII, operating systems, computer architecture, networking, databases',
   },
-  { group: 'Web & backend', items: 'Node.js / Express, REST APIs, MySQL, production deployment — two live business sites' },
+  { group: 'Web & backend', items: 'Node.js / Express, REST APIs, MySQL, production deployment - two live business sites' },
   {
     group: 'Process',
     items: 'Git (documented branching strategies), Jira & Scrum, unit testing, code reviews, root-cause debugging',
@@ -149,15 +149,15 @@ const skills = [
 ];
 
 const credentials = [
-  { line: 'B.S. Game Development — Full Sail University, Valedictorian (2026)' },
-  { line: 'B.S. Industrial & Systems Engineering — University of Michigan-Dearborn (2023)' },
-  { line: 'Web Development & IT Manager — The Wooden Stone, LLC (2025–present)' },
+  { line: 'B.S. Game Development - Full Sail University, Valedictorian (2026)' },
+  { line: 'B.S. Industrial & Systems Engineering - University of Michigan-Dearborn (2023)' },
+  { line: 'Web Development & IT Manager - The Wooden Stone, LLC (2025-present)' },
 ];
 ---
 
 <Base
-  title="Juan Contreras — Game Programmer & Software Developer"
-  description="Game programmer in Detroit, MI — C++ and C# gameplay, AI, and save systems in Unreal Engine 5, Unity, and a custom Vulkan stack. B.S. Game Development, Full Sail valedictorian. View games, skills, and résumé."
+  title="Juan Contreras - Game Programmer & Software Developer"
+  description="Game programmer in Detroit, MI - C++ and C# gameplay, AI, and save systems in Unreal Engine 5, Unity, and a custom Vulkan stack. B.S. Game Development, Full Sail valedictorian. View games, skills, and résumé."
   current="home"
 >
   <!-- HOME tab -->
@@ -169,7 +169,7 @@ const credentials = [
           <h1 class="hero-title">Juan Contreras</h1>
           <p class="hero-sub">Game Programmer &amp; Software Developer</p>
           <p class="hero-tagline">
-            I build gameplay, AI, animation, and save systems in C++ and C# — across Unreal Engine 5, Unity, and a
+            I build gameplay, AI, animation, and save systems in C++ and C# - across Unreal Engine 5, Unity, and a
             custom Vulkan stack. Four team games and a playable arcade shooter behind me; an engineer's process
             underneath all of it.
           </p>
@@ -211,7 +211,7 @@ const credentials = [
         <span class="eyebrow">// game development</span>
         <h2 class="section-title">Games</h2>
         <p class="section-subtitle">
-          Four team games across three engines — including a custom C++/Vulkan stack with no engine at all. Each
+          Four team games across three engines - including a custom C++/Vulkan stack with no engine at all. Each
           breakdown covers exactly which systems I built, verified against the git history.
         </p>
 
@@ -298,20 +298,20 @@ const credentials = [
         <div class="about-body">
           <p>
             I'm a game programmer and software developer in Detroit with two engineering degrees and a habit of
-            owning problems end to end. I came to games from industrial &amp; systems engineering — processes,
-            measurement, continuous improvement — and that shows up in how I build software: documented Git
+            owning problems end to end. I came to games from industrial &amp; systems engineering - processes,
+            measurement, continuous improvement - and that shows up in how I build software: documented Git
             workflows, Jira epics with acceptance criteria, changelogs, and tests.
           </p>
           <p>
             At Full Sail I graduated <strong>valedictorian</strong> in Game Development (computer science focus),
             where the program ran like a studio: five-person Scrum teams, sprint deadlines, and code that had to
             survive QA. I've built C++ combat and AI systems on a custom Vulkan stack, gameplay and state-management
-            systems in Unity, and save/UI systems in Unreal Engine 5 — on top of coursework spanning data structures,
+            systems in Unity, and save/UI systems in Unreal Engine 5 - on top of coursework spanning data structures,
             operating systems, computer architecture, networks, databases, and AI.
           </p>
           <p>
             By day I'm the Web Development &amp; IT Manager at The Wooden Stone, a Michigan manufacturer, where I
-            built and launched two production websites and I'm the technical point of contact when anything breaks —
+            built and launched two production websites and I'm the technical point of contact when anything breaks -
             web, infrastructure, or internal tooling. Production responsibility teaches you what "done" really means.
           </p>
         </div>
@@ -320,33 +320,33 @@ const credentials = [
         <div class="edu-grid">
           <div class="edu-card">
             <h4>B.S., Game Development <span class="edu-focus">(Computer Science)</span></h4>
-            <p class="edu-school">Full Sail University — March 2026</p>
+            <p class="edu-school">Full Sail University - March 2026</p>
             <p class="edu-detail"><strong>Valedictorian</strong> · 3.76 GPA · coursework from data structures and OS to graphics, networks, databases, and AI</p>
           </div>
           <div class="edu-card">
             <h4>B.S., Industrial &amp; Systems Engineering</h4>
-            <p class="edu-school">University of Michigan-Dearborn — April 2023</p>
+            <p class="edu-school">University of Michigan-Dearborn - April 2023</p>
             <p class="edu-detail">Six Sigma &amp; statistical process improvement, simulation, human factors, HCI for UI/UX design</p>
           </div>
         </div>
 
         <h3 class="about-heading">Experience</h3>
         <div class="edu-card exp-card">
-          <h4>Web Development &amp; IT Manager — The Wooden Stone, LLC</h4>
-          <p class="edu-school">Clinton Township, MI (manufacturing) · March 2025 – present</p>
+          <h4>Web Development &amp; IT Manager - The Wooden Stone, LLC</h4>
+          <p class="edu-school">Clinton Township, MI (manufacturing) · March 2025 - present</p>
           <ul class="game-bullets">
             <li>Technical point of contact: diagnosis, root-cause analysis, and fixes across websites, infrastructure, and internal tooling</li>
-            <li>Architected and launched two production full-stack sites (Node.js/Express, Helmet.js, Postmark REST API) — 12+ responsive pages</li>
+            <li>Architected and launched two production full-stack sites (Node.js/Express, Helmet.js, Postmark REST API) - 12+ responsive pages</li>
             <li>Automation cutting manual data entry ~30%; reliability infrastructure (NAS, RAID 1, UPS-triggered safe shutdown)</li>
           </ul>
         </div>
 
         <h3 class="about-heading">How I work</h3>
         <ul class="work-list">
-          <li>Documented Git branching strategies my teams actually followed — I wrote the workflow doc on Nutty Pursuit</li>
+          <li>Documented Git branching strategies my teams actually followed - I wrote the workflow doc on Nutty Pursuit</li>
           <li>Jira epics with story points and acceptance criteria; Scrum through Alpha, Beta, and QA sprints</li>
           <li>Unit testing (50+ case suites), code reviews, and keep-a-changelog versioning</li>
-          <li>Root-cause debugging as a discipline — every case study on this site includes a real bug story</li>
+          <li>Root-cause debugging as a discipline - every case study on this site includes a real bug story</li>
         </ul>
       </div>
     </section>
@@ -360,7 +360,7 @@ const credentials = [
         <h2 class="section-title">Let's build something</h2>
         <p class="section-subtitle contact-sub">
           Looking for a game programmer or a software developer who owns problems end to end? I'd love to hear about
-          it — based in Detroit, Michigan, open to relocation and remote.
+          it - based in Detroit, Michigan, open to relocation and remote.
         </p>
         <div class="contact-actions">
           <a class="btn btn-primary btn-large" href="mailto:juan@codejuan.com">juan@codejuan.com</a>
@@ -389,7 +389,7 @@ const credentials = [
   }
 
   /* fallback for engines without :has(): the default-home rule can't resolve, so show every
-     panel (stacked) — content stays visible instead of an empty page. Modern browsers keep tabs. */
+     panel (stacked) - content stays visible instead of an empty page. Modern browsers keep tabs. */
   @supports not selector(:has(*)) {
     .tab-panel {
       display: block;
@@ -517,7 +517,7 @@ const credentials = [
     border-radius: var(--radius);
   }
 
-  /* the Orbit Unknown mark is black-on-transparent — give it a light disc so it reads in dark theme */
+  /* the Orbit Unknown mark is black-on-transparent - give it a light disc so it reads in dark theme */
   .feature-media.emblem-light .emblem-img {
     background: var(--soft-white);
     border-radius: 50%;
