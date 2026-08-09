@@ -7,7 +7,9 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "pdf": "npm run build && node scripts/make-resume-pdf.mjs",
+    "og": "node scripts/make-og-images.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",

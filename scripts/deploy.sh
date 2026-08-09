@@ -38,6 +38,15 @@ if [[ "$(printf '%s' "$remote_url" | tr 'A-Z' 'a-z')" != *"code-juan/code-juan.g
   exit 1
 fi
 
+# Fail fast if git has no identity in this environment (e.g. a fresh WSL) -
+# otherwise the failure only surfaces after the build, at commit time.
+if ! git -C "$PAGES_REPO" var GIT_COMMITTER_IDENT >/dev/null 2>&1; then
+  echo "ERROR: git has no identity here. Fix with:" >&2
+  echo '  git config --global user.name "Juan Contreras"' >&2
+  echo '  git config --global user.email "you@example.com"' >&2
+  exit 1
+fi
+
 # 1) Build.
 echo "==> Building (astro build)..."
 cd "$WEB_ROOT"

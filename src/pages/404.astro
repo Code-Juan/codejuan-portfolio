@@ -1,0 +1,46 @@
+---
+import Base from '../layouts/Base.astro';
+// GitHub Pages serves /404.html automatically for unknown routes
+---
+
+<Base title="404 - Page not found | Juan Contreras" description="That page doesn't exist. Head back to Juan Contreras' game development portfolio." current="">
+  <section class="section nf">
+    <div class="container nf-inner">
+      <span class="eyebrow">// 404</span>
+      <h1 class="section-title">Page not found</h1>
+      <p class="section-subtitle nf-sub">
+        This page doesn't exist - it may have moved when the site was rebuilt. Everything worth seeing is one click
+        away:
+      </p>
+      <div class="nf-actions">
+        <a class="btn btn-primary btn-large" href="/#games">View my games</a>
+        <a class="btn btn-secondary btn-large" href="/">Home</a>
+        <a class="btn btn-secondary btn-large" href="/resume">Résumé</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nf {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+  }
+
+  .nf-inner {
+    text-align: center;
+  }
+
+  .nf-sub {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .nf-actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+</style>

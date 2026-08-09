@@ -2,6 +2,8 @@
 import '@fontsource-variable/inter';
 import '@fontsource/jetbrains-mono/400.css';
 import '@fontsource/jetbrains-mono/700.css';
+import interLatinVar from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
+import jbmLatin400 from '@fontsource/jetbrains-mono/files/jetbrains-mono-latin-400-normal.woff2?url';
 import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
@@ -16,7 +18,10 @@ interface Props {
 }
 
 const { title, description, current = '', ogTitle, ogDescription, ogImage: ogImageProp } = Astro.props;
-const canonical = new URL(Astro.url.pathname === '/' ? '/' : Astro.url.pathname, Astro.site);
+// canonical URLs are extensionless (GitHub Pages serves /foo for foo.html) so they
+// match the sitemap and keep one URL form everywhere
+const cleanPath = Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '/') || '/';
+const canonical = new URL(cleanPath, Astro.site);
 const ogImage = new URL(ogImageProp ?? '/og-image.png', Astro.site);
 
 // schema.org Person - rich-result signal for a developer portfolio
@@ -56,6 +61,11 @@ const personLd = JSON.stringify({
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="author" content="Juan Contreras" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#0D1022" />
+
+    <link rel="preload" href={interLatinVar} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={jbmLatin400} as="font" type="font/woff2" crossorigin />
 
     <link rel="canonical" href={canonical} />
 
@@ -91,6 +101,8 @@ const personLd = JSON.stringify({
         } catch (e) {}
         if (stored === 'light') {
           document.documentElement.setAttribute('data-theme', 'light');
+          var tc = document.querySelector('meta[name="theme-color"]');
+          if (tc) tc.setAttribute('content', '#F5F5F5');
         }
 
         var motion = null;
@@ -127,6 +139,9 @@ const personLd = JSON.stringify({
           }
           toggle.setAttribute('aria-pressed', String(light));
           toggle.setAttribute('aria-label', light ? 'Switch to dark theme' : 'Switch to light theme');
+          // keep mobile browser chrome in sync with the active theme
+          const tc = document.querySelector('meta[name="theme-color"]');
+          if (tc) tc.setAttribute('content', light ? '#F5F5F5' : '#0D1022');
         };
         apply(document.documentElement.getAttribute('data-theme') === 'light');
         toggle.addEventListener('click', () => {
