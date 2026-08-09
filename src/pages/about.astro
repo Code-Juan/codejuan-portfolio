@@ -1,0 +1,174 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="About - Juan Contreras"
+  description="Game programmer and software developer in Detroit - two engineering degrees, Full Sail valedictorian, and production full-stack experience at a Michigan manufacturer."
+  current="about"
+>
+  <section class="section about">
+    <div class="container">
+      <span class="eyebrow">// about</span>
+      <h1 class="section-title">Hi, I'm Juan</h1>
+      <div class="about-body">
+        <p>
+          I'm a game programmer and software developer in Detroit with two engineering degrees and a habit of
+          owning problems end to end. I came to games from industrial &amp; systems engineering - processes,
+          measurement, continuous improvement - and that shows up in how I build software: documented Git
+          workflows, Jira epics with acceptance criteria, changelogs, and tests.
+        </p>
+        <p>
+          At Full Sail I graduated <strong>valedictorian</strong> in Game Development (computer science focus),
+          where the program ran like a studio: five-person Scrum teams, sprint deadlines, and code that had to
+          survive QA. I've built C++ combat and AI systems on a custom Vulkan stack, gameplay and state-management
+          systems in Unity, and save/UI systems in Unreal Engine 5 - on top of coursework spanning data structures,
+          operating systems, computer architecture, networks, databases, and AI.
+        </p>
+        <p>
+          By day I'm the Web Development &amp; IT Manager at The Wooden Stone, a Michigan manufacturer, where I
+          built and launched two production websites and I'm the technical point of contact when anything breaks -
+          web, infrastructure, or internal tooling. Production responsibility teaches you what "done" really means.
+        </p>
+      </div>
+
+      <h2 class="about-heading">Education</h2>
+      <div class="edu-grid">
+        <div class="edu-card">
+          <h3>B.S., Game Development <span class="edu-focus">(Computer Science)</span></h3>
+          <p class="edu-school">Full Sail University - March 2026</p>
+          <p class="edu-detail"><strong>Valedictorian</strong> · 3.76 GPA · coursework from data structures and OS to graphics, networks, databases, and AI</p>
+        </div>
+        <div class="edu-card">
+          <h3>B.S., Industrial &amp; Systems Engineering</h3>
+          <p class="edu-school">University of Michigan-Dearborn - April 2023</p>
+          <p class="edu-detail">Six Sigma &amp; statistical process improvement, simulation, human factors, HCI for UI/UX design</p>
+        </div>
+      </div>
+
+      <h2 class="about-heading">Experience</h2>
+      <div class="edu-card exp-card">
+        <h3>Web Development &amp; IT Manager - The Wooden Stone, LLC</h3>
+        <p class="edu-school">Clinton Township, MI (manufacturing) · March 2025 - present</p>
+        <ul class="exp-bullets">
+          <li>Technical point of contact: diagnosis, root-cause analysis, and fixes across websites, infrastructure, and internal tooling</li>
+          <li>Architected and launched two production full-stack sites (Node.js/Express, Helmet.js, Postmark REST API) - 12+ responsive pages</li>
+          <li>Automation cutting manual data entry ~30%; reliability infrastructure (NAS, RAID 1, UPS-triggered safe shutdown)</li>
+        </ul>
+      </div>
+
+      <h2 class="about-heading">How I work</h2>
+      <ul class="work-list">
+        <li>Documented Git branching strategies my teams actually followed - I wrote the workflow doc on Nutty Pursuit</li>
+        <li>Jira epics with story points and acceptance criteria; Scrum through Alpha, Beta, and QA sprints</li>
+        <li>Unit testing (50+ case suites), code reviews, and keep-a-changelog versioning</li>
+        <li>Root-cause debugging as a discipline - every case study on this site includes a real bug story</li>
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .about-body {
+    max-width: 680px;
+  }
+
+  .about-body p {
+    color: var(--text-muted);
+    margin-top: 1rem;
+  }
+
+  .about-body strong,
+  .edu-detail strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .about-heading {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--text-faint);
+    text-transform: lowercase;
+    letter-spacing: 0.05em;
+    margin-top: 2.8rem;
+  }
+
+  .about-heading::before {
+    content: '// ';
+    color: var(--red-text);
+  }
+
+  .edu-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin-top: 1.1rem;
+  }
+
+  .edu-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.4rem 1.5rem;
+  }
+
+  .edu-card h3 {
+    font-size: 1.05rem;
+  }
+
+  .edu-focus {
+    color: var(--text-muted);
+    font-weight: 400;
+  }
+
+  .edu-school {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--red-text);
+    margin-top: 0.35rem;
+  }
+
+  .edu-detail {
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    margin-top: 0.6rem;
+  }
+
+  .exp-card {
+    margin-top: 1.1rem;
+  }
+
+  .exp-bullets {
+    color: var(--text-muted);
+    margin: 0.9rem 0 0 1.1rem;
+    line-height: 1.7;
+    font-size: 0.95rem;
+  }
+
+  .work-list {
+    list-style: none;
+    margin-top: 1.1rem;
+    max-width: 680px;
+  }
+
+  .work-list li {
+    color: var(--text-muted);
+    padding-left: 1.3rem;
+    position: relative;
+    margin-top: 0.6rem;
+  }
+
+  .work-list li::before {
+    content: '▸';
+    color: var(--red-text);
+    position: absolute;
+    left: 0;
+  }
+
+  @media (max-width: 900px) {
+    .edu-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

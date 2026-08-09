@@ -1,0 +1,399 @@
+---
+import Base from '../layouts/Base.astro';
+
+// Featured games - case-study pages live in src/pages/games/. Facts verified against
+// git history and project docs; statuses follow the honesty rules (only Nutty Pursuit
+// is called playable).
+const featured = [
+  {
+    slug: 'nutty-pursuit',
+    title: 'Nutty Pursuit',
+    status: 'Playable build',
+    tech: 'C++ · Vulkan (Gateware) · EnTT ECS',
+    meta: 'Oct 2025 · 5-person team · top contributor (72 of 147 commits)',
+    image: { src: '/images/games/nutty-pursuit.webp', alt: 'Nutty Pursuit title art', width: 960, height: 960 },
+    bullets: [
+      'Robotron-inspired 2.5D arena shooter built from scratch - no commercial engine',
+      '8-directional player combat, all three enemy AI archetypes, wave spawning',
+      'Procedural animation system and combo scoring, all data-driven from config',
+      'Wrote the team’s Git branching workflow; every sprint ended in a packaged, demo-ready build',
+    ],
+    tags: ['C++', 'Vulkan', 'ECS', 'Enemy AI'],
+    repo: null,
+  },
+  {
+    slug: 'fluxuate',
+    title: 'Fluxuate',
+    status: 'In development',
+    tech: 'Unreal Engine 5.4 · C++ · Perforce',
+    meta: 'Dec 2025 - Feb 2026 · 3 programmers · Engine/UI programmer',
+    emblem: { src: '/images/games/fluxuate-icon.png', alt: 'Fluxuate icon', style: 'dark' },
+    bullets: [
+      '3D hack-and-slash where the player turns UE5 physics against enemies',
+      '3-slot save system, game-state flow, and the full menu/UI framework',
+      'Climbing via component reparenting, weapon animations, health/stamina bars',
+      'Diagnosed and fixed an enemy-persistence save bug across successive builds',
+    ],
+    tags: ['UE5', 'C++', 'Save systems', 'UI'],
+    repo: null,
+  },
+  {
+    slug: 'earth-untamed',
+    title: 'Earth Untamed',
+    status: 'Vertical slice',
+    tech: 'Unity 6 · C# · URP',
+    meta: 'Jan - Feb 2026 · 5-person capstone team · weapons, audio, UI, movement',
+    image: { src: '/images/games/earth-untamed.webp', alt: 'Earth Untamed key art', width: 406, height: 286 },
+    bullets: [
+      'Survival horror on a flooded Earth - manage health, stamina, and sanity',
+      'Interface-driven weapon system with ScriptableObject data + editor tooling',
+      'Animation-event hit detection so swings land when they visually connect',
+      'Player audio system synced to UI state; climbing and viewmodel overhauls',
+    ],
+    tags: ['Unity 6', 'C#', 'ScriptableObjects', 'Audio'],
+    repo: null,
+  },
+  {
+    slug: 'project-galaxy',
+    title: 'Project Galaxy (Orbit Unknown)',
+    status: 'Team project',
+    tech: 'Unity 2022.3 · C# · NavMesh',
+    meta: 'Dec 2024 - Jan 2025 · 5-person Scrum team · #1 committer (141 of 400)',
+    emblem: { src: '/images/games/orbit-unknown-icon.png', alt: 'Orbit Unknown icon', style: 'light' },
+    bullets: [
+      '3D sci-fi FPS carried through Alpha, Beta, and QA sprints in four weeks',
+      'Enemy AI hierarchy on an abstract base - including a stun enemy that steals from your inventory',
+      'Boss abilities behind an interface; ScriptableObject inventory with a singleton manager',
+      'JSON save/load with editor-generated GUIDs so scene state survives restarts',
+    ],
+    tags: ['Unity', 'C#', 'Enemy AI', 'Persistence'],
+    repo: 'https://github.com/bLemons89/Project_Galaxy',
+  },
+];
+
+// Supporting projects - smaller but verified. Repo links only where public.
+const supporting = [
+  {
+    title: 'Solo Arcade Project (P&P IV)',
+    tech: 'C++ · Vulkan (Gateware) · EnTT',
+    bullets: [
+      'Solo Asteroids-style arena game - 105 of 109 commits are mine (rest is course scaffolding)',
+      'OBB collision math and recursive asteroid shatter, data-driven design',
+    ],
+    tags: ['C++', 'Vulkan', 'Solo'],
+  },
+  {
+    title: 'FPS Team Project (P&P II)',
+    tech: 'Unity · C#',
+    bullets: [
+      'First team FPS with the crew that went on to build Project Galaxy (~100 commits)',
+      'Enemy AI with class inheritance, orb-capture objective mechanic, game manager',
+    ],
+    tags: ['Unity', 'C#', 'Team'],
+    repo: 'https://github.com/htanama/FPS-Team-Project',
+  },
+  {
+    title: 'END2508 - UE5 Combat Prototype',
+    tech: 'Unreal Engine 5 · C++',
+    bullets: [
+      'Component-based character architecture: base class inheritance + health component',
+      'Weapon system with child actors, event-driven design, animation blueprint integration',
+    ],
+    tags: ['UE5', 'C++', 'Components'],
+  },
+  {
+    title: 'Calculator - Desktop App',
+    tech: 'C++ · wxWidgets',
+    bullets: [
+      'Singleton core processor and Factory Method across 10+ math functions',
+      'Shunting Yard expression parsing; validated with unit tests across 50+ cases',
+    ],
+    tags: ['C++', 'Design patterns', 'Testing'],
+  },
+  {
+    title: "Conway's Game of Life",
+    tech: 'C++ · wxWidgets',
+    bullets: [
+      'Grid sizes to 100×100, color themes, seeded randomization, HUD',
+      'Resolved 15+ rendering and input bugs through systematic debugging',
+    ],
+    tags: ['C++', 'GUI', 'Debugging'],
+  },
+  {
+    title: 'Systems & CS Coursework',
+    tech: 'C++ · SQL · MIPS · MATLAB',
+    bullets: [
+      'Console chat server/client in C++; AI path-planning project',
+      'Data structures from scratch (BSTs, hash tables, Huffman), MySQL/EER design, MIPS assembly',
+    ],
+    tags: ['Networking', 'Algorithms', 'Databases'],
+  },
+];
+---
+
+<Base
+  title="Games - Juan Contreras"
+  description="Four team games across three engines - a custom C++/Vulkan stack, Unreal Engine 5, and Unity - with case studies of exactly which systems Juan Contreras built, verified against git history."
+  current="games"
+>
+  <section class="section games">
+    <div class="container">
+      <span class="eyebrow">// game development</span>
+      <h1 class="section-title">Games</h1>
+      <p class="section-subtitle">
+        Four team games across three engines - including a custom C++/Vulkan stack with no engine at all. Each
+        breakdown covers exactly which systems I built, verified against the git history.
+      </p>
+
+      <div class="featured-grid">
+        {
+          featured.map((g) => (
+            <article class="feature-card">
+              <div class={`feature-media${g.emblem ? ` emblem emblem-${g.emblem.style}` : ''}`}>
+                {g.image ? (
+                  <img src={g.image.src} alt={g.image.alt} width={g.image.width} height={g.image.height} loading="lazy" />
+                ) : (
+                  <img class="emblem-img" src={g.emblem.src} alt={g.emblem.alt} width="120" height="120" loading="lazy" />
+                )}
+              </div>
+              <div class="feature-body">
+                <span class="chip">{g.status}</span>
+                <h2>{g.title}</h2>
+                <p class="game-tech">{g.tech}</p>
+                <p class="feature-meta">{g.meta}</p>
+                <ul class="game-bullets">
+                  {g.bullets.map((b) => (
+                    <li>{b}</li>
+                  ))}
+                </ul>
+                <div class="game-tags">
+                  {g.tags.map((t) => (
+                    <span class="tag">{t}</span>
+                  ))}
+                </div>
+                <div class="feature-links">
+                  <a class="feature-link" href={`/games/${g.slug}`}>
+                    Full breakdown &rarr;
+                  </a>
+                  {g.repo ? (
+                    <a class="feature-link" href={g.repo} target="_blank" rel="noopener noreferrer">
+                      GitHub
+                    </a>
+                  ) : (
+                    <span class="code-note">Code available on request</span>
+                  )}
+                </div>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+
+      <h2 class="category-title">more projects</h2>
+      <div class="games-grid">
+        {
+          supporting.map((g) => (
+            <article class="game-card">
+              <h3>{g.title}</h3>
+              <p class="game-tech">{g.tech}</p>
+              <ul class="game-bullets">
+                {g.bullets.map((b) => (
+                  <li>{b}</li>
+                ))}
+              </ul>
+              <div class="game-tags">
+                {g.tags.map((t) => (
+                  <span class="tag">{t}</span>
+                ))}
+                {g.repo && (
+                  <a class="feature-link" href={g.repo} target="_blank" rel="noopener noreferrer">
+                    GitHub
+                  </a>
+                )}
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* featured games */
+  .featured-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.75rem;
+    margin-top: 2.5rem;
+  }
+
+  .feature-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .feature-media {
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .feature-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .feature-media.emblem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--surface-2), var(--accent-soft));
+  }
+
+  .feature-media .emblem-img {
+    width: 110px;
+    height: 110px;
+    object-fit: contain;
+    border-radius: var(--radius);
+  }
+
+  /* the Orbit Unknown mark is black-on-transparent - give it a light disc so it reads in dark theme */
+  .feature-media.emblem-light .emblem-img {
+    background: var(--soft-white);
+    border-radius: 50%;
+    padding: 20px;
+  }
+
+  .feature-body {
+    padding: 1.5rem 1.6rem 1.6rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .chip {
+    align-self: flex-start;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--red-text);
+    border: 1px solid var(--red-text);
+    border-radius: var(--radius-sm);
+    padding: 0.1rem 0.55rem;
+  }
+
+  .feature-body h2 {
+    font-size: 1.35rem;
+    margin-top: 0.7rem;
+    letter-spacing: -0.01em;
+  }
+
+  .feature-meta {
+    font-size: 0.85rem;
+    color: var(--text-faint);
+    margin-top: 0.4rem;
+  }
+
+  .feature-links {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    margin-top: auto;
+    padding-top: 1.2rem;
+  }
+
+  .feature-link {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--red-text);
+    text-decoration: none;
+  }
+
+  .feature-link:hover {
+    text-decoration: underline;
+  }
+
+  .code-note {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--text-faint);
+  }
+
+  /* supporting games */
+  .category-title {
+    margin-top: 3rem;
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--text-faint);
+    text-transform: lowercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+  }
+
+  .category-title::before {
+    content: '// ';
+    color: var(--red-text);
+  }
+
+  .games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .game-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.6rem;
+  }
+
+  .game-card h3 {
+    font-size: 1.2rem;
+  }
+
+  .game-tech {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    color: var(--red-text);
+    margin-top: 0.35rem;
+  }
+
+  .game-bullets {
+    color: var(--text-muted);
+    margin: 0.9rem 0 0 1.1rem;
+    line-height: 1.7;
+    font-size: 0.95rem;
+  }
+
+  .game-tags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.1rem;
+  }
+
+  .tag {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0.12rem 0.5rem;
+  }
+
+  @media (max-width: 900px) {
+    .featured-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
