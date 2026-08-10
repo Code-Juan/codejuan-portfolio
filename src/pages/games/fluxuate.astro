@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import CaseStudy from '../../components/CaseStudy.astro';
+import VideoPlayer from '../../components/VideoPlayer.astro';
 ---
 
 <Base
@@ -21,6 +22,14 @@ import CaseStudy from '../../components/CaseStudy.astro';
     ]}
     tags={['Unreal Engine 5', 'C++', 'Enhanced Input', 'SaveGame subsystems', 'UMG widgets', 'Behavior Trees', 'Perforce']}
   >
+    <VideoPlayer
+      src="/media/fluxuate-demo.mp4"
+      poster="/media/fluxuate-demo-poster.jpg"
+      width={1280}
+      height={738}
+      caption="Build demo (0:35) - the main menu and UI flow shown are part of my Engine/UI work."
+    />
+
     <h2>overview</h2>
     <p>
       Fluxuate is Pocket Change Games' team project - I'm the Engine/UI programmer alongside a gameplay programmer and

@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import CaseStudy from '../../components/CaseStudy.astro';
+import VideoPlayer from '../../components/VideoPlayer.astro';
 ---
 
 <Base
@@ -20,9 +21,15 @@ import CaseStudy from '../../components/CaseStudy.astro';
       { label: 'stack', value: 'Unity 6 · C# · URP · Input System' },
     ]}
     tags={['Unity 6', 'C#', 'URP', 'ScriptableObjects', 'Animation Events', 'Editor tooling', 'Jira']}
-    image={{ src: '/images/games/earth-untamed.webp', alt: 'Earth Untamed key art: the logo over a foggy flooded forest with an alien creature in the foreground', width: 406, height: 286 }}
-    imageCaption="Key art from the vertical slice."
   >
+    <VideoPlayer
+      src="/media/earth-untamed-weapons.mp4"
+      poster="/media/earth-untamed-weapons-poster.jpg"
+      width={1280}
+      height={858}
+      caption="Weapon system + player audio (1:20) - per-weapon swing SFX, animation-event hits, and harvesting. Sound on: the audio is my work too."
+    />
+
     <h2>overview</h2>
     <p>
       Earth Untamed is a two-month, five-person capstone production: a hand-built single level, 10-15 minute
@@ -76,6 +83,31 @@ import CaseStudy from '../../components/CaseStudy.astro';
       </li>
     </ul>
 
+    <h2>system clips</h2>
+    <VideoPlayer
+      src="/media/earth-untamed-hit-range.mp4"
+      poster="/media/earth-untamed-hit-range-poster.jpg"
+      width={1240}
+      height={702}
+      caption="Per-weapon attack range (0:05) - reach comes from the weapon's ScriptableObject data, checked at the animation's impact frame."
+    />
+    <div class="clips-grid">
+      <VideoPlayer
+        src="/media/earth-untamed-climb-smoothing.mp4"
+        poster="/media/earth-untamed-climb-smoothing-poster.jpg"
+        width={1280}
+        height={972}
+        caption="Climbing overhaul (0:34) - jump-only mounting and transition smoothing."
+      />
+      <VideoPlayer
+        src="/media/earth-untamed-climb-viewmodel.mp4"
+        poster="/media/earth-untamed-climb-viewmodel-poster.jpg"
+        width={1280}
+        height={656}
+        caption="Climb viewmodel animator (0:37) - arms pinned per frame to stop animation drift."
+      />
+    </div>
+
     <div class="story">
       <h3>Debugging story: the prompt that never showed</h3>
       <p>
@@ -95,3 +127,18 @@ import CaseStudy from '../../components/CaseStudy.astro';
     </p>
   </CaseStudy>
 </Base>
+
+<style>
+  .clips-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    align-items: start;
+  }
+
+  @media (max-width: 800px) {
+    .clips-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
