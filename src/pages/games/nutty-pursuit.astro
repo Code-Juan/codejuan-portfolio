@@ -1,6 +1,26 @@
 ---
 import Base from '../../layouts/Base.astro';
 import CaseStudy from '../../components/CaseStudy.astro';
+import VideoPlayer from '../../components/VideoPlayer.astro';
+
+const shots = [
+  {
+    src: '/images/games/nutty-shot-1.webp',
+    alt: 'Level 1 arena: the squirrel faces a flying enemy, with HP, lives, score, level, and powerup state on the HUD',
+  },
+  {
+    src: '/images/games/nutty-shot-2.webp',
+    alt: 'Level 2 with the rapid-fire powerup active: a stream of bullets arcs toward two flying enemies',
+  },
+  {
+    src: '/images/games/nutty-shot-3.webp',
+    alt: 'Level 3 boss encounter at 1,260 points, down to the last sliver of HP',
+  },
+  {
+    src: '/images/games/nutty-shot-4.webp',
+    alt: 'Level 3 cleared: the giant golden acorn with no enemies left and 1,310 points',
+  },
+];
 ---
 
 <Base
@@ -20,9 +40,15 @@ import CaseStudy from '../../components/CaseStudy.astro';
       { label: 'contribution', value: 'Top contributor - 72 of 147 commits' },
     ]}
     tags={['C++', 'Vulkan API', 'Gateware', 'EnTT ECS', 'HLSL', 'CMake', 'Data-driven design']}
-    image={{ src: '/images/games/nutty-pursuit.webp', alt: 'Nutty Pursuit title art: a squirrel gunslinger facing the acorn thief in a western desert', width: 960, height: 960 }}
-    imageCaption="Title art from the released build."
   >
+    <VideoPlayer
+      src="/media/nutty-pursuit-demo.mp4"
+      poster="/media/nutty-pursuit-poster.jpg"
+      width={1280}
+      height={720}
+      caption="Gameplay demo (2:37) - all three arena levels, the enemy archetypes, powerups, and the boss fight."
+    />
+
     <h2>overview</h2>
     <p>
       Nutty Pursuit is a classic-arcade recreation built for Full Sail's Project &amp; Portfolio V: 3D-rendered models,
@@ -31,6 +57,10 @@ import CaseStudy from '../../components/CaseStudy.astro';
       entity-component-system for gameplay, HLSL shaders, and JSON levels exported from Blender. Every sprint ended
       with a packaged, demo-ready <code>NuttyPursuit.exe</code>. A playable Windows build is available on request.
     </p>
+
+    <div class="shots">
+      {shots.map((s) => <img src={s.src} alt={s.alt} width="1280" height="961" loading="lazy" />)}
+    </div>
 
     <h2>what I built</h2>
     <ul>
@@ -115,3 +145,25 @@ import CaseStudy from '../../components/CaseStudy.astro';
     </p>
   </CaseStudy>
 </Base>
+
+<style>
+  .shots {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.9rem;
+    margin-top: 1.4rem;
+  }
+
+  .shots img {
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  @media (max-width: 640px) {
+    .shots {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

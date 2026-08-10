@@ -1,0 +1,223 @@
+---
+// Minimal self-hosted video player: play/pause, progress bar, time, volume/mute.
+// Ships native <video controls> for no-JS visitors; the script swaps in the
+// custom bar. Multiple instances per page are supported.
+interface Props {
+  src: string;
+  poster?: string;
+  caption?: string;
+  width?: number;
+  height?: number;
+}
+
+const { src, poster, caption, width, height } = Astro.props;
+---
+
+<figure class="vp">
+  <div class="vp-shell">
+    <video class="vp-video" src={src} poster={poster} width={width} height={height} preload="metadata" playsinline controls></video>
+    <div class="vp-bar" hidden>
+      <button class="vp-play" type="button" aria-label="Play">
+        <svg class="ic-play" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <polygon points="6 3 21 12 6 21 6 3"></polygon>
+        </svg>
+        <svg class="ic-pause" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <rect x="5" y="4" width="5" height="16"></rect>
+          <rect x="14" y="4" width="5" height="16"></rect>
+        </svg>
+      </button>
+      <span class="vp-time" aria-hidden="true">0:00</span>
+      <input class="vp-seek" type="range" min="0" max="100" step="0.1" value="0" aria-label="Seek" />
+      <span class="vp-dur" aria-hidden="true">0:00</span>
+      <button class="vp-mute" type="button" aria-label="Mute">
+        <svg class="ic-vol" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor" stroke="none"></polygon>
+          <path d="M15.5 8.5a5 5 0 0 1 0 7"></path>
+          <path d="M18.5 5.5a9 9 0 0 1 0 13"></path>
+        </svg>
+        <svg class="ic-muted" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor" stroke="none"></polygon>
+          <line x1="16" y1="9" x2="22" y2="15"></line>
+          <line x1="22" y1="9" x2="16" y2="15"></line>
+        </svg>
+      </button>
+      <input class="vp-vol" type="range" min="0" max="1" step="0.05" value="1" aria-label="Volume" />
+    </div>
+  </div>
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>
+
+<style>
+  .vp {
+    margin-top: 2.2rem;
+  }
+
+  .vp-shell {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: #000;
+  }
+
+  .vp-video {
+    display: block;
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+  }
+
+  .vp-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.55rem 0.8rem;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+  }
+
+  .vp-bar[hidden] {
+    display: none;
+  }
+
+  .vp-play,
+  .vp-mute {
+    background: none;
+    border: none;
+    color: var(--text);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+  }
+
+  .vp-play:hover,
+  .vp-mute:hover {
+    color: var(--red-text);
+  }
+
+  /* icon pairs: shell class decides which icon of each pair is visible */
+  .ic-pause,
+  .vp-shell.playing .ic-play {
+    display: none;
+  }
+
+  .vp-shell.playing .ic-pause {
+    display: block;
+  }
+
+  .ic-muted,
+  .vp-shell.muted .ic-vol {
+    display: none;
+  }
+
+  .vp-shell.muted .ic-muted {
+    display: block;
+  }
+
+  .vp-time,
+  .vp-dur {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    flex-shrink: 0;
+    min-width: 2.6em;
+    text-align: center;
+  }
+
+  .vp-seek {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .vp-vol {
+    width: 70px;
+    flex-shrink: 0;
+  }
+
+  .vp-seek,
+  .vp-vol {
+    accent-color: var(--red);
+    cursor: pointer;
+    height: 4px;
+  }
+
+  .vp figcaption {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--text-faint);
+    margin-top: 0.5rem;
+  }
+
+  @media (max-width: 480px) {
+    .vp-vol {
+      display: none; /* phones control volume with hardware buttons */
+    }
+  }
+</style>
+
+<script>
+  function fmt(s: number): string {
+    if (!isFinite(s)) return '0:00';
+    const m = Math.floor(s / 60);
+    const sec = Math.floor(s % 60);
+    return m + ':' + String(sec).padStart(2, '0');
+  }
+
+  document.querySelectorAll<HTMLElement>('.vp-shell').forEach((shell) => {
+    const video = shell.querySelector('.vp-video') as HTMLVideoElement;
+    const bar = shell.querySelector('.vp-bar') as HTMLElement;
+    const playBtn = shell.querySelector('.vp-play') as HTMLButtonElement;
+    const muteBtn = shell.querySelector('.vp-mute') as HTMLButtonElement;
+    const seek = shell.querySelector('.vp-seek') as HTMLInputElement;
+    const vol = shell.querySelector('.vp-vol') as HTMLInputElement;
+    const time = shell.querySelector('.vp-time') as HTMLElement;
+    const dur = shell.querySelector('.vp-dur') as HTMLElement;
+
+    // JS is running: swap native controls for the custom bar
+    video.removeAttribute('controls');
+    bar.hidden = false;
+
+    const togglePlay = () => (video.paused ? video.play() : video.pause());
+    playBtn.addEventListener('click', togglePlay);
+    video.addEventListener('click', togglePlay);
+
+    video.addEventListener('play', () => {
+      shell.classList.add('playing');
+      playBtn.setAttribute('aria-label', 'Pause');
+    });
+    video.addEventListener('pause', () => {
+      shell.classList.remove('playing');
+      playBtn.setAttribute('aria-label', 'Play');
+    });
+
+    video.addEventListener('loadedmetadata', () => {
+      dur.textContent = fmt(video.duration);
+    });
+    video.addEventListener('timeupdate', () => {
+      time.textContent = fmt(video.currentTime);
+      if (video.duration) seek.value = String((video.currentTime / video.duration) * 100);
+    });
+    seek.addEventListener('input', () => {
+      if (video.duration) video.currentTime = (Number(seek.value) / 100) * video.duration;
+    });
+
+    const syncMute = () => {
+      shell.classList.toggle('muted', video.muted || video.volume === 0);
+      muteBtn.setAttribute('aria-label', video.muted ? 'Unmute' : 'Mute');
+    };
+    muteBtn.addEventListener('click', () => {
+      video.muted = !video.muted;
+      syncMute();
+    });
+    vol.addEventListener('input', () => {
+      video.volume = Number(vol.value);
+      video.muted = video.volume === 0;
+      syncMute();
+    });
+    video.addEventListener('volumechange', syncMute);
+  });
+</script>
