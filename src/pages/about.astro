@@ -4,7 +4,7 @@ import Base from '../layouts/Base.astro';
 
 <Base
   title="About - Juan Contreras"
-  description="Game programmer and software developer in Detroit - two engineering degrees, Full Sail valedictorian, and production full-stack experience at a Michigan manufacturer."
+  description="Industrial engineer and game programmer in Detroit - B.S. Industrial & Systems Engineering (UM-Dearborn), B.S. Game Development (Full Sail valedictorian), and fabrication-floor, estimating, and software experience at a Michigan manufacturer."
   current="about"
 >
   <section class="section about">
@@ -13,56 +13,65 @@ import Base from '../layouts/Base.astro';
       <h1 class="section-title">Hi, I'm Juan</h1>
       <div class="about-body">
         <p>
-          I'm a game programmer and software developer in Detroit with two engineering degrees and a habit of
-          owning problems end to end. I came to games from industrial &amp; systems engineering - processes,
-          measurement, continuous improvement - and that shows up in how I build software: documented Git
-          workflows, Jira epics with acceptance criteria, changelogs, and tests.
+          I'm an industrial engineer and game programmer in Detroit with two bachelor's degrees and a habit of owning
+          problems end to end. Industrial &amp; systems engineering came first - processes, measurement, continuous
+          improvement - and it shapes how I work on everything: learn how the system really runs, measure it, and
+          change only what the data supports.
         </p>
         <p>
-          At Full Sail I graduated <strong>valedictorian</strong> in Game Development (computer science focus),
-          where the program ran like a studio: five-person Scrum teams, sprint deadlines, and code that had to
-          survive QA. I've built C++ combat and AI systems on a custom Vulkan stack, gameplay and state-management
-          systems in Unity, and save/UI systems in Unreal Engine 5 - on top of coursework spanning data structures,
-          operating systems, computer architecture, networks, databases, and AI.
+          At UM-Dearborn I studied manufacturing processes, facilities design, simulation, Six Sigma, human factors,
+          operations research, and engineering economy, and finished with a two-semester
+          <a href="/engineering/pharmacy-redesign">senior design capstone</a> redesigning a working pharmacy, where I
+          led the ergonomics and human factors work.
         </p>
         <p>
-          By day I'm the Web Development &amp; IT Manager at The Wooden Stone, a Michigan manufacturer, where I
-          built and launched two production websites and I'm the technical point of contact when anything breaks -
-          web, infrastructure, or internal tooling. Production responsibility teaches you what "done" really means.
+          Then I went back for a second degree. At Full Sail I graduated <strong>valedictorian</strong> in Game
+          Development (computer science focus), finishing the final year while working 40 hours a week. The program
+          ran like a studio - five-person Scrum teams, sprint deadlines, and code that had to survive QA - and I built
+          C++ combat and AI systems on a custom Vulkan stack, gameplay systems in Unity, and save/UI systems in Unreal
+          Engine 5.
+        </p>
+        <p>
+          Since March 2025 I've worked at The Wooden Stone, a Michigan countertop manufacturer. I'm on the fabrication
+          floor every week, I support estimating and bid preparation from product drawings, and I build the
+          <a href="/engineering/wooden-stone">estimating and operations software</a> the shop runs on - the place where
+          both degrees meet.
         </p>
       </div>
 
       <h2 class="about-heading">Education</h2>
       <div class="edu-grid">
         <div class="edu-card">
+          <h3>B.S., Industrial &amp; Systems Engineering</h3>
+          <p class="edu-school">University of Michigan-Dearborn - April 2023</p>
+          <p class="edu-detail">Manufacturing processes, facilities design, simulation (Arena), Six Sigma &amp; SPC, human factors &amp; ergonomics, operations research, engineering economy; two-semester senior design capstone</p>
+        </div>
+        <div class="edu-card">
           <h3>B.S., Game Development <span class="edu-focus">(Computer Science)</span></h3>
           <p class="edu-school">Full Sail University - March 2026</p>
           <p class="edu-detail"><strong>Valedictorian</strong> · 3.76 GPA · coursework from data structures and OS to graphics, networks, databases, and AI</p>
-        </div>
-        <div class="edu-card">
-          <h3>B.S., Industrial &amp; Systems Engineering</h3>
-          <p class="edu-school">University of Michigan-Dearborn - April 2023</p>
-          <p class="edu-detail">Six Sigma &amp; statistical process improvement, simulation, human factors, HCI for UI/UX design</p>
         </div>
       </div>
 
       <h2 class="about-heading">Experience</h2>
       <div class="edu-card exp-card">
         <h3>Web Development &amp; IT Manager - The Wooden Stone, LLC</h3>
-        <p class="edu-school">Clinton Township, MI (manufacturing) · March 2025 - present</p>
+        <p class="edu-school">Clinton Township, MI (custom countertop manufacturer) · March 2025 - present</p>
         <ul class="exp-bullets">
-          <li>Technical point of contact: diagnosis, root-cause analysis, and fixes across websites, infrastructure, and internal tooling</li>
-          <li>Architected and launched two production full-stack sites (Node.js/Express, Helmet.js, Postmark REST API) - 12+ responsive pages</li>
-          <li>Automation cutting manual data entry ~30%; reliability infrastructure (NAS, RAID 1, UPS-triggered safe shutdown)</li>
+          <li>On the fabrication floor every week; estimating and bid preparation from product drawings, templates, and material specifications</li>
+          <li>Wrote the estimating engine - shop-capacity limits, CNC machine time, trip planning, landed material cost - in the operations platform built with the project manager; 1,400+ automated tests</li>
+          <li>Technical point of contact: diagnosis, root-cause analysis, and fixes across shop equipment, websites, infrastructure, and internal tooling</li>
+          <li>Two production customer-facing sites; automation cutting manual data entry ~30%; reliability infrastructure (NAS, RAID 1, UPS-triggered safe shutdown)</li>
         </ul>
       </div>
 
       <h2 class="about-heading">How I work</h2>
       <ul class="work-list">
+        <li>Measure before changing anything - and check the tools first: on the capstone, I verified Siemens Jack against a hand posture analysis before trusting it</li>
         <li>Documented Git branching strategies my teams actually followed - I wrote the workflow doc on Nutty Pursuit</li>
         <li>Jira epics with story points and acceptance criteria; Scrum through Alpha, Beta, and QA sprints</li>
-        <li>Unit testing (50+ case suites), code reviews, and keep-a-changelog versioning</li>
-        <li>Root-cause debugging as a discipline - every case study on this site includes a real bug story</li>
+        <li>Testing as a habit - 50+ case suites in school, 1,400+ tests on the estimating engine - plus code reviews and changelogs</li>
+        <li>Root-cause fixes as a discipline - every case study on this site includes a real bug or decision story</li>
       </ul>
     </div>
   </section>

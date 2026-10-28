@@ -1,0 +1,112 @@
+---
+import Base from '../../layouts/Base.astro';
+import CaseStudy from '../../components/CaseStudy.astro';
+---
+
+<Base
+  title="Supermarket Checkout Simulation (Arena) - Juan Contreras"
+  description="Case study: an Arena discrete-event simulation of a supermarket's checkout lanes built from six weeks of real point-of-sale data - fitted distributions, a validated 16-station model, and a 42% cost cut with under 3% queue change."
+  current="engineering"
+  ogImage="/images/og/checkout-simulation.png"
+>
+  <CaseStudy
+    status="Discrete-event simulation"
+    title="Supermarket Checkout Simulation"
+    tagline="Can a supermarket run fewer self-checkouts without longer lines? An Arena model built on six weeks of real transaction data says yes."
+    back={{ label: 'All engineering work', href: '/engineering' }}
+    meta={[
+      { label: 'course', value: 'IMSE 4585 Simulation in Systems Design' },
+      { label: 'team', value: '4-person team' },
+      { label: 'timeline', value: 'Fall 2022' },
+      { label: 'data', value: '6 weeks of checkout logs from a major European grocery chain' },
+    ]}
+    tags={['Arena', 'Input Analyzer', 'Hypothesis testing', 'Cost-benefit', 'Queueing']}
+    image={{
+      src: '/images/engineering/checkout/arena-stations.webp',
+      alt: 'Arena submodel of the ten cashier checkout stations, each routing a customer to a cashier and out',
+      width: 932,
+      height: 606,
+    }}
+    imageCaption="The cashier side of the Arena model: ten stations, shortest-checkout routing."
+  >
+    <h2>the question</h2>
+    <p>
+      Shoppers pick stores with short lines, and every checkout lane costs money to keep running. We tested whether a
+      supermarket could remove checkout stations and keep customer wait the same while cutting operating cost.
+    </p>
+    <p>
+      The data was real: six weeks of transaction and cashier logs from a grocery store in one of Europe's major chains,
+      published by the operations research department at the Wroclaw University of Science and Technology.
+    </p>
+
+    <h2>input analysis</h2>
+    <p>Each process was fit in Arena's Input Analyzer and checked with a chi-square test:</p>
+    <ul>
+      <li>Cashier service time: <code>GAMM(0.585, 1.81)</code></li>
+      <li>Items per basket: <code>0.5 + EXPO(8.54)</code> at self-checkout, <code>0.999 + EXPO(15.4)</code> at cashier lanes</li>
+      <li>Customer interarrival time: <code>-0.001 + EXPO(4.39)</code></li>
+    </ul>
+    <figure class="fig">
+      <img
+        src="/images/engineering/checkout/input-fit.webp"
+        alt="Arena Input Analyzer histogram with a fitted distribution curve and chi-square test results"
+        width="1005"
+        height="432"
+        loading="lazy"
+      />
+      <figcaption>A distribution fit in Input Analyzer, checked with a chi-square test.</figcaption>
+    </figure>
+    <p>
+      The logs only record when scanning starts and ends - not when a customer joins the line - so scanning, payment,
+      and bagging were modeled as one checkout service. The model assumes a 20-hour store day, one server per cashier
+      lane, and no breaks.
+    </p>
+
+    <h2>the model</h2>
+    <p>
+      Customers arrive, spend time collecting items, then choose self-checkout or a cashier lane. A PickStation module
+      sends each customer to the station with the shortest checkout, across <strong>6 self-service and 10 cashier
+      stations</strong>, then out of the store.
+    </p>
+
+    <h2>validation</h2>
+    <div class="story">
+      <h3>Does the model behave like the store?</h3>
+      <p>
+        Over 8 replications the model's mean service time was 2.00 minutes against an observed 1.68 (s = 0.57). With
+        t<sub>0</sub> = 1.59 below the critical t<sub>0.025,7</sub> = 2.365 at α = 0.05, we failed to reject the null
+        hypothesis - the model is consistent with the real system - and the simulated self-service time distribution
+        matched the observed one.
+      </p>
+    </div>
+
+    <h2>results</h2>
+    <ul>
+      <li>
+        Over a simulated 20-hour day, three self-checkouts sat idle most of the time. Removing them left store throughput
+        unchanged and moved the self-service queue by <strong>under 3%</strong>.
+      </li>
+      <li>
+        Estimated annual equipment cost fell from <strong>$42,500</strong> (6 kiosks at about $6,000 each plus 10 belt
+        lanes at about $650 each) to <strong>$24,500</strong> - a <strong>42.35%</strong> reduction - while keeping every
+        cashier lane open for holiday peaks.
+      </li>
+    </ul>
+    <figure class="fig fig-narrow">
+      <img
+        src="/images/engineering/checkout/waiting-times.webp"
+        alt="Bar chart of self-service queue changes in the revised model: averages of 1.79%, 0.72%, and 2.92%"
+        width="558"
+        height="409"
+        loading="lazy"
+      />
+      <figcaption>Change in each self-service queue after removing three kiosks - all under 3% on average.</figcaption>
+    </figure>
+
+    <h2>what I'd do next</h2>
+    <p>
+      The cost side used published industry averages, not this store's contracts, and the model ran an average day.
+      The next steps would be the store's real maintenance costs and a peak-day scenario before removing anything.
+    </p>
+  </CaseStudy>
+</Base>

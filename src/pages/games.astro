@@ -129,6 +129,24 @@ const supporting = [
     tags: ['Networking', 'Algorithms', 'Databases'],
   },
 ];
+
+const skills = [
+  { group: 'Languages', items: 'C++ (primary), C#, TypeScript / JavaScript, SQL, Python, HTML/CSS' },
+  { group: 'Engines & graphics', items: 'Unreal Engine 5 (C++), Unity, Vulkan API (Gateware), EnTT ECS, wxWidgets' },
+  {
+    group: 'Game systems',
+    items: 'Enemy AI & behavior trees, player combat & movement, save/load & persistence, animation systems, inventory & game state, UI/menus',
+  },
+  {
+    group: 'CS foundations',
+    items: 'Data structures & algorithms, memory management / RAII, operating systems, computer architecture, networking, databases',
+  },
+  { group: 'Web & backend', items: 'Node.js / Express, Next.js, REST APIs, MySQL, PostgreSQL, production deployment' },
+  {
+    group: 'Process',
+    items: 'Git (documented branching strategies), Jira & Scrum, unit testing, code reviews, root-cause debugging',
+  },
+];
 ---
 
 <Base
@@ -144,6 +162,10 @@ const supporting = [
         Four team games across three engines - including a custom C++/Vulkan stack with no engine at all. Each
         breakdown covers exactly which systems I built, verified against the git history.
       </p>
+      <div class="page-cta">
+        <a href="/resume/games" class="btn btn-primary">Game dev résumé</a>
+        <a href="/contact" class="btn btn-secondary">Get in touch</a>
+      </div>
 
       <div class="featured-grid">
         {
@@ -215,11 +237,30 @@ const supporting = [
           ))
         }
       </div>
+
+      <h2 class="category-title">tools &amp; systems</h2>
+      <div class="skills-grid">
+        {
+          skills.map((s) => (
+            <div class="skill">
+              <h3>{s.group}</h3>
+              <p>{s.items}</p>
+            </div>
+          ))
+        }
+      </div>
     </div>
   </section>
 </Base>
 
 <style>
+  .page-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 1.4rem;
+  }
+
   /* featured games */
   .featured-grid {
     display: grid;
@@ -391,8 +432,51 @@ const supporting = [
     padding: 0.12rem 0.5rem;
   }
 
+  /* skills */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  .skill {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+  }
+
+  .skill h3 {
+    font-size: 0.8rem;
+    font-family: var(--mono);
+    color: var(--text-faint);
+    text-transform: lowercase;
+    letter-spacing: 0.05em;
+  }
+
+  .skill h3::before {
+    content: '// ';
+    color: var(--red-text);
+  }
+
+  .skill p {
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    margin-top: 0.5rem;
+  }
+
   @media (max-width: 900px) {
     .featured-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .skills-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .skills-grid {
       grid-template-columns: 1fr;
     }
   }

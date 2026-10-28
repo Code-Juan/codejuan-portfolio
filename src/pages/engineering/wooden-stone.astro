@@ -1,0 +1,117 @@
+---
+import Base from '../../layouts/Base.astro';
+import CaseStudy from '../../components/CaseStudy.astro';
+---
+
+<Base
+  title="Estimating & Operations Platform - The Wooden Stone | Juan Contreras"
+  description="Case study: the estimating engine and operations platform Juan Contreras builds at The Wooden Stone, a Michigan countertop manufacturer - bottleneck-based fab-day capacity, machine-time CNC costing, trip planning, and bid reporting, checked by 1,400+ automated tests."
+  current="engineering"
+  ogImage="/images/og/wooden-stone.png"
+>
+  <CaseStudy
+    status="In production"
+    title="Estimating & Operations Platform"
+    tagline="A countertop manufacturer's bids priced from one tested engine - with the shop's real bottleneck, machine time, and trips built into every number."
+    back={{ label: 'All engineering work', href: '/engineering' }}
+    meta={[
+      { label: 'company', value: 'The Wooden Stone, LLC - Clinton Township, MI' },
+      { label: 'role', value: 'Web Development & IT Manager - floor, estimating, software' },
+      { label: 'timeline', value: 'March 2025 - present (platform: 2026)' },
+      { label: 'team', value: 'Built with the project manager' },
+    ]}
+    tags={['Cost estimating', 'Capacity planning', 'Scheduling', 'KPIs', 'Next.js', 'TypeScript', 'Postgres']}
+  >
+    <h2>the job</h2>
+    <p>
+      The Wooden Stone is a custom countertop manufacturer that bids work for general contractors. I'm on the fabrication
+      floor every week alongside the production equipment, and I support estimating and bid preparation from product
+      drawings, templates, and material specifications. That floor time is why the software below prices the shop the
+      way it actually runs.
+    </p>
+    <p>
+      Bids used to be priced in an 8-sheet Excel template, and the rest of the office - CRM, scheduling, production,
+      billing - ran on manual data entry. Together with the project manager I build and maintain the company's internal
+      operations platform that replaced it, improving it from what the people using it tell us.
+    </p>
+
+    <h2>what I built</h2>
+    <ul>
+      <li>
+        <strong>The estimating engine.</strong> I ported the pricing logic from the estimating design prototype into one
+        pure, tested module and proved it against the prototype's own output (golden vectors) before any screen was
+        built on it. It prices margin-on-price, so the strongest invariant in the suite is that a job with no overrides
+        comes back at exactly the margin entered. The estimating module is checked by 1,400+ automated tests.
+      </li>
+      <li>
+        <strong>Capacity from the bottleneck.</strong> Fabrication days per trip are the slowest of three shop limits:
+        saw load, CNC load, and the square feet of countertop the shop can turn out in a day. The resource that runs out
+        first sets the schedule and the price.
+      </li>
+      <li>
+        <strong>Machine time, not guesses.</strong> CNC is priced on sink cutouts: each sink's count times the machine
+        minutes for its type, in hours, against the CNC hours in a day. A sink with no type picked counts no time, and
+        the worksheet says which rows - so a missing input is visible instead of silently guessed.
+      </li>
+      <li>
+        <strong>Trips and travel.</strong> Crews work a building floor by floor, so each floor group rounds its own trips
+        up - one job-wide round-up was hiding two real trips. Distant jobs carry their own travel cost.
+      </li>
+      <li>
+        <strong>Landed material cost.</strong> Alternates and cut-to-size material carry the full stack - tax, duty,
+        safeguard tariffs on engineered stone, and per-container freight - next to current material rate books.
+      </li>
+      <li>
+        <strong>From drawing to proposal.</strong> Take-off templates that price a job from its drawings (a take-off file
+        can start an estimate), plus the proposal and quote PDFs generated from the estimate.
+      </li>
+      <li>
+        <strong>Reporting.</strong> Bid-performance reports (year-to-date bid and customer performance) and a sales
+        scorecard tracking lead conversion, aging, review turnaround, and submission follow-ups.
+      </li>
+    </ul>
+
+    <h2>engineering decisions</h2>
+    <div class="story">
+      <h3>Quarter-day fab days</h3>
+      <p>
+        The prototype rounded fabrication days up to whole days. But the shop schedules to the quarter day, so a partial
+        day is real work at a real cost - and rounding it up was a silent markup on small jobs that compounded on large
+        ones. Fab days became decimal. A test pins the old round-up back on and checks the prototype's original results
+        still match to the decimal, which proves nothing else in the math moved.
+      </p>
+    </div>
+    <div class="story">
+      <h3>One missing flag, two different answers</h3>
+      <p>
+        The prototype's two material cost models read the "imported" flag in opposite directions: when the flag was
+        missing, one model charged tax and the other didn't. I made the flag required on both models and at the
+        database level, so that ambiguous state can't exist - a root-cause fix instead of a patch on whichever number
+        looked wrong.
+      </p>
+    </div>
+    <div class="story">
+      <h3>No rounding inside the engine</h3>
+      <p>
+        Everything stays full precision and is rounded only for display, except quantities you really buy or do in whole
+        units - slabs, saw and CNC tables, and trips. Adding a round anywhere else silently moves money, so the rule is
+        written at the top of the engine and the golden tests catch any drift.
+      </p>
+    </div>
+
+    <h2>infrastructure</h2>
+    <p>
+      I'm also the technical point of contact for the shop and office: I troubleshoot and repair shop equipment,
+      servers, storage, and power protection, and I built and maintain the company's two customer-facing websites and
+      its server, RAID 1 storage, and UPS-triggered safe-shutdown setup.
+    </p>
+
+    <h2>what it shows</h2>
+    <ul>
+      <li>Capacity planning from the real constraint, not an average</li>
+      <li>Cost models that match how the shop buys, cuts, and travels</li>
+      <li>Verification first: prove the math against the original before building on it</li>
+      <li>Shop-floor experience turned into tools the office uses every day</li>
+    </ul>
+  </CaseStudy>
+</Base>

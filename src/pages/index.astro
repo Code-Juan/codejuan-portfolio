@@ -1,34 +1,49 @@
 ---
 import Base from '../layouts/Base.astro';
 
-const skills = [
-  { group: 'Languages', items: 'C++ (primary), C#, TypeScript / JavaScript, SQL, Python, HTML/CSS' },
-  { group: 'Engines & graphics', items: 'Unreal Engine 5 (C++), Unity, Vulkan API (Gateware), EnTT ECS, wxWidgets' },
-  {
-    group: 'Game systems',
-    items: 'Enemy AI & behavior trees, player combat & movement, save/load & persistence, animation systems, inventory & game state, UI/menus',
-  },
-  {
-    group: 'CS foundations',
-    items: 'Data structures & algorithms, memory management / RAII, operating systems, computer architecture, networking, databases',
-  },
-  { group: 'Web & backend', items: 'Node.js / Express, REST APIs, MySQL, production deployment - two live business sites' },
-  {
-    group: 'Process',
-    items: 'Git (documented branching strategies), Jira & Scrum, unit testing, code reviews, root-cause debugging',
-  },
+// Two front doors: each side has its own landing page, case studies, and résumé, so an
+// application can link straight to /engineering or /games.
+const credentials = [
+  { line: 'B.S. Industrial & Systems Engineering - University of Michigan-Dearborn (2023)' },
+  { line: 'B.S. Game Development - Full Sail University, Valedictorian (2026)' },
+  { line: 'Web Development & IT Manager - The Wooden Stone, LLC (2025-present)' },
 ];
 
-const credentials = [
-  { line: 'B.S. Game Development - Full Sail University, Valedictorian (2026)' },
-  { line: 'B.S. Industrial & Systems Engineering - University of Michigan-Dearborn (2023)' },
-  { line: 'Web Development & IT Manager - The Wooden Stone, LLC (2025-present)' },
+const doors = [
+  {
+    key: 'engineering',
+    eyebrow: 'industrial engineering',
+    title: 'Industrial Engineering',
+    blurb:
+      'On the fabrication floor every week, estimating from product drawings, and building the estimating and operations software a Michigan countertop manufacturer runs on.',
+    points: [
+      'Estimating engine with shop-capacity limits - in production',
+      'Senior design: pharmacy ergonomics, layout, and Arena simulation',
+      'Six Sigma, simulation, facilities, operations research, economics',
+    ],
+    primary: { label: 'Engineering work', href: '/engineering' },
+    secondary: { label: 'IE résumé', href: '/resume/engineering' },
+  },
+  {
+    key: 'games',
+    eyebrow: 'game development',
+    title: 'Game Development',
+    blurb:
+      'Gameplay, AI, animation, and save systems in C++ and C# - across Unreal Engine 5, Unity, and a custom Vulkan stack.',
+    points: [
+      'Nutty Pursuit - a playable C++/Vulkan arcade game',
+      'Four team games across three engines, verified against git',
+      'Valedictorian, B.S. Game Development (computer science)',
+    ],
+    primary: { label: 'View my games', href: '/games' },
+    secondary: { label: 'Game dev résumé', href: '/resume/games' },
+  },
 ];
 ---
 
 <Base
-  title="Juan Contreras - Game Programmer & Software Developer"
-  description="Game programmer in Detroit, MI - C++ and C# gameplay, AI, and save systems in Unreal Engine 5, Unity, and a custom Vulkan stack. B.S. Game Development, Full Sail valedictorian. View games, skills, and résumé."
+  title="Juan Contreras - Industrial Engineer & Game Programmer"
+  description="Juan Contreras in Detroit, MI - industrial engineer (B.S. ISE, UM-Dearborn) building estimating and operations tools at a Michigan manufacturer, and game programmer (B.S. Game Development, Full Sail valedictorian). Engineering work, games, and résumés."
   current="home"
 >
   <!-- the site used to be tabbed on this page; forward old #hash links to the real routes -->
@@ -41,43 +56,49 @@ const credentials = [
   </script>
 
   <section class="hero section">
-    <div class="container hero-grid">
-      <div class="hero-text">
-        <span class="eyebrow">// game developer</span>
-        <h1 class="hero-title">Juan Contreras</h1>
-        <p class="hero-sub">Game Programmer &amp; Software Developer</p>
-        <p class="hero-tagline">
-          I build gameplay, AI, animation, and save systems in C++ and C# - across Unreal Engine 5, Unity, and a
-          custom Vulkan stack. Four team games and a playable arcade shooter behind me; an engineer's process
-          underneath all of it.
-        </p>
-        <ul class="hero-creds">
-          {credentials.map((c) => <li>{c.line}</li>)}
-        </ul>
-        <div class="hero-cta">
-          <a href="/games" class="btn btn-primary btn-large">View my games</a>
-          <a href="/resume" class="btn btn-secondary btn-large">Résumé</a>
-          <a href="/contact" class="btn btn-secondary btn-large">Get in touch</a>
-        </div>
-      </div>
-      <img class="hero-mascot" src="/images/mascot.webp" alt="" width="613" height="560" loading="eager" />
-    </div>
-  </section>
-
-  <section class="section skills">
     <div class="container">
-      <span class="eyebrow">// what I work with</span>
-      <h2 class="section-title">Tools &amp; systems</h2>
-      <div class="skills-grid">
+      <span class="eyebrow">// two engineering degrees</span>
+      <h1 class="hero-title">Juan Contreras</h1>
+      <p class="hero-sub">Industrial Engineer &amp; Game Programmer</p>
+      <p class="hero-tagline">
+        I learn how a process really works, measure it, and build what makes it work better - on a
+        countertop shop floor in Michigan and inside C++ game engines. Pick the side you're hiring for.
+      </p>
+      <ul class="hero-creds">
+        {credentials.map((c) => <li>{c.line}</li>)}
+      </ul>
+
+      <div class="doors">
         {
-          skills.map((s) => (
-            <div class="skill">
-              <h3>{s.group}</h3>
-              <p>{s.items}</p>
-            </div>
+          doors.map((d) => (
+            <article class={`door door-${d.key}`}>
+              {d.key === 'games' && (
+                <img class="door-mascot" src="/images/mascot.webp" alt="" width="613" height="560" loading="eager" />
+              )}
+              <span class="door-eyebrow">// {d.eyebrow}</span>
+              <h2>{d.title}</h2>
+              <p class="door-blurb">{d.blurb}</p>
+              <ul class="door-points">
+                {d.points.map((p) => (
+                  <li>{p}</li>
+                ))}
+              </ul>
+              <div class="door-cta">
+                <a href={d.primary.href} class="btn btn-primary">
+                  {d.primary.label} &rarr;
+                </a>
+                <a href={d.secondary.href} class="btn btn-secondary">
+                  {d.secondary.label}
+                </a>
+              </div>
+            </article>
           ))
         }
       </div>
+
+      <p class="hero-contact">
+        Hiring for either? <a href="/contact">Get in touch</a> - Detroit, Michigan, open to relocation and remote.
+      </p>
     </div>
   </section>
 </Base>
@@ -85,13 +106,6 @@ const credentials = [
 <style>
   .hero {
     padding-top: 4rem;
-  }
-
-  .hero-grid {
-    display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    align-items: center;
-    gap: 2rem;
   }
 
   .hero-title {
@@ -110,7 +124,7 @@ const credentials = [
 
   .hero-tagline {
     color: var(--text-muted);
-    max-width: 560px;
+    max-width: 640px;
     margin-top: 1.1rem;
     font-size: 1.08rem;
   }
@@ -136,83 +150,97 @@ const credentials = [
     left: 0;
   }
 
-  .hero-cta {
+  /* the two front doors */
+  .doors {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .door {
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--red);
+    border-radius: var(--radius);
+    padding: 1.8rem 1.7rem 1.7rem;
     display: flex;
-    gap: 1rem;
-    margin-top: 2rem;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .door-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--text-faint);
+  }
+
+  .door h2 {
+    font-size: 1.6rem;
+    letter-spacing: -0.015em;
+    margin-top: 0.4rem;
+    max-width: 75%;
+  }
+
+  .door-blurb {
+    color: var(--text-muted);
+    margin-top: 0.7rem;
+  }
+
+  .door-points {
+    color: var(--text-muted);
+    margin: 1rem 0 0 1.1rem;
+    line-height: 1.7;
+    font-size: 0.95rem;
+  }
+
+  .door-cta {
+    display: flex;
     flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: auto;
+    padding-top: 1.5rem;
   }
 
-  .hero-mascot {
-    width: 100%;
-    max-width: 360px;
+  .door-mascot {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 92px;
     height: auto;
-    justify-self: center;
-    filter: drop-shadow(0 12px 26px rgba(0, 0, 0, 0.45));
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.4));
   }
 
-  :global(html.js[data-motion='full']) .hero-mascot {
+  :global(html.js[data-motion='full']) .door-mascot {
     animation: bob 5s ease-in-out infinite;
   }
 
   @keyframes bob {
     50% {
-      transform: translateY(-8px);
+      transform: translateY(-6px);
     }
   }
 
-  /* skills */
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
-    margin-top: 2.5rem;
+  .hero-contact {
+    margin-top: 2rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
   }
 
-  .skill {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1.25rem;
-  }
-
-  .skill h3 {
-    font-size: 0.8rem;
-    font-family: var(--mono);
-    color: var(--text-faint);
-    text-transform: lowercase;
-    letter-spacing: 0.05em;
-  }
-
-  .skill h3::before {
-    content: '// ';
+  .hero-contact a {
     color: var(--red-text);
   }
 
-  .skill p {
-    color: var(--text-muted);
-    font-size: 0.92rem;
-    margin-top: 0.5rem;
-  }
-
   @media (max-width: 900px) {
-    .hero-grid {
+    .doors {
       grid-template-columns: 1fr;
-    }
-
-    .hero-mascot {
-      max-width: 260px;
-      order: -1;
-    }
-
-    .skills-grid {
-      grid-template-columns: repeat(2, 1fr);
     }
   }
 
-  @media (max-width: 560px) {
-    .skills-grid {
-      grid-template-columns: 1fr;
+  @media (max-width: 480px) {
+    .door-mascot {
+      width: 68px;
     }
   }
 </style>

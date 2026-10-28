@@ -1,6 +1,6 @@
 ---
-// Shell for a game case-study page: header meta block + hero art, with the
-// write-up sections passed in as slot content.
+// Shell for a case-study page (games and engineering): header meta block + hero art,
+// with the write-up sections passed in as slot content.
 interface Link {
   label: string;
   href: string;
@@ -15,14 +15,25 @@ interface Props {
   links?: Link[];
   image?: { src: string; alt: string; width: number; height: number };
   imageCaption?: string;
+  back?: Link;
 }
 
-const { status, title, tagline, meta, tags, links = [], image, imageCaption } = Astro.props;
+const {
+  status,
+  title,
+  tagline,
+  meta,
+  tags,
+  links = [],
+  image,
+  imageCaption,
+  back = { label: 'All games', href: '/games' },
+} = Astro.props;
 ---
 
 <article class="case">
   <div class="container case-inner">
-    <a class="back" href="/games">&larr; All games</a>
+    <a class="back" href={back.href}>&larr; {back.label}</a>
 
     <header class="case-header">
       <span class="chip">{status}</span>
@@ -242,6 +253,76 @@ const { status, title, tagline, meta, tags, links = [], image, imageCaption } = 
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
     padding: 0.05rem 0.35rem;
+  }
+
+  /* in-body figures (class-scoped so the video player's own figure keeps its styles) */
+  .body :global(.fig) {
+    margin-top: 1.4rem;
+  }
+
+  .body :global(.fig img) {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: #fff;
+  }
+
+  .body :global(.fig figcaption) {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--text-faint);
+    margin-top: 0.5rem;
+  }
+
+  .body :global(.fig-narrow) {
+    max-width: 600px;
+  }
+
+  .body :global(.fig-pair) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1.4rem;
+  }
+
+  .body :global(.fig-pair .fig) {
+    margin-top: 0;
+  }
+
+  /* compact data table (scores, results) */
+  .body :global(.data-table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.2rem;
+    font-size: 0.92rem;
+  }
+
+  .body :global(.data-table th),
+  .body :global(.data-table td) {
+    border: 1px solid var(--border);
+    padding: 0.5rem 0.7rem;
+    text-align: left;
+    color: var(--text-muted);
+  }
+
+  .body :global(.data-table th) {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 400;
+    text-transform: lowercase;
+    color: var(--text-faint);
+    background: var(--surface);
+  }
+
+  .body :global(.data-table td strong) {
+    color: var(--text);
+  }
+
+  @media (max-width: 640px) {
+    .body :global(.fig-pair) {
+      grid-template-columns: 1fr;
+    }
   }
 
   /* callout for debugging stories */

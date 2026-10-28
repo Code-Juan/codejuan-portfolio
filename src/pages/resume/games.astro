@@ -1,0 +1,126 @@
+---
+import Base from '../../layouts/Base.astro';
+import ResumeDoc from '../../components/ResumeDoc.astro';
+
+// Game development résumé - built on the October 2026 Demiurge résumé, with project bullets
+// matched to the verified case studies (Galaxy wording per git history, Earth Untamed added).
+const contact = [
+  { label: 'Detroit, MI' },
+  { label: 'juan@codejuan.com', href: 'mailto:juan@codejuan.com' },
+  { label: 'codejuan.com/games', href: 'https://codejuan.com/games' },
+  { label: 'github.com/Code-Juan', href: 'https://github.com/Code-Juan' },
+  { label: 'linkedin.com/in/juan-contreras68', href: 'https://www.linkedin.com/in/juan-contreras68' },
+];
+
+const sections = [
+  {
+    title: 'Summary',
+    text: 'Early-career game engineer who builds gameplay, AI, animation, and state-management systems in Unreal Engine 5 and Unity (C++ and C#) and works from design documents and acceptance criteria on cross-discipline teams. B.S. in Game Development (Computer Science) - valedictorian, 3.76 GPA - plus professional software experience building and maintaining production systems. Strong data structures and algorithms foundation.',
+  },
+  {
+    title: 'Technical Skills',
+    lines: [
+      {
+        label: 'Engines',
+        text: 'Unreal Engine 5 (C++, Blueprints, animation blueprints, component architecture, child actors), Unity (C#, NavMeshAgent AI, Cinemachine, ScriptableObjects, async scene loading, save/load), Vulkan API with Gateware framework (custom-engine C++ gameplay)',
+      },
+      { label: 'Languages', text: 'C++, C#, Python, JavaScript/TypeScript, SQL' },
+      {
+        label: 'Algorithms & Data Structures',
+        text: 'Binary search trees, hash tables, linked lists, dynamic arrays, Huffman coding, recursion, Shunting Yard parsing, RAII and memory management, performance-minded implementation',
+      },
+      {
+        label: 'Practices',
+        text: 'Agile/Scrum sprints, Jira epics with story points and acceptance criteria, documented Git branching strategies, unit testing (50+ case suites), code reviews, systematic debugging, design documentation, cross-discipline collaboration',
+      },
+    ],
+  },
+  {
+    title: 'Game Projects',
+    entries: [
+      {
+        title: 'Nutty Pursuit - C++ arcade game on Vulkan (5-person team, playable)',
+        dates: 'Oct 2025',
+        bullets: [
+          'Built player combat and control systems - 8-directional shooting with normalized velocity - for a 3-level, 2.5D arcade game; worked from Jira epics with story points and acceptance criteria under a documented Git branching strategy that kept every sprint release demo-ready.',
+        ],
+      },
+      {
+        title: 'Fluxuate - Unreal Engine 5 team game (in development)',
+        dates: 'Dec 2025 - Feb 2026',
+        bullets: [
+          'Engine/UI programmer: built the 3-slot save system, game-state flow, and menu/UI framework, plus climbing (component reparenting), weapon animation, movement, and health/stamina systems from a shared design document; diagnosed and fixed an enemy-persistence save bug across successive builds.',
+        ],
+      },
+      {
+        title: 'Earth Untamed - Unity 6 vertical slice (5-person capstone team)',
+        dates: 'Jan - Feb 2026',
+        bullets: [
+          'Built an interface-driven weapon system on ScriptableObject data with editor tooling, animation-event hit detection so swings land when they visually connect, a player audio system synced to UI state, and climbing and viewmodel overhauls.',
+        ],
+      },
+      {
+        title: 'Project Galaxy - Unity 3D FPS in C# (5-person Scrum team)',
+        dates: 'Dec 2024 - Jan 2025',
+        bullets: [
+          'Built an enemy AI hierarchy on an abstract NavMeshAgent base class (including a stun enemy that steals from the player’s inventory) and an ability-based boss, a ScriptableObject inventory behind a singleton manager, JSON save/load with GUID scene persistence, and async scene loading through Alpha, Beta, and QA sprints.',
+        ],
+      },
+      {
+        title: 'END2508 - Unreal Engine 5 C++ systems',
+        dates: 'Aug 2025',
+        bullets: [
+          'Component-based character architecture: inheritance-based base classes, health component, child-actor weapon system, event-driven design, animation blueprint integration with attention to memory management.',
+        ],
+      },
+      {
+        title: 'Algorithms & tools - C++',
+        dates: '2024',
+        bullets: [
+          'Expression calculator (Singleton and Factory Method patterns, Shunting Yard parsing, 50+ unit tests); Conway’s Game of Life (resolved 15+ rendering and input defects through systematic debugging); data-structures implementations (BSTs, hash tables, Huffman coding).',
+        ],
+      },
+    ],
+  },
+  {
+    title: 'Professional Experience',
+    entries: [
+      {
+        title: 'Web Development & IT Manager - The Wooden Stone, LLC (Clinton Township, MI)',
+        dates: 'March 2025 - Present',
+        bullets: [
+          'Build and maintain production software end to end - the company’s internal operations platform (Next.js, TypeScript, Postgres - including its estimating engine, checked by 1,400+ automated tests), two customer-facing web services (Node.js/Express, REST integrations), automation that cut manual data entry by 30%, and root-cause fixes documented for a non-technical team - managing workload and task status independently while completing a second degree as valedictorian.',
+        ],
+      },
+    ],
+  },
+  {
+    title: 'Education',
+    entries: [
+      {
+        title: 'B.S., Game Development (Computer Science) - Full Sail University - Valedictorian, 3.76 GPA',
+        dates: 'March 2026',
+      },
+      {
+        title: 'B.S., Industrial & Systems Engineering - University of Michigan-Dearborn',
+        dates: 'April 2023',
+      },
+    ],
+  },
+];
+---
+
+<Base
+  title="Game Development Résumé - Juan Contreras"
+  description="Game development résumé of Juan Contreras, Detroit, MI - gameplay, AI, animation, and save systems in Unreal Engine 5, Unity, and a custom C++/Vulkan stack. B.S. Game Development, Full Sail valedictorian."
+  current="resume"
+>
+  <ResumeDoc
+    role="Software Engineer - Games (Unreal Engine 5 / Unity / C++ / C#)"
+    contact={contact}
+    sections={sections}
+    pdf="/Juan_Contreras_Resume_Game_Developer.pdf"
+    other={{ label: 'Industrial engineering résumé', href: '/resume/engineering' }}
+    compact
+  />
+</Base>

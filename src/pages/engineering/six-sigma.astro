@@ -1,0 +1,91 @@
+---
+import Base from '../../layouts/Base.astro';
+import CaseStudy from '../../components/CaseStudy.astro';
+---
+
+<Base
+  title="Six Sigma: DMAIC & Process Control - Juan Contreras"
+  description="Case study: a DMAIC material-selection process for concrete mixes built on Minitab regression, plus statistical process control charts (X-bar/R, NP, CUSUM) from UM-Dearborn's Six Sigma course."
+  current="engineering"
+  ogImage="/images/og/six-sigma.png"
+>
+  <CaseStudy
+    status="Quality"
+    title="Six Sigma: DMAIC & Process Control"
+    tagline="A repeatable way to pick concrete mix components by what actually drives strength - plus the control charts behind statistical process improvement."
+    back={{ label: 'All engineering work', href: '/engineering' }}
+    meta={[
+      { label: 'course', value: 'IMSE 4675 Six Sigma & Statistical Process Improvement' },
+      { label: 'team', value: '3-person team' },
+      { label: 'timeline', value: 'Winter 2022' },
+      { label: 'data', value: 'UCI Concrete Compressive Strength dataset (public)' },
+    ]}
+    tags={['DMAIC', 'Minitab', 'Regression', 'Control charts', 'SPC']}
+  >
+    <h2>the idea</h2>
+    <p>
+      Concrete mix components are usually chosen by supplier stock and price. We built a material-selection process
+      through DMAIC that ranks components by how much they drive compressive strength, so the choice follows the data.
+    </p>
+
+    <h2>DMAIC</h2>
+    <ul>
+      <li><strong>Define:</strong> project charter and a process flow diagram of the selection process.</li>
+      <li>
+        <strong>Measure:</strong> descriptive statistics, histograms, box plots, and normality probability plots in
+        Minitab. Most components were roughly normal; age was exponential, so we ran the analysis with and without it.
+      </li>
+      <li>
+        <strong>Analyze:</strong> multiple regression with every component significant (p &lt; 0.05) and R² of about 61%,
+        falling to 44% without age - so age stayed in. Interaction terms added about 10% R² but were left out as
+        unneeded complexity. Residual plots confirmed the normality assumption.
+      </li>
+      <li>
+        <strong>Improve:</strong> rank components by the size of their t-value - cement (24.82), age (20.99), blast
+        furnace slag (17.39), then water and fly ash. Age can't be chosen, so the selection focuses on cement and slag:
+        separate regressions for each, then an Excel comparison of the maximum and average predicted strength put
+        cement first.
+      </li>
+      <li>
+        <strong>Control:</strong> we argued a selection procedure needs no ongoing control, but still built an I-MR
+        (individuals and moving range) chart of compressive strength. Its out-of-control points stayed in, because no assignable cause could
+        be found for them. Done again, I'd chart the strength of the batches the new process actually produces.
+      </li>
+    </ul>
+    <div class="fig-pair">
+      <figure class="fig">
+        <img
+          src="/images/engineering/six-sigma/residuals.webp"
+          alt="Minitab four-in-one residual plots for the compressive strength regression"
+          width="576"
+          height="384"
+          loading="lazy"
+        />
+        <figcaption>Residual plots - the normality check behind the regression.</figcaption>
+      </figure>
+      <figure class="fig">
+        <img
+          src="/images/engineering/six-sigma/imr-chart.webp"
+          alt="I-MR control chart of concrete compressive strength with out-of-control points flagged in red"
+          width="576"
+          height="384"
+          loading="lazy"
+        />
+        <figcaption>I-MR chart of compressive strength, out-of-control points flagged.</figcaption>
+      </figure>
+    </div>
+
+    <h2>process control</h2>
+    <p>
+      The course also built the statistical process control toolkit: X-bar and R charts for variables, NP charts for
+      defectives, moving range charts, and CUSUM charts to catch small sustained shifts faster than Shewhart limits do.
+    </p>
+
+    <h2>what it shows</h2>
+    <ul>
+      <li>DMAIC structure from charter to recommendation</li>
+      <li>Regression judgment - keeping the variable that matters, dropping complexity that doesn't</li>
+      <li>Honesty about what a phase can and can't do</li>
+    </ul>
+  </CaseStudy>
+</Base>

@@ -1,0 +1,136 @@
+---
+import Base from '../../layouts/Base.astro';
+import ResumeDoc from '../../components/ResumeDoc.astro';
+
+// Industrial engineering résumé - anchored on the October 2026 Herkules IE résumé (wording and
+// structure), generalized for any IE employer. Phone stays off the public copy.
+const contact = [
+  { label: 'Detroit, MI' },
+  { label: 'juan@codejuan.com', href: 'mailto:juan@codejuan.com' },
+  { label: 'codejuan.com/engineering', href: 'https://codejuan.com/engineering' },
+  { label: 'linkedin.com/in/juan-contreras68', href: 'https://www.linkedin.com/in/juan-contreras68' },
+];
+
+const sections = [
+  {
+    title: 'Summary',
+    text: 'Industrial & Systems Engineer (B.S., University of Michigan-Dearborn) with hands-on manufacturing experience: started on the fabrication floor, moved up to estimating from product drawings, and building the process automations that reduced manual work. Detail-driven and accountable - every system and every fix I’m responsible for is accounted for. Looking for a long-term career with a company where I can grow into the work.',
+  },
+  {
+    title: 'Track Record',
+    bullets: [
+      'Two bachelor’s degrees - Industrial & Systems Engineering in 2023 and Game Development (Computer Science) in 2026 - the second earned as valedictorian (3.76 GPA), with the final year completed while working 40 hours a week.',
+      'Read and work from product drawings every week for estimating, on a CAD foundation from UM-Dearborn’s Engineering Computer Graphics course (CATIA V5: views, sections, dimensioning, 3D solids) - now building the same skills in SolidWorks.',
+      'Responsible for my employer’s technical systems since March 2025 - when something breaks, I diagnose, fix, and document it.',
+    ],
+  },
+  {
+    title: 'Work Experience',
+    entries: [
+      {
+        title: 'Web Development & IT Manager',
+        dates: 'March 2025 - Present',
+        sub: 'The Wooden Stone, LLC - Clinton Township, MI (custom countertop manufacturer)',
+        bullets: [
+          'Work on the fabrication floor every week alongside production equipment and processes; support estimating and bid preparation from product drawings, templates, and material specifications.',
+          'Build and maintain the company’s internal operations platform (web app on Next.js and Postgres) together with the project manager, improving it from user feedback - estimating, CRM, scheduling, production, billing, and reporting - which replaced the manual data entry the office ran on.',
+          'Built the estimating tools the office uses: take-off templates that price jobs from drawings, current material rate books, CNC time per sink cutout, shop capacity limits (square feet per day) for fabrication scheduling, and travel cost for distant jobs - plus the proposal and quote PDFs and the bid-performance reports that run on them. The pricing engine replaced an 8-sheet Excel bid template and is checked by 1,400+ automated tests.',
+          'Troubleshoot and repair shop equipment, servers, storage, and power protection - researching each problem in depth.',
+          'Built and maintained the company’s two customer-facing websites and its server, storage (RAID 1), and UPS power-protection infrastructure - the full technical stack of a small manufacturer.',
+        ],
+      },
+    ],
+  },
+  {
+    title: 'Engineering Projects',
+    entries: [
+      {
+        title: 'Senior Design: Pharmacy Layout Redesign - CornerMed Pharmacy (4-person capstone)',
+        dates: 'Oct 2022 - Apr 2023',
+        bullets: [
+          'Ergonomics & human factors lead: Siemens Jack posture studies (5th-percentile female to 95th-percentile male) at the three busiest stations; adjustable surfaces and seating plus a step stool lowered RULA at every station. The team’s Arena study (8 variants, t-tests) found at most 4 seconds to gain from a new layout, so we kept it and cut safety-stock holding cost 56.3%.',
+        ],
+      },
+      {
+        title: 'Supermarket Checkout Simulation - Arena (4-person team)',
+        dates: 'Fall 2022',
+        bullets: [
+          'Fit distributions in Input Analyzer from six weeks of real point-of-sale data, validated a 16-station Arena model by t-test, and showed removing 3 idle self-checkouts changed queue time under 3% while cutting estimated annual cost 42%.',
+        ],
+      },
+      {
+        title: 'Facility Layout - Lamp Manufacturing Plant (4-person team)',
+        dates: 'Winter 2022',
+        bullets: [
+          'Machine and operator sizing with 5% scrap, from-to and AEIOUX charts, and SLP placement for a two-floor group layout.',
+        ],
+      },
+    ],
+  },
+  {
+    title: 'Education & Industrial Engineering Coursework',
+    entries: [
+      {
+        title: 'B.S., Industrial & Systems Engineering - University of Michigan-Dearborn',
+        dates: 'April 2023',
+        lines: [
+          {
+            label: 'Manufacturing',
+            text: 'Manufacturing Processes (casting, forming, heat treatment, welding), Facilities Design (layout, flow, bottlenecks), Production/Inventory Control & Lean Manufacturing, Human Factors & Ergonomics',
+          },
+          {
+            label: 'Quality & Analysis',
+            text: 'Six Sigma & Statistical Process Improvement, Applied Statistical Models, Operations Research (optimization, AMPL and Excel modeling), Engineering Economy & Decision Analysis, Simulation in Systems Design',
+          },
+          {
+            label: 'Design',
+            text: 'Engineering Computer Graphics (CATIA V5), Design Stress Analyses, Digital Logic, two-semester Senior Design capstone',
+          },
+        ],
+      },
+      {
+        title: 'B.S., Game Development (Computer Science) - Full Sail University - Valedictorian',
+        dates: 'March 2026',
+        lines: [
+          {
+            label: 'Why it matters here',
+            text: 'I can program the automation and data tools a process runs on (Python, TypeScript, SQL, Excel modeling).',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    title: 'Hands-On & Technical',
+    lines: [
+      {
+        label: 'Hands-On',
+        text: 'Hardware builds and repairs (servers, network storage, UPS, workstations), shop-equipment troubleshooting, home projects; comfortable reading prints and working from specifications',
+      },
+      {
+        label: 'Software',
+        text: 'Arena simulation, Minitab, Siemens Jack (RULA/REBA), AMPL; MS Excel (modeling, reconciliation), Word, PowerPoint; SQL (MySQL, PostgreSQL); Python and JavaScript automation scripting; CAD: CATIA V5 (coursework), SolidWorks (training)',
+      },
+      {
+        label: 'Working Style',
+        text: 'Systematic procedures for every task with attention to detail; follows directions precisely and confirms before assuming; sprint-based team projects delivered to acceptance criteria; always learning, and putting my best effort into a lifelong career.',
+      },
+    ],
+  },
+];
+---
+
+<Base
+  title="Industrial Engineering Résumé - Juan Contreras"
+  description="Industrial engineering résumé of Juan Contreras, Detroit, MI - B.S. Industrial & Systems Engineering (UM-Dearborn), fabrication-floor and estimating experience at a Michigan countertop manufacturer, Arena simulation, ergonomics, and facility layout projects."
+  current="resume"
+>
+  <ResumeDoc
+    role="Industrial Engineer"
+    contact={contact}
+    sections={sections}
+    pdf="/Juan_Contreras_Resume_Industrial_Engineer.pdf"
+    other={{ label: 'Game development résumé', href: '/resume/games' }}
+    compact
+  />
+</Base>

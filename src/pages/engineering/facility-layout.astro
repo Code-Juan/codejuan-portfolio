@@ -1,0 +1,106 @@
+---
+import Base from '../../layouts/Base.astro';
+import CaseStudy from '../../components/CaseStudy.astro';
+---
+
+<Base
+  title="Lamp Plant Facility Layout - Juan Contreras"
+  description="Case study: a facilities design project for a lamp manufacturer - machine and operator sizing with scrap, from-to and AEIOUX relationship charts, SLP department placement for a two-floor group layout, and a buy-or-lease recommendation."
+  current="engineering"
+  ogImage="/images/og/facility-layout.png"
+>
+  <CaseStudy
+    status="Facilities design"
+    title="Lamp Plant Facility Layout"
+    tagline="Turning a material-flow description into a two-floor plant layout - machines, operators, department placement, and a buy-or-lease call."
+    back={{ label: 'All engineering work', href: '/engineering' }}
+    meta={[
+      { label: 'course', value: 'IMSE 4745 Facilities Design' },
+      { label: 'team', value: '4-person team' },
+      { label: 'my parts', value: 'Executive summary, from-to & relationship charts, department placement' },
+      { label: 'timeline', value: 'Winter 2022' },
+    ]}
+    tags={['SLP', 'From-to chart', 'AEIOUX', 'Machine sizing', 'Material handling']}
+    image={{
+      src: '/images/engineering/facility/block-layouts.webp',
+      alt: 'Final block layouts for the two floors, with numbered departments placed by SLP',
+      width: 914,
+      height: 280,
+    }}
+    imageCaption="Final SLP block layouts - first floor (left) and second floor (right), departments numbered."
+  >
+    <h2>the case</h2>
+    <p>
+      Common Conduit, a lamp manufacturer in the course case, makes 13 of its 45 lamp variants at its Warren, Ohio plant
+      in three product families: 3-way, decorative, and PAR reflector lamps. The lease on its three-story building was
+      running out, it was looking at a two-story plant, and it wanted to add a part-time line to run 10 hours a day
+      instead of 8. The question: lease or buy - and how should the new plant be laid out?
+    </p>
+
+    <h2>sizing the plant</h2>
+    <ul>
+      <li>
+        <strong>Machines:</strong> F = SQ / (EHR) per department and product - standard time per unit, units per shift
+        grossed up for <strong>5% scrap at every operation</strong>, 90% operator performance, 480 available minutes, and
+        90% machine reliability - rounded up to whole machines.
+      </li>
+      <li>
+        <strong>Operators:</strong> total required time over available time per department, giving
+        <strong>12 operators</strong> - matching the plant's production headcount.
+      </li>
+    </ul>
+
+    <h2>laying it out</h2>
+    <p>
+      The lamps are small, light, high-volume, and each family runs its own process, so we chose a group layout over a
+      product or fixed layout.
+    </p>
+    <ul>
+      <li>Flow process diagrams for all three product families</li>
+      <li>A from-to chart of material moves between the 15 departments, ranked into a frequency table</li>
+      <li>
+        AEIOUX closeness ratings - the count of A, E, I, and O relationships set at 5%, 10%, 15%, and 25% of the
+        departments, the rest U - and the relationship chart built from them
+      </li>
+      <li>
+        SLP department placement starting from the department with the most "absolutely necessary" relationships:
+        8 - 9 - 2 - 1 - 5 - 6 - 10 - 11 - 13 - 12 - 7 - 4 - 3 - 14 - 15, across two floors with the larger, less
+        connected departments upstairs and an elevator between them
+      </li>
+      <li>Material handling: sortation conveyor, stackable containers, FIFO flow racks, forklifts, and a dock plan</li>
+    </ul>
+    <figure class="fig">
+      <img
+        src="/images/engineering/facility/dec-flow.webp"
+        alt="Flow process diagram for decorative lamps, from receiving raw material through storage, painting, and base assembly to shipping"
+        width="828"
+        height="371"
+        loading="lazy"
+      />
+      <figcaption>Flow process diagram for the decorative lamp family.</figcaption>
+    </figure>
+    <figure class="fig">
+      <img
+        src="/images/engineering/facility/from-to.webp"
+        alt="From-to chart of material moves between the plant's departments"
+        width="1079"
+        height="318"
+        loading="lazy"
+      />
+      <figcaption>The from-to chart behind the relationship ratings.</figcaption>
+    </figure>
+
+    <h2>the decision</h2>
+    <p>
+      We recommended buying: the plant fits an optimal department layout with room for employee services in a separate
+      building - offices, cafeteria, nurse station - and open land to expand without another move.
+    </p>
+
+    <h2>my part</h2>
+    <p>
+      I wrote the introduction, objective, and executive summary, built the from-to chart and the flow and relationship
+      chart with teammates, worked on department placement, and presented the flow process diagrams, relationship
+      chart, and placement in our final presentation.
+    </p>
+  </CaseStudy>
+</Base>

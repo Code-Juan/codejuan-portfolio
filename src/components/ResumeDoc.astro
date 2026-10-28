@@ -1,0 +1,439 @@
+---
+// One résumé document - the same data renders on screen, in print (Ctrl+P), and in the
+// downloadable PDF that scripts/make-resume-pdf.mjs prints from the built page.
+// Each résumé page (src/pages/resume/*.astro) passes its content as data.
+interface Line {
+  label?: string;
+  text: string;
+}
+
+interface Entry {
+  title: string;
+  dates?: string;
+  sub?: string;
+  lines?: Line[];
+  bullets?: string[];
+}
+
+interface Section {
+  title: string;
+  text?: string;
+  bullets?: string[];
+  lines?: Line[];
+  entries?: Entry[];
+  note?: Line;
+}
+
+interface Props {
+  name?: string;
+  role: string;
+  contact: { label: string; href?: string }[];
+  sections: Section[];
+  pdf: string;
+  other?: { label: string; href: string };
+  // tighter print type and spacing, for a résumé that would otherwise spill onto a second page
+  compact?: boolean;
+}
+
+const { name = 'Juan Contreras', role, contact, sections, pdf, other, compact = false } = Astro.props;
+---
+
+<div class="resume-actions container no-print">
+  {other && <a class="other-link" href={other.href}>{other.label} &rarr;</a>}
+  <a class="btn btn-primary" href={pdf} download>Download PDF</a>
+  <button class="btn btn-secondary" type="button" onclick="window.print()">Print</button>
+</div>
+
+<article class:list={['resume', 'container', { compact }]} id="resume">
+  <header class="r-header">
+    <h1>{name}</h1>
+    <p class="r-role">{role}</p>
+    <p class="r-contact">
+      {
+        contact.map((c, i) => (
+          <>
+            {i > 0 && <span class="r-sep" aria-hidden="true">|</span>}
+            {c.href ? <a href={c.href}>{c.label}</a> : <span>{c.label}</span>}
+          </>
+        ))
+      }
+    </p>
+  </header>
+
+  {
+    sections.map((s) => (
+      <section class="r-section">
+        <h2>{s.title}</h2>
+        {s.text && <p>{s.text}</p>}
+        {s.bullets && (
+          <ul class="r-bullets">
+            {s.bullets.map((b) => (
+              <li>{b}</li>
+            ))}
+          </ul>
+        )}
+        {s.lines && (
+          <ul class="r-skills">
+            {s.lines.map((l) => (
+              <li>
+                {l.label && <strong>{l.label}:</strong>} {l.text}
+              </li>
+            ))}
+          </ul>
+        )}
+        {s.entries &&
+          s.entries.map((e) => (
+            <div class="r-entry">
+              <div class="r-entry-head">
+                <h3>{e.title}</h3>
+                {e.dates && <span class="r-dates">{e.dates}</span>}
+              </div>
+              {e.sub && <p class="r-entry-sub">{e.sub}</p>}
+              {e.lines &&
+                e.lines.map((l) => (
+                  <p class="r-line">
+                    {l.label && <strong>{l.label}:</strong>} {l.text}
+                  </p>
+                ))}
+              {e.bullets && (
+                <ul>
+                  {e.bullets.map((b) => (
+                    <li>{b}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          ))}
+        {s.note && (
+          <p class="r-additional">
+            {s.note.label && <strong>{s.note.label}:</strong>} {s.note.text}
+          </p>
+        )}
+      </section>
+    ))
+  }
+</article>
+
+<style>
+  .resume-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-top: 2.5rem;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+
+  .other-link {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--red-text);
+    text-decoration: none;
+    margin-right: auto;
+  }
+
+  .other-link:hover {
+    text-decoration: underline;
+  }
+
+  .resume {
+    max-width: 880px;
+    padding-top: 1.5rem;
+    padding-bottom: 5rem;
+  }
+
+  .r-header h1 {
+    font-size: clamp(2rem, 4.5vw, 2.8rem);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .r-role {
+    font-family: var(--mono);
+    color: var(--red-text);
+    margin-top: 0.4rem;
+  }
+
+  .r-contact {
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    margin-top: 0.6rem;
+  }
+
+  .r-contact a {
+    color: var(--text-muted);
+    text-decoration-color: var(--border-strong);
+  }
+
+  .r-contact a:hover {
+    color: var(--text);
+  }
+
+  .r-sep {
+    margin: 0 0.5rem;
+    color: var(--text-faint);
+  }
+
+  .r-section {
+    margin-top: 2.2rem;
+  }
+
+  .r-section h2 {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-faint);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.4rem;
+  }
+
+  .r-section h2::before {
+    content: '// ';
+    color: var(--red-text);
+  }
+
+  .r-section > p,
+  .r-skills,
+  .r-bullets {
+    margin-top: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  .r-skills {
+    list-style: none;
+  }
+
+  .r-skills li {
+    margin-top: 0.35rem;
+  }
+
+  .r-bullets {
+    margin-left: 1.15rem;
+    font-size: 0.95rem;
+  }
+
+  .r-bullets li {
+    margin-top: 0.3rem;
+  }
+
+  .r-skills strong,
+  .r-line strong,
+  .r-additional strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .r-entry {
+    margin-top: 1.1rem;
+  }
+
+  .r-entry-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .r-entry h3 {
+    font-size: 1.02rem;
+    font-weight: 600;
+  }
+
+  .r-dates {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    color: var(--text-faint);
+    white-space: nowrap;
+  }
+
+  .r-entry-sub {
+    color: var(--text-muted);
+    font-style: italic;
+    font-size: 0.93rem;
+    margin-top: 0.15rem;
+  }
+
+  .r-line {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-top: 0.3rem;
+  }
+
+  .r-entry ul {
+    margin: 0.5rem 0 0 1.15rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+
+  .r-entry ul li {
+    margin-top: 0.3rem;
+  }
+
+  .r-additional {
+    margin-top: 1.2rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+
+  /* ---- print: clean single-column letter layout, no site chrome, fits one page ---- */
+  @media print {
+    .no-print {
+      display: none !important;
+    }
+
+    .resume {
+      max-width: none;
+      padding: 0;
+    }
+
+    .r-header h1 {
+      font-size: 17pt;
+    }
+
+    .r-role {
+      font-size: 10pt;
+      margin-top: 0.1rem;
+    }
+
+    .r-contact {
+      font-size: 8.5pt;
+      margin-top: 0.25rem;
+    }
+
+    .r-sep {
+      margin: 0 0.3rem;
+    }
+
+    .r-section {
+      margin-top: 0.55rem;
+    }
+
+    .r-section h2 {
+      font-size: 8.5pt;
+      padding-bottom: 0.15rem;
+    }
+
+    .r-section > p,
+    .r-skills,
+    .r-bullets {
+      margin-top: 0.3rem;
+    }
+
+    .r-skills li,
+    .r-bullets li {
+      margin-top: 0.1rem;
+    }
+
+    .r-bullets {
+      margin-left: 1rem;
+      font-size: 9pt;
+    }
+
+    .r-entry {
+      margin-top: 0.4rem;
+      break-inside: avoid;
+    }
+
+    .r-entry h3 {
+      font-size: 9.5pt;
+    }
+
+    .r-dates {
+      font-size: 8pt;
+    }
+
+    .r-entry-sub {
+      font-size: 8.5pt;
+      margin-top: 0;
+    }
+
+    .r-line {
+      font-size: 9pt;
+      margin-top: 0.1rem;
+    }
+
+    .r-entry ul {
+      margin: 0.15rem 0 0 1rem;
+      font-size: 9pt;
+    }
+
+    .r-entry ul li {
+      margin-top: 0.1rem;
+    }
+
+    .r-additional {
+      margin-top: 0.4rem;
+      font-size: 9pt;
+    }
+
+    .resume.compact {
+      font-size: 9pt;
+      line-height: 1.24;
+    }
+
+    .compact .r-section {
+      margin-top: 0.4rem;
+    }
+
+    .compact .r-entry {
+      margin-top: 0.3rem;
+    }
+
+    .compact .r-entry ul,
+    .compact .r-bullets,
+    .compact .r-line {
+      font-size: 8.7pt;
+    }
+  }
+</style>
+
+<style is:global>
+  @media print {
+    @page {
+      size: letter;
+      margin: 0.35in 0.5in;
+    }
+
+    /* html:root outranks the :root token blocks (and [data-theme='light']), so print
+       always gets dark-on-white regardless of the visitor's theme */
+    html:root,
+    html:root[data-theme='light'] {
+      --bg: #ffffff;
+      --bg-raised: #ffffff;
+      --surface: #ffffff;
+      --border: #d0d0d0;
+      --border-strong: #b5b5b5;
+      --text: #111111;
+      --text-muted: #333333;
+      --text-faint: #555555;
+      --red-text: #b71c1d;
+    }
+
+    body {
+      background: #ffffff;
+      /* name concrete fonts: headless PDF export can't load the site's webfonts over file://,
+         and without explicit names some engines fall back to a serif default */
+      font-family: 'Inter Variable', 'Segoe UI', Arial, Helvetica, sans-serif;
+      font-size: 9.5pt;
+      line-height: 1.32;
+    }
+
+    .r-role,
+    .r-dates,
+    .r-section h2 {
+      font-family: 'JetBrains Mono', Consolas, 'Courier New', monospace;
+    }
+
+    .navbar,
+    .footer,
+    .skip-link {
+      display: none !important;
+    }
+
+    a {
+      text-decoration: none;
+    }
+  }
+</style>
